@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{90591225-bd6c-441a-b0f8-2f5f8348b75c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Memory\DebugAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Memory\DebugAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
