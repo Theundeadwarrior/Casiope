@@ -13,16 +13,10 @@
       <Filter>Memory</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp" />
-    <ClCompile Include="Rendering\GameEngine.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory\DebugAllocator.h">
       <Filter>Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\GameEngine.h">
-      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ascii", "AsciiGame\Ascii.vcxproj", "{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{D92DAE06-F5B7-4080-859F-27F87EC20110}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -70,6 +72,18 @@ Global
 		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Tests|Win32.Build.0 = Tests|Win32
 		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Tests|x64.ActiveCfg = Tests|x64
 		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Tests|x64.Build.0 = Tests|x64
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Debug|Win32.Build.0 = Debug|Win32
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Debug|x64.ActiveCfg = Debug|x64
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Debug|x64.Build.0 = Debug|x64
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Release|Win32.ActiveCfg = Release|Win32
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Release|Win32.Build.0 = Release|Win32
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Release|x64.ActiveCfg = Release|x64
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Release|x64.Build.0 = Release|x64
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Tests|Win32.ActiveCfg = Tests|Win32
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Tests|Win32.Build.0 = Tests|Win32
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Tests|x64.ActiveCfg = Tests|x64
+		{D92DAE06-F5B7-4080-859F-27F87EC20110}.Tests|x64.Build.0 = Tests|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

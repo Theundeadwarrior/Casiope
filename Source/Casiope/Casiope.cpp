@@ -1,4 +1,4 @@
-#include "Core\Rendering\GameEngine.h"
+#include "Engine\GameEngine.h"
 
 
 int main(int argc, char** argv)

@@ -1,4 +1,4 @@
-#include "Rendering\GameEngine.h"
+#include "GameEngine.h"
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <iostream>

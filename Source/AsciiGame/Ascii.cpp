@@ -2,7 +2,7 @@
 #include <iostream>
 #include <conio.h>
 #include "World\world.h"
-#include "Core\Rendering\GameEngine.h"
+#include "Engine\GameEngine.h"
 
 #define CLEAR_SCREEN_STRING "\n\n\n\n\n\n\n\n\n\n"
 
