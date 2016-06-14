@@ -12,6 +12,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxpro
 		{B2B761D1-9B8E-4405-BC21-57F42556D5BF} = {B2B761D1-9B8E-4405-BC21-57F42556D5BF}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ascii", "AsciiGame\Ascii.vcxproj", "{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -56,6 +58,18 @@ Global
 		{C1971C2C-8334-49D0-BC8D-ED75E10FB8FF}.Tests|Win32.Build.0 = Release|Win32
 		{C1971C2C-8334-49D0-BC8D-ED75E10FB8FF}.Tests|x64.ActiveCfg = Tests|x64
 		{C1971C2C-8334-49D0-BC8D-ED75E10FB8FF}.Tests|x64.Build.0 = Tests|x64
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Debug|Win32.Build.0 = Debug|Win32
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Debug|x64.ActiveCfg = Debug|x64
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Debug|x64.Build.0 = Debug|x64
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Release|Win32.ActiveCfg = Release|Win32
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Release|Win32.Build.0 = Release|Win32
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Release|x64.ActiveCfg = Release|x64
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Release|x64.Build.0 = Release|x64
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Tests|Win32.ActiveCfg = Tests|Win32
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Tests|Win32.Build.0 = Tests|Win32
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Tests|x64.ActiveCfg = Tests|x64
+		{AA8CF5FD-7782-4326-A8A2-6D46D66D7352}.Tests|x64.Build.0 = Tests|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

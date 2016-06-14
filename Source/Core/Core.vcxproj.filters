@@ -4,16 +4,25 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{90591225-bd6c-441a-b0f8-2f5f8348b75c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{395a9af1-da31-458e-a3ca-48cf8cd0bd6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Rendering\GameEngine.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory\DebugAllocator.h">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\GameEngine.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
