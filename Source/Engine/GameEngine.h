@@ -1,6 +1,7 @@
 #pragma once
 
 struct SDL_Window;
+typedef void* SDL_GLContext;
 
 namespace Core
 {
@@ -16,6 +17,7 @@ namespace Core
 
 	private:
 		SDL_Window* m_Window;
+		SDL_GLContext m_GLContext;
 	};
 
 }

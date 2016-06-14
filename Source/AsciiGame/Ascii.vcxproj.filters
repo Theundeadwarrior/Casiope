@@ -14,5 +14,6 @@
     <ClCompile Include="World\world.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="Ascii.cpp" />
   </ItemGroup>
 </Project>
