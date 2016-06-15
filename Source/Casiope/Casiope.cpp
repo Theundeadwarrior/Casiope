@@ -3,9 +3,9 @@
 
 int main(int argc, char** argv)
 {
-	Core::GameEngine engine;
-	engine.InitWindow();
+	Engine::GameEngine engine;
+	engine.Initialize();
 	engine.Loop();
-	engine.ShutdownWindow();
+	engine.Shutdown();
 	return 0;
 }

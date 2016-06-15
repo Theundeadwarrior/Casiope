@@ -1,9 +1,9 @@
 #pragma once
 
-struct SDL_Window;
-typedef void* SDL_GLContext;
+#include "Rendering\WindowManager.h"
+#include "Rendering\Renderer.h"
 
-namespace Core
+namespace Engine
 {
 	class GameEngine
 	{
@@ -11,13 +11,13 @@ namespace Core
 		GameEngine();
 		~GameEngine();
 
-		int InitWindow();
+		void Initialize();
+		void Shutdown();
+
 		int Loop();
-		int ShutdownWindow();
 
 	private:
-		SDL_Window* m_Window;
-		SDL_GLContext m_GLContext;
+		Renderer m_Renderer;
 	};
 
 }

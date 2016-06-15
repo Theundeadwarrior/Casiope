@@ -12,9 +12,8 @@ int main(int argc, char** argv)
 {
 	World world(100, 30);
 
-	Core::GameEngine renderer;
-	renderer.InitWindow();
-
+	Engine::GameEngine gameEngine;
+	
 	bool gameRunning = true;
 	
 	std::cout << CLEAR_SCREEN_STRING;
