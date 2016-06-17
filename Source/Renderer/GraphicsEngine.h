@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Rendering\WindowManager.h"
+#include "Window\WindowManager.h"
 
 namespace Engine
 {
-	class Renderer
+	class GraphicsEngine
 	{
 	public:
-		Renderer();
-		~Renderer();
+		GraphicsEngine();
+		~GraphicsEngine();
 
 		int InitializeGlew();
 

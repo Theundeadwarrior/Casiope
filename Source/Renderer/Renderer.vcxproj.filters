@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ShaderCore">
+      <UniqueIdentifier>{837d6564-c194-4633-bdc0-e5b8ffb6ae16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{9924e12c-d3fe-4693-a39d-c6d4752f1ca6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ShaderCore\Shader.h">
+      <Filter>ShaderCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\WindowManager.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsEngine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ShaderCore\Shader.cpp">
+      <Filter>ShaderCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\WindowManager.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsEngine.cpp" />
+  </ItemGroup>
+</Project>

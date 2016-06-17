@@ -1,4 +1,4 @@
-#include "Rendering\Renderer.h"
+#include "GraphicsEngine.h"
 #include <iostream>
 #include <SDL.h>
 
@@ -12,16 +12,16 @@
 
 namespace Engine
 {
-	Renderer::Renderer()
+	GraphicsEngine::GraphicsEngine()
 	{
 	}
 
 
-	Renderer::~Renderer()
+	GraphicsEngine::~GraphicsEngine()
 	{
 	}
 
-	int Renderer::InitializeGlew()
+	int GraphicsEngine::InitializeGlew()
 	{
 
 #ifdef _WIN32
@@ -42,7 +42,7 @@ namespace Engine
 #endif
 	}
 
-	int Renderer::Initialize()
+	int GraphicsEngine::Initialize()
 	{
 		int result = m_WindowManager.InitWindow();
 		if (result != -1)
@@ -60,14 +60,36 @@ namespace Engine
 		return result;
 	}
 
-	int Renderer::Shutdown()
+	int GraphicsEngine::Shutdown()
 	{
 		return m_WindowManager.ShutdownWindow();
 	}
 
 
-	void Renderer::Render()
+
+	void GraphicsEngine::Render()
 	{
+		// testing rendering
+		float points[] = {
+			0.0f,  0.5f,  0.0f,
+			0.5f, -0.5f,  0.0f,
+			-0.5f, -0.5f,  0.0f
+		};
+
+		GLuint vbo = 0;
+		glGenBuffers(1, &vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), points, GL_STATIC_DRAW);
+
+		GLuint vao = 0;
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+		// End of test
+
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glEnableVertexAttribArray(0);

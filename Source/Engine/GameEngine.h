@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Rendering\WindowManager.h"
-#include "Rendering\Renderer.h"
+#include "Renderer\GraphicsEngine.h"
 
 namespace Engine
 {
@@ -17,7 +16,7 @@ namespace Engine
 		int Loop();
 
 	private:
-		Renderer m_Renderer;
+		GraphicsEngine m_Renderer;
 	};
 
 }

@@ -1,4 +1,4 @@
-#include "Rendering\WindowManager.h"
+#include "Window\WindowManager.h"
 
 #include <SDL.h>
 #include <SDL_opengl.h>
