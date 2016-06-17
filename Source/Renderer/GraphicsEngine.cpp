@@ -10,6 +10,8 @@
 #include <GL3/gl3.h>
 #endif
 
+#include "Shaders\Shader.h"
+
 namespace Engine
 {
 	GraphicsEngine::GraphicsEngine()
@@ -88,19 +90,37 @@ namespace Engine
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
+
+		const char* vertex_shader =
+			"#version 400\n"
+			"in vec3 vp;"
+			"void main () {"
+			"  gl_Position = vec4 (vp, 1.0);"
+			"}";
+
+		const char* fragment_shader =
+			"#version 400\n"
+			"out vec4 frag_colour;"
+			"void main () {"
+			"  frag_colour = vec4 (0.5, 0.0, 0.5, 1.0);"
+			"}";
+
+		GraphicsCore::ShaderProgram shaderProgram(vertex_shader, fragment_shader, "");
+
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glUseProgram(shaderProgram.GetProgramId());
+		glBindVertexArray(vao);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
+
+
 		// End of test
 
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		glEnableVertexAttribArray(0);
-		float vertices[] = { -0.5, -0.5, 0,   0.0, 0.5,  0, 0.5, -0.5 ,0};
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDisableVertexAttribArray(0);
 
 
-		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
+
+
 	}
 
 }
