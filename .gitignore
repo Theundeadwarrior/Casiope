@@ -66,3 +66,10 @@ Temporary Items
 *.sdf
 *.exe
 /CodeWar.VC.VC.opendb
+*.tlog
+*.idb
+*.pdb
+*.db
+*.dll
+*.exp
+*.opendb
