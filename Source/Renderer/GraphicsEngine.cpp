@@ -12,7 +12,7 @@
 
 #include "Shaders\Shader.h"
 
-namespace Engine
+namespace Renderer
 {
 	GraphicsEngine::GraphicsEngine()
 	{

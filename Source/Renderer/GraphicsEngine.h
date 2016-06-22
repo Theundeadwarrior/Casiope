@@ -2,7 +2,7 @@
 
 #include "Window\WindowManager.h"
 
-namespace Engine
+namespace Renderer
 {
 	class GraphicsEngine
 	{

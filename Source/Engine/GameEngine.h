@@ -16,7 +16,7 @@ namespace Engine
 		int Loop();
 
 	private:
-		GraphicsEngine m_Renderer;
+		Renderer::GraphicsEngine m_Renderer;
 	};
 
 }
