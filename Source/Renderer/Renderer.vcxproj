@@ -28,11 +28,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsEngine.h" />
-    <ClInclude Include="Window\WindowManager.h" />
+    <ClInclude Include="SkyBox\SkyBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine.cpp" />
-    <ClCompile Include="Window\WindowManager.cpp" />
+    <ClCompile Include="SkyBox\SkyBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicsCore\GraphicsCore.vcxproj">
@@ -116,7 +116,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)..\Output\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Temp\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\Temp\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)..\Output\$(Configuration)\$(ProjectName)\</OutDir>
@@ -124,11 +124,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
     <OutDir>$(SolutionDir)..\Output\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Temp\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\Temp\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)..\Output\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Temp\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\Temp\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -161,7 +161,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir)$(ProjectName)\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)$(ProjectName)\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -178,7 +178,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir)$(ProjectName)\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)$(ProjectName)\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -212,7 +212,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir)$(ProjectName)\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)$(ProjectName)\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

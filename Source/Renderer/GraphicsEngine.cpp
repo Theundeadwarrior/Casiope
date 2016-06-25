@@ -10,7 +10,7 @@
 #include <GL3/gl3.h>
 #endif
 
-#include "Shaders\Shader.h"
+#include "GraphicsCore\Shaders\Shader.h"
 
 namespace Renderer
 {

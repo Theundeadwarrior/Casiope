@@ -4,6 +4,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{d12bb98a-25cc-42a4-ba44-02ef13708d52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{aac12183-04cc-44ed-82ee-4f3bcdd12a2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{91bf547d-31a9-4165-ae83-bdf43b11563f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\Shader.h">
@@ -12,6 +18,12 @@
     <ClInclude Include="Shaders\ShaderUtilities.h">
       <Filter>Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="Textures\Texture.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\WindowManager.h">
+      <Filter>Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shaders\Shader.cpp">
@@ -19,6 +31,12 @@
     </ClCompile>
     <ClCompile Include="Shaders\ShaderUtilities.cpp">
       <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures\Texture.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\WindowManager.cpp">
+      <Filter>Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

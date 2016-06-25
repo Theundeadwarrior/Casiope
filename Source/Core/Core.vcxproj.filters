@@ -4,16 +4,25 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{90591225-bd6c-441a-b0f8-2f5f8348b75c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="File">
+      <UniqueIdentifier>{d5e8fbbd-e702-4aee-967d-8c6dcac2e5ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="File\ImageUtilities.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory\DebugAllocator.h">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="File\ImageUtilities.h">
+      <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Window\WindowManager.h"
+#include "GraphicsCore\Window\WindowManager.h"
 
 namespace Renderer
 {
@@ -17,7 +17,7 @@ namespace Renderer
 		void Render();
 
 	private:
-		WindowManager m_WindowManager;
+		GraphicsCore::WindowManager m_WindowManager;
 	};
 }
 
