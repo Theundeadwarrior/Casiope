@@ -13,9 +13,6 @@
       <Filter>Memory</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp" />
-    <ClCompile Include="File\ImageUtilities.cpp">
-      <Filter>File</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory\DebugAllocator.h">

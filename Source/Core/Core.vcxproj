@@ -216,7 +216,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
-    <ClCompile Include="File\ImageUtilities.cpp" />
     <ClCompile Include="Memory\DebugAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>

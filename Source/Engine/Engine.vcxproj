@@ -30,15 +30,18 @@
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="GameEngine.cpp" />
-    <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="World\WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\PerspectiveCamera.h" />
     <ClInclude Include="GameEngine.h" />
-    <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="World\WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{b2b761d1-9b8e-4405-bc21-57f42556d5bf}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Renderer\Renderer.vcxproj">
       <Project>{00632e50-af42-402c-9e5b-d978a3e51bd9}</Project>
     </ProjectReference>
@@ -165,7 +168,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)..\Extern\glm\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -182,7 +185,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)..\Extern\glm\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -216,7 +219,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)..\Extern\glm\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

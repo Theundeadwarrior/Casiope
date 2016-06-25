@@ -12,9 +12,9 @@ namespace GraphicsCore
 {
 	enum TextureFormat
 	{
-		ATUM_LUMINANCE = GL_LUMINANCE,
-		ATUM_RGB = GL_RGB,
-		ATUM_RGBA = GL_RGBA
+		e_TexFormatLuminance = GL_LUMINANCE,
+		e_TexFormatRGB = GL_RGB,
+		e_TexFormatRGBA = GL_RGBA
 	};
 
 

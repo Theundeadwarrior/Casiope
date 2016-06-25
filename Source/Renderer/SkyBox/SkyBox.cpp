@@ -1,14 +1,24 @@
 #include "SkyBox\SkyBox.h"
 
-Renderer::SkyBox::SkyBox()
+namespace Renderer
 {
-}
+	SkyBox::SkyBox()
+	{
+	}
 
-Renderer::SkyBox::SkyBox(const SkyBoxParams & params)
-{
 
-}
+	SkyBox::SkyBox(const SkyBoxParams & params)
+	{
+		Init(params);
+	}
 
-Renderer::SkyBox::~SkyBox()
-{
+	SkyBox::~SkyBox()
+	{
+	}
+
+	void SkyBox::Init(const SkyBoxParams& params)
+	{
+
+	}
+
 }
