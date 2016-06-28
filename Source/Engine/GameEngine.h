@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core\Input\InputManager.h"
 #include "Renderer\GraphicsEngine.h"
 
 namespace Engine
@@ -17,6 +18,7 @@ namespace Engine
 
 	private:
 		Renderer::GraphicsEngine m_Renderer;
+		Core::InputManager m_InputManager;
 	};
 
 }

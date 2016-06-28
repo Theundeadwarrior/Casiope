@@ -10,6 +10,7 @@
 namespace Engine
 {
 	// TEST SCENE
+
 	void InitializeTestScene()
 	{
 		PerspectiveCameraParams params(45, 1024 / 768.0f, 0.1f, 1000.0f);
@@ -22,7 +23,6 @@ namespace Engine
 		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceLeft),  "../../data/textures/skybox/front.bmp");
 		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceRight), "../../data/textures/skybox/front.bmp");
 		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceTop),   "../../data/textures/skybox/front.bmp");
-		
 
 		//// Update camera parameters
 		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::VIEWMATRIX, &camera->GetViewMatrix(), SHADER_MATRIX44);
@@ -54,12 +54,9 @@ namespace Engine
 	int GameEngine::Loop()
 	{
 		// Loop
-		SDL_Event events;
 		while (true)
 		{
-			SDL_WaitEvent(&events);
-			if (events.window.event == SDL_WINDOWEVENT_CLOSE)
-				break;
+			m_InputManager.Update();
 
 			m_Renderer.Render();
 		}

@@ -1,6 +1,5 @@
 #include "Engine\GameEngine.h"
 
-
 int main(int argc, char** argv)
 {
 	Engine::GameEngine engine;
