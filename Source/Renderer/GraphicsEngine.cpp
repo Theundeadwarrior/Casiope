@@ -67,29 +67,40 @@ namespace Renderer
 		return m_WindowManager.ShutdownWindow();
 	}
 
+	// REMOVE THIS
+	GraphicsCore::ShaderProgram* g_ShaderProgram;
+	GLuint vao = 0;
 
-
-	void GraphicsEngine::Render()
+	void GraphicsEngine::InitTestGraphics()
 	{
-		// testing rendering
-		float points[] = {
-			0.0f,  0.5f,  0.0f,
-			0.5f, -0.5f,  0.0f,
-			-0.5f, -0.5f,  0.0f
+		GLfloat vertices[] = {
+			0.5f,  0.5f, 0.0f,  // Top Right
+			0.5f, -0.5f, 0.0f,  // Bottom Right
+			-0.5f, -0.5f, 0.0f,  // Bottom Left
+			-0.5f,  0.5f, 0.0f   // Top Left 
+		};
+		GLuint indices[] = {  // Note that we start from 0!
+			0, 1, 3,   // First Triangle
+			1, 2, 3    // Second Triangle
 		};
 
-		GLuint vbo = 0;
-		glGenBuffers(1, &vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), points, GL_STATIC_DRAW);
+		GLuint vbo = 0, ebo = 0;
 
-		GLuint vao = 0;
 		glGenVertexArrays(1, &vao);
-		glBindVertexArray(vao);
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glGenBuffers(1, &vbo);
+		glGenBuffers(1, &ebo);
 
+
+		glBindVertexArray(vao);
+			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
+			glEnableVertexAttribArray(0);
+		glBindVertexArray(0);
 
 		const char* vertex_shader =
 			"#version 400\n"
@@ -102,25 +113,25 @@ namespace Renderer
 			"#version 400\n"
 			"out vec4 frag_colour;"
 			"void main () {"
-			"  frag_colour = vec4 (0.5, 0.0, 0.5, 1.0);"
+			"  frag_colour = vec4 (1.0f, 0.5f, 0.2f, 1.0f);"
 			"}";
 
-		GraphicsCore::ShaderProgram shaderProgram(vertex_shader, fragment_shader, "");
+		g_ShaderProgram = new GraphicsCore::ShaderProgram(vertex_shader, fragment_shader, "");
+		// Need to move everything up somewhere else...
+	}
 
 
+	void GraphicsEngine::Render()
+	{
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(shaderProgram.GetProgramId());
+
+		glUseProgram(g_ShaderProgram->GetProgramId());
 		glBindVertexArray(vao);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
 		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
-
-
-		// End of test
-
-
-
-
-
 	}
 
 }

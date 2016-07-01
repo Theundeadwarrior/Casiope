@@ -43,7 +43,11 @@ namespace Engine
 	void GameEngine::Initialize()
 	{
 		m_Renderer.Initialize();
+
+		// todo remove
 		InitializeTestScene();
+		m_Renderer.InitTestGraphics();
+		// end remove
 	}
 
 	void GameEngine::Shutdown()

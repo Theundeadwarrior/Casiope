@@ -12,6 +12,9 @@ namespace Renderer
 
 		int InitializeGlew();
 
+		// todo: remove this
+		void InitTestGraphics();
+
 		int Initialize();
 		int Shutdown();
 		void Render();

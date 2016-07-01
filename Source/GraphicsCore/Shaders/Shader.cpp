@@ -17,6 +17,7 @@ namespace GraphicsCore
 
 	Shader::~Shader()
 	{
+		glDeleteShader(m_ShaderId);
 	}
 
 	ShaderResource::ShaderResource()
@@ -27,7 +28,10 @@ namespace GraphicsCore
 	{
 	}
 
+	// todo: Move the shadercompile call to the constructor of the shader.
 	ShaderProgram::ShaderProgram(const char* vertexShaderCode, const char* fragmentShaderCode, const std::string& args)
+		: m_VertexShader(nullptr)
+		, m_FragmentShader(nullptr)
 	{
 		// build VertexShader
 		std::string shaderCode = args + vertexShaderCode;
@@ -60,6 +64,11 @@ namespace GraphicsCore
 
 	ShaderProgram::~ShaderProgram()
 	{
+		if (m_FragmentShader)
+			delete m_FragmentShader;
+		if (m_VertexShader)
+			delete m_VertexShader;
 	}
+
 }
 
