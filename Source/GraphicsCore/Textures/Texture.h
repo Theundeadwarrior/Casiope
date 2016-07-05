@@ -25,9 +25,7 @@ namespace GraphicsCore
 		~Texture();
 
 		unsigned int GetID() { return m_id; }
-		std::string GetPath() { return m_path; }
 	private:
-		std::string m_path;
 		unsigned int m_id;
 	};
 }

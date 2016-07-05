@@ -2,17 +2,12 @@
 
 #include <vector>
 
+#include "GraphicsCore\GraphicsType.h"
+#include "GraphicsCore\Shaders\ShaderCompiler.h"
+
 namespace GraphicsCore
 {
-	typedef int ShaderParameterId;
-	typedef unsigned int ShaderId;
-	typedef unsigned int ShaderProgramId;
 
-	enum class ShaderType
-	{
-		e_VertexShader,
-		e_FragmentShader,
-	};
 
 	class Shader
 	{

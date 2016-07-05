@@ -4,17 +4,28 @@
     <Filter Include="SkyBox">
       <UniqueIdentifier>{f44a87aa-8902-49cb-b9b8-0c878677541f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Material">
+      <UniqueIdentifier>{ba42226d-de62-4e55-a7be-c067788a2eec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="SkyBox\SkyBox.h">
       <Filter>SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="Material\Material.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="SkyBox\SkyBox.cpp">
       <Filter>SkyBox</Filter>
     </ClCompile>
+    <ClCompile Include="Material\Material.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp" />
   </ItemGroup>
 </Project>

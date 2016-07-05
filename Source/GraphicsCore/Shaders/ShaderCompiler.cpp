@@ -1,13 +1,28 @@
-#include "ShaderUtilities.h"
+#include "Shaders\ShaderCompiler.h"
 
 #include <GL/glew.h>
-
 #include <assert.h>
 
 
 namespace GraphicsCore
 {
-	ShaderProgramId CreateShaderProgram(ShaderId vertexId, ShaderId fragmentId)
+	ShaderId ShaderCompiler::CompileShader(ShaderType type, const std::string & code, const std::string & args)
+	{
+		// build VertexShader
+		std::string shaderCode = args + code;
+		const char* shaderCodeChar = shaderCode.c_str();
+
+		ShaderId shaderId = glCreateShader((GLenum)type);
+		glShaderSource(shaderId, 1, &shaderCodeChar, NULL);
+		glCompileShader(shaderId);
+
+		int compilationStatus = 0;
+		glGetShaderiv(shaderId, GL_COMPILE_STATUS, &compilationStatus);
+		assert(compilationStatus, "Shader failed to compiled");
+		return shaderId;
+	}
+
+	ShaderProgramId ShaderCompiler::CreateShaderProgram(ShaderId vertexId, ShaderId fragmentId)
 	{
 		//Create the shader program and attach the two shaders to it.
 		ShaderProgramId programId = glCreateProgram();
@@ -29,8 +44,7 @@ namespace GraphicsCore
 		return programId;
 	}
 
-	//-----------------------------------------------------------------------------
-	std::string ShaderLog(ShaderId shaderId)
+	inline std::string ShaderCompiler::ShaderLog(ShaderId shaderId)
 	{
 		int LogLength = 0;
 		glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &LogLength);
@@ -47,3 +61,4 @@ namespace GraphicsCore
 	}
 
 }
+

@@ -31,5 +31,8 @@
     <Filter Include="World">
       <UniqueIdentifier>{246e261f-7769-48b5-9c21-bb0adcbe255c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{166ffa74-5ac6-4d25-9ee4-0ca53eb9025a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

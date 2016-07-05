@@ -1,13 +1,8 @@
 #include "Shader.h"
 
-#include <GL\glew.h>
-
 #include <iostream>
 #include <fstream>
 #include <assert.h>
-
-#include "ShaderUtilities.h"
-
 
 namespace GraphicsCore
 {
@@ -33,33 +28,13 @@ namespace GraphicsCore
 		: m_VertexShader(nullptr)
 		, m_FragmentShader(nullptr)
 	{
-		// build VertexShader
-		std::string shaderCode = args + vertexShaderCode;
-		const char* shaderCodeChar = shaderCode.c_str();
+		ShaderId vShaderId = ShaderCompiler::CompileShader(ShaderType::e_VertexShader, vertexShaderCode, args);
+		m_VertexShader = new Shader(ShaderType::e_VertexShader, vShaderId);
 
-		ShaderId vshaderId = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vshaderId, 1, &shaderCodeChar, NULL);
-		glCompileShader(vshaderId);
+		ShaderId fShaderId = ShaderCompiler::CompileShader(ShaderType::e_FragmentShader, fragmentShaderCode, args);
+		m_FragmentShader = new Shader(ShaderType::e_FragmentShader, fShaderId);
 
-		int compilationStatus = 0;
-		glGetShaderiv(vshaderId, GL_COMPILE_STATUS, &compilationStatus);
-		assert(compilationStatus, "Shader failed to compiled");
-
-		m_VertexShader = new Shader(ShaderType::e_VertexShader, vshaderId);
-
-		shaderCode = args + fragmentShaderCode;
-		shaderCodeChar = shaderCode.c_str();
-		ShaderId fshaderId = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fshaderId, 1, &shaderCodeChar, NULL);
-		glCompileShader(fshaderId);
-
-		compilationStatus = 0;
-		glGetShaderiv(fshaderId, GL_COMPILE_STATUS, &compilationStatus);
-		assert(compilationStatus, "Shader failed to compiled");
-
-		m_FragmentShader = new Shader(ShaderType::e_FragmentShader, fshaderId);
-
-		m_ShaderProgramId = CreateShaderProgram(vshaderId, fshaderId);
+		m_ShaderProgramId = ShaderCompiler::CreateShaderProgram(vShaderId, fShaderId);
 	}
 
 	ShaderProgram::~ShaderProgram()

@@ -28,10 +28,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="Material\Material.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SkyBox\SkyBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine.cpp" />
+    <ClCompile Include="Material\Material.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SkyBox\SkyBox.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,8 +173,9 @@
       </IgnoreAllDefaultLibraries>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Extern\SDL\lib\x64\;$(SolutionDir)..\Extern\glew\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
@@ -186,8 +191,9 @@
       </IgnoreAllDefaultLibraries>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Extern\SDL\lib\x64\;$(SolutionDir)..\Extern\glew\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -220,8 +226,9 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Extern\SDL\lib\x64\;$(SolutionDir)..\Extern\glew\lib\x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
