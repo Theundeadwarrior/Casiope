@@ -6,7 +6,8 @@
 #include "GraphicsCore\GraphicsType.h"
 #include "GraphicsCore\Textures\Texture.h"
 
-
+// TODO!!!!!
+// Need to figure out how to not have duplicate of textures or shaders loaded in memory!!!!
 namespace GraphicsCore { class Texture; }
 
 namespace Renderer
