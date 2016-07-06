@@ -25,18 +25,18 @@ namespace Renderer
 	struct SkyBoxParams
 	{
 	public:
-		void SetImageParam(SkyBoxFaces face, const Core::ImageParameters<unsigned char>& image)
+		void SetImage(SkyBoxFaces face, const Core::Image<unsigned char>& image)
 		{
 			m_Images[(unsigned int)face] = image;
 		}
 
-		Core::ImageParameters<unsigned char>& GetImageParam(SkyBoxFaces face)
+		Core::Image<unsigned char>& GetImage(SkyBoxFaces face)
 		{
 			return m_Images[(unsigned int)face];
 		}
 
 	private:
-		Core::ImageParameters<unsigned char> m_Images [SkyBoxFaces::e_FaceCount];
+		Core::Image<unsigned char> m_Images [SkyBoxFaces::e_FaceCount];
 	};
 
 

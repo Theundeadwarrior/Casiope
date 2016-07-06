@@ -1,6 +1,4 @@
-#ifndef UTILITIES_IMAGE_H
-#define UTILITIES_IMAGE_H
-
+#pragma once
 
 #include <vector>
 #include <string>
@@ -19,9 +17,10 @@ namespace cimg_library
 namespace Core
 {
 	template <class T>
-	struct ImageParameters
+	class Image
 	{
-		ImageParameters<T>()
+	public:
+		Image<T>()
 			: width(0)
 			, height(0)
 			, m_Spectrum(0)
@@ -36,40 +35,40 @@ namespace Core
 	};
 
 	template <class T>
-	inline typename void LoadImageFromFile(ImageParameters<T>& outputParams, const char* tpath)
+	inline typename void LoadImageFromFile(Image<T>& outputImage, const char* tpath)
 	{
 		//Do format conversion?
-		outputParams.path = tpath;
+		outputImage.path = tpath;
 		cimg_library::CImg<T> imageFile(tpath);
-		outputParams.m_Spectrum = imageFile.spectrum();
+		outputImage.m_Spectrum = imageFile.spectrum();
 		imageFile.mirror('y');
-		T** content = new T*[outputParams.m_Spectrum];
+		T** content = new T*[outputImage.m_Spectrum];
 
-		for (unsigned int i = 0; i < outputParams.m_Spectrum; ++i)
+		for (unsigned int i = 0; i < outputImage.m_Spectrum; ++i)
 		{
 			content[i] = imageFile.data(0, 0, 0, i);
 		}
 
-		outputParams.imageData.clear();
+		outputImage.imageData.clear();
 
-		outputParams.width = imageFile.width();
-		outputParams.height = imageFile.height();
+		outputImage.width = imageFile.width();
+		outputImage.height = imageFile.height();
 
-		unsigned int size = outputParams.width*outputParams.height;
-		outputParams.imageData.reserve(size*outputParams.m_Spectrum);
+		unsigned int size = outputImage.width*outputImage.height;
+		outputImage.imageData.reserve(size*outputImage.m_Spectrum);
 
 		for (unsigned int i = 0; i < size; ++i)
 		{
-			for (unsigned int j = 0; j < outputParams.m_Spectrum; ++j)
+			for (unsigned int j = 0; j < outputImage.m_Spectrum; ++j)
 			{
-				outputParams.imageData.push_back(content[j][i]);
+				outputImage.imageData.push_back(content[j][i]);
 			}
 		}
 
 		delete content;
 	}
 	template <class T>
-	inline typename void SaveImageToFile(const ImageParameters<T>& inputParams, const char* tpath)
+	inline typename void SaveImageToFile(const Image<T>& inputParams, const char* tpath)
 	{
 		T* data = new T[inputParams.imageData.size()];
 
@@ -111,5 +110,4 @@ namespace Core
 	}
 }
 
-#endif
 

@@ -2,7 +2,7 @@
 
 namespace GraphicsCore
 {
-	Texture::Texture(const Core::ImageParameters<unsigned char>& imageParameters, TextureFormat format)
+	Texture::Texture(const Core::Image<unsigned char>& imageParameters, TextureFormat format)
 	{
 		//LowLevelAPI::GenerateTexture(m_id, imageParameters, format);
 		//m_path = imageParameters.path;

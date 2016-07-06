@@ -21,7 +21,7 @@ namespace GraphicsCore
 	class Texture
 	{
 	public:
-		Texture(const Core::ImageParameters<unsigned char>& imageParameters, TextureFormat format);
+		Texture(const Core::Image<unsigned char>& imageParameters, TextureFormat format);
 		~Texture();
 
 		unsigned int GetID() { return m_id; }

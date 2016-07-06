@@ -9,9 +9,9 @@ namespace Renderer
 		return id;
 	}
 
-	TextureId TextureManager::CreateTexture(const Core::ImageParameters<unsigned char>& imageParameters, const GraphicsCore::TextureFormat& format)
+	TextureId TextureManager::AddTextureFromImage(const Core::Image<unsigned char>& image, const GraphicsCore::TextureFormat& format)
 	{
-		GraphicsCore::Texture* texture = new GraphicsCore::Texture(imageParameters, format);
+		GraphicsCore::Texture* texture = new GraphicsCore::Texture(image, format);
 		return InsertTexture(texture);
 	}
 }

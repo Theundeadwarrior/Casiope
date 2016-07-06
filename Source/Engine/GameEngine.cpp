@@ -6,6 +6,8 @@
 #include "Camera\PerspectiveCamera.h"
 #include "GraphicsCore\Textures\Texture.h"
 #include "Renderer\SkyBox\SkyBox.h"
+#include "Core\File\ImageUtilities.h"
+#include "Renderer\ResourceManager.h"
 
 namespace Engine
 {
@@ -15,14 +17,19 @@ namespace Engine
 	{
 		PerspectiveCameraParams params(45, 1024 / 768.0f, 0.1f, 1000.0f);
 		Camera* camera = new PerspectiveCamera(params, glm::vec3(0, 5, 5), glm::vec3(0, 0, -1), glm::vec3(0, 5, -5));
-
-		Renderer::SkyBoxParams skyBoxParam;
-		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceFront), "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceBack),  "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceBottom),"../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceLeft),  "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceRight), "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxParam.GetImageParam(Renderer::SkyBoxFaces::e_FaceTop),   "../../data/textures/skybox/front.bmp");
+		
+		Core::Image<unsigned char> skyBoxImages[6];
+		Core::LoadImageFromFile(skyBoxImages[0], "../../data/textures/skybox/front.bmp");
+		Core::LoadImageFromFile(skyBoxImages[1], "../../data/textures/skybox/front.bmp");
+		Core::LoadImageFromFile(skyBoxImages[2], "../../data/textures/skybox/front.bmp");
+		Core::LoadImageFromFile(skyBoxImages[3], "../../data/textures/skybox/front.bmp");
+		Core::LoadImageFromFile(skyBoxImages[4], "../../data/textures/skybox/front.bmp");
+		Core::LoadImageFromFile(skyBoxImages[5], "../../data/textures/skybox/front.bmp");
+		
+		for(auto skyBoxImg : skyBoxImages)
+		{
+			Renderer::TextureManager::AddTextureFromImage(skyBoxImg, GraphicsCore::e_TexFormatRGB);
+		}
 
 		//// Update camera parameters
 		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::VIEWMATRIX, &camera->GetViewMatrix(), SHADER_MATRIX44);

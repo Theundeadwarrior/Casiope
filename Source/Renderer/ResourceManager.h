@@ -17,7 +17,7 @@ namespace Renderer
 	class TextureManager
 	{
 	public:
-		TextureId CreateTexture(const Core::ImageParameters<unsigned char>& imageParameters, const GraphicsCore::TextureFormat& format);
+		TextureId AddTextureFromImage(const Core::Image<unsigned char>& image, const GraphicsCore::TextureFormat& format);
 
 	private:
 		TextureId InsertTexture(GraphicsCore::Texture* const texture);
