@@ -1,7 +1,10 @@
 #pragma once
 
 #include "Core\Input\InputManager.h"
+#include "Engine\World\WorldManager.h"
 #include "Renderer\GraphicsEngine.h"
+
+
 
 namespace Engine
 {
@@ -19,6 +22,8 @@ namespace Engine
 	private:
 		Renderer::GraphicsEngine m_Renderer;
 		Core::InputManager m_InputManager;
+		WorldManager m_WorldManager;
+
 	};
 
 }

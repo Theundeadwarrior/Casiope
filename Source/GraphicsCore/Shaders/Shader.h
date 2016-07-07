@@ -12,8 +12,10 @@ namespace GraphicsCore
 	class Shader
 	{
 	public:
-		Shader(ShaderType type, ShaderId shaderId);
+		Shader(ShaderType type, const char* shaderCode, const std::string& args);
 		~Shader();
+
+		ShaderId GetId() const { return m_ShaderId; }
 
 	private:
 		ShaderType m_Type;

@@ -6,8 +6,11 @@
 #include <GL\glew.h>
 
 
+
 namespace GraphicsCore
 {
+	class Shader;
+
 	enum class ShaderType
 	{
 		e_VertexShader = GL_VERTEX_SHADER,
@@ -18,7 +21,7 @@ namespace GraphicsCore
 	{
 	public:
 		static ShaderId CompileShader(ShaderType type, const std::string& code, const std::string& args);
-		static ShaderProgramId CreateShaderProgram(ShaderId vertexId, ShaderId fragmentId);
+		static ShaderProgramId CreateShaderProgram(const Shader& vertexShader, const Shader& fragmentShader);
 		std::string ShaderLog(ShaderId shaderId);
 
 	};

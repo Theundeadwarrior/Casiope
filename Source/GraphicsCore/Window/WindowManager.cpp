@@ -54,6 +54,14 @@ namespace GraphicsCore
 		return 0;
 	}
 
+	void WindowManager::GetCurrentWindowSize(unsigned int& o_x, unsigned int& o_y) const
+	{
+		GLint m_viewport[4];
+		glGetIntegerv(GL_VIEWPORT, m_viewport);
+		o_x = m_viewport[2];
+		o_y = m_viewport[3];
+	}
+
 	int WindowManager::ShutdownWindow()
 	{
 		// On quitte la SDL

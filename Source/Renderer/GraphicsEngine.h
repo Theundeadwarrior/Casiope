@@ -10,14 +10,20 @@ namespace Renderer
 		GraphicsEngine();
 		~GraphicsEngine();
 
-		int InitializeGlew();
-
 		// todo: remove this
 		void InitTestGraphics();
 
 		int Initialize();
 		int Shutdown();
 		void Render();
+
+		// Getters
+		const GraphicsCore::WindowManager& GetWindowManager() const { return m_WindowManager; }
+
+
+
+	private:
+		int InitializeGlew();
 
 	private:
 		GraphicsCore::WindowManager m_WindowManager;

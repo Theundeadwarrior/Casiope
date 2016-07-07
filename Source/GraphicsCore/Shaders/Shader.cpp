@@ -6,8 +6,10 @@
 
 namespace GraphicsCore
 {
-	Shader::Shader(ShaderType type, ShaderId shaderId)
+	Shader::Shader(ShaderType type, const char* shaderCode, const std::string& args)
 	{
+		m_ShaderId = ShaderCompiler::CompileShader(type, shaderCode, args);
+		m_Type = type;
 	}
 
 	Shader::~Shader()
@@ -28,13 +30,10 @@ namespace GraphicsCore
 		: m_VertexShader(nullptr)
 		, m_FragmentShader(nullptr)
 	{
-		ShaderId vShaderId = ShaderCompiler::CompileShader(ShaderType::e_VertexShader, vertexShaderCode, args);
-		m_VertexShader = new Shader(ShaderType::e_VertexShader, vShaderId);
+		m_VertexShader = new Shader(ShaderType::e_VertexShader, vertexShaderCode, args);
+		m_FragmentShader = new Shader(ShaderType::e_FragmentShader, fragmentShaderCode, args);
 
-		ShaderId fShaderId = ShaderCompiler::CompileShader(ShaderType::e_FragmentShader, fragmentShaderCode, args);
-		m_FragmentShader = new Shader(ShaderType::e_FragmentShader, fShaderId);
-
-		m_ShaderProgramId = ShaderCompiler::CreateShaderProgram(vShaderId, fShaderId);
+		m_ShaderProgramId = ShaderCompiler::CreateShaderProgram(*m_VertexShader, *m_FragmentShader);
 	}
 
 	ShaderProgram::~ShaderProgram()

@@ -11,6 +11,9 @@
     <ClInclude Include="World\WorldManager.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\ResourceManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp" />
@@ -23,6 +26,9 @@
     <ClCompile Include="World\WorldManager.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\ResourceManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Camera">
@@ -33,6 +39,9 @@
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{166ffa74-5ac6-4d25-9ee4-0ca53eb9025a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{c337aec5-14aa-41c6-9e48-9fd70e9a58d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

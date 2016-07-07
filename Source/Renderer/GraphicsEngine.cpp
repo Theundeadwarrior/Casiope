@@ -10,6 +10,10 @@
 #include <GL3/gl3.h>
 #endif
 
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "GraphicsCore\Shaders\Shader.h"
 
 namespace Renderer
@@ -17,7 +21,6 @@ namespace Renderer
 	GraphicsEngine::GraphicsEngine()
 	{
 	}
-
 
 	GraphicsEngine::~GraphicsEngine()
 	{
@@ -43,12 +46,8 @@ namespace Renderer
 #endif
 	}
 
-	int GraphicsEngine::Initialize()
+	int InitializeOpenGL()
 	{
-		int result = m_WindowManager.InitWindow();
-		if (result != -1)
-			InitializeGlew();
-
 		const GLubyte* renderer = glGetString(GL_RENDERER); // get renderer string
 		const GLubyte* version = glGetString(GL_VERSION); // version as a string
 		printf("Renderer: %s\n", renderer);
@@ -57,6 +56,18 @@ namespace Renderer
 		// tell GL to only draw onto a pixel if the shape is closer to the viewer
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
 		glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
+
+		return 0;
+	}
+
+	int GraphicsEngine::Initialize()
+	{
+		int result = m_WindowManager.InitWindow();
+		if (result != -1)
+			result = InitializeGlew();
+		if (result != -1)
+			result = InitializeOpenGL();
+
 
 		return result;
 	}
@@ -107,8 +118,11 @@ namespace Renderer
 		const char* vertex_shader =
 			"#version 400\n"
 			"in vec3 vp;"
+			"uniform mat4 model;"
+			"uniform mat4 view;"
+			"uniform mat4 projection;"
 			"void main () {"
-			"  gl_Position = vec4 (vp, 1.0);"
+			"  gl_Position = projection * view * model *  vec4 (vp, 1.0);"
 			"}";
 
 		const char* fragment_shader =
@@ -118,7 +132,13 @@ namespace Renderer
 			"  frag_colour = vec4 (1.0f, 0.5f, 0.2f, 1.0f);"
 			"}";
 
+		
 		g_ShaderProgram = new GraphicsCore::ShaderProgram(vertex_shader, fragment_shader, "");
+
+
+
+
+
 		// Need to move everything up somewhere else...
 	}
 
@@ -127,6 +147,27 @@ namespace Renderer
 	{
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glm::mat4 model;
+		glm::mat4 view;
+		glm::mat4 proj;
+		model = glm::rotate(model, 45.f, glm::vec3(1.0f, 0.0f, 0.0f));
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+		unsigned int windowSize[2];
+		m_WindowManager.GetCurrentWindowSize(windowSize[0], windowSize[1]);
+
+		proj = glm::perspective(45.0f, (GLfloat)windowSize[0] / (GLfloat)windowSize[1], 0.1f, 100.0f);
+
+		GLint modelLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "model");
+		GLint viewLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "view");
+		GLint projLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "projection");
+
+		// Pass them to the shaders
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		// Note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 
 		glUseProgram(g_ShaderProgram->GetProgramId());
 		glBindVertexArray(vao1);

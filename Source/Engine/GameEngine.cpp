@@ -7,7 +7,9 @@
 #include "GraphicsCore\Textures\Texture.h"
 #include "Renderer\SkyBox\SkyBox.h"
 #include "Core\File\ImageUtilities.h"
-#include "Renderer\ResourceManager.h"
+
+#include "Engine\Resource\ResourceManager.h"
+
 
 namespace Engine
 {
@@ -26,10 +28,10 @@ namespace Engine
 		Core::LoadImageFromFile(skyBoxImages[4], "../../data/textures/skybox/front.bmp");
 		Core::LoadImageFromFile(skyBoxImages[5], "../../data/textures/skybox/front.bmp");
 		
-		for(auto skyBoxImg : skyBoxImages)
-		{
-			Renderer::TextureManager::AddTextureFromImage(skyBoxImg, GraphicsCore::e_TexFormatRGB);
-		}
+		//for(auto skyBoxImg : skyBoxImages)
+		//{
+		//	ResourceManager::GetInstance()->GetTextureManager().AddTextureFromImage(skyBoxImg, GraphicsCore::e_TexFormatRGB);
+		//}
 
 		//// Update camera parameters
 		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::VIEWMATRIX, &camera->GetViewMatrix(), SHADER_MATRIX44);
@@ -50,15 +52,20 @@ namespace Engine
 	void GameEngine::Initialize()
 	{
 		m_Renderer.Initialize();
+		ResourceManager::CreateInstance();
+
 
 		// todo remove
 		InitializeTestScene();
 		m_Renderer.InitTestGraphics();
 		// end remove
+
+
 	}
 
 	void GameEngine::Shutdown()
 	{
+		ResourceManager::DestroyInstance();
 		m_Renderer.Shutdown();
 	}
 

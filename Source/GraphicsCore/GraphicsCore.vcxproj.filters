@@ -12,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shaders\Shader.h">
-      <Filter>Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="Textures\Texture.h">
       <Filter>Textures</Filter>
     </ClInclude>
@@ -23,6 +20,9 @@
     </ClInclude>
     <ClInclude Include="GraphicsType.h" />
     <ClInclude Include="Shaders\ShaderCompiler.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\Shader.h">
       <Filter>Shaders</Filter>
     </ClInclude>
   </ItemGroup>

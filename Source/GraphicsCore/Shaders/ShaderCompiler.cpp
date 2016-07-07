@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <assert.h>
 
+#include "GraphicsCore\Shaders\Shader.h"
+
 
 namespace GraphicsCore
 {
@@ -22,12 +24,12 @@ namespace GraphicsCore
 		return shaderId;
 	}
 
-	ShaderProgramId ShaderCompiler::CreateShaderProgram(ShaderId vertexId, ShaderId fragmentId)
+	ShaderProgramId ShaderCompiler::CreateShaderProgram(const Shader& vertexShader, const Shader& fragmentShader)
 	{
 		//Create the shader program and attach the two shaders to it.
 		ShaderProgramId programId = glCreateProgram();
-		glAttachShader(programId, vertexId);
-		glAttachShader(programId, fragmentId);
+		glAttachShader(programId, vertexShader.GetId());
+		glAttachShader(programId, fragmentShader.GetId());
 
 		// todo lcharbonneau: Reactivate later
 		//glBindAttribLocation(programId, 0, "position");

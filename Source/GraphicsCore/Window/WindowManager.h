@@ -19,6 +19,8 @@ namespace GraphicsCore
 			return m_Window;
 		}
 
+		void GetCurrentWindowSize(unsigned int& o_x, unsigned int& o_y) const;
+
 	private:
 		SDL_Window* m_Window;
 		SDL_GLContext m_GLContext;
