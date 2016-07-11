@@ -1,0 +1,2 @@
+Look into SceneGraph and why they are bad!!
+http://gamedev.stackexchange.com/questions/8278/what-should-be-contained-in-a-game-scene-graph/8281#8281

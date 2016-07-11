@@ -222,6 +222,7 @@
     <ClCompile Include="Memory\DebugAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core.h" />
     <ClInclude Include="Event\Event.h" />
     <ClInclude Include="File\ImageUtilities.h" />
     <ClInclude Include="Input\InputManager.h" />

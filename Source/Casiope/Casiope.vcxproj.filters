@@ -3,4 +3,7 @@
   <ItemGroup>
     <ClCompile Include="Casiope.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TestScene.h" />
+  </ItemGroup>
 </Project>

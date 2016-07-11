@@ -2,6 +2,8 @@
 
 #include "GraphicsCore\Window\WindowManager.h"
 
+namespace Engine { class World; }
+
 namespace Renderer
 {
 	class GraphicsEngine
@@ -15,7 +17,9 @@ namespace Renderer
 
 		int Initialize();
 		int Shutdown();
-		void Render();
+		void RenderTestScene();
+
+		void RenderWorld(Engine::World* world);
 
 		// Getters
 		const GraphicsCore::WindowManager& GetWindowManager() const { return m_WindowManager; }

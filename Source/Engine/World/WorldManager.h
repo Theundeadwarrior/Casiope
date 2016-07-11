@@ -2,8 +2,6 @@
 
 #include "Renderer\SkyBox\SkyBox.h"
 
-
-
 namespace Engine
 {
 	class Camera;
@@ -13,6 +11,10 @@ namespace Engine
 	public:
 		World();
 		void Update();
+
+		// getters
+		Camera* GetCamera() const { return m_Camera; }
+
 	private:
 		Renderer::SkyBox m_SkyBox;
 		Camera* m_Camera; // todo: Move this to a player class!! We could have multiple players!
@@ -25,6 +27,7 @@ namespace Engine
 		WorldManager();
 		~WorldManager();
 
+		World* GetCurrentWorld() const { return m_CurrentWorld; }
 
 		void SetCurrentWorld(World* world)
 		{

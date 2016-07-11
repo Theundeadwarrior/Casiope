@@ -14,10 +14,17 @@ namespace Engine
 		return id;
 	}
 
-	TextureId TextureManager::AddTextureFromImage(const Core::Image<unsigned char>& image, const GraphicsCore::TextureFormat& format)
+	TextureId TextureManager::CreateTextureFromImage(const Core::Image<unsigned char>& image, GraphicsCore::TextureFormat format)
 	{
 		GraphicsCore::Texture* texture = new GraphicsCore::Texture(image, format);
 		return InsertTexture(texture);
+	}
+
+	TextureId TextureManager::CreateTextureFromFile(const char * pathToFile, GraphicsCore::TextureFormat format)
+	{
+		Core::Image<unsigned char> img;
+		Core::LoadImageFromFile(img, pathToFile);
+		return CreateTextureFromImage(img, format);
 	}
 
 	void ResourceManager::CreateInstance()

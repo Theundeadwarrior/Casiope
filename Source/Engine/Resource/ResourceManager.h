@@ -19,7 +19,8 @@ namespace Engine
 	class TextureManager
 	{
 	public:
-		TextureId AddTextureFromImage(const Core::Image<unsigned char>& image, const GraphicsCore::TextureFormat& format);
+		TextureId CreateTextureFromImage(const Core::Image<unsigned char>& image, GraphicsCore::TextureFormat format);
+		TextureId CreateTextureFromFile(const char* pathToFile, GraphicsCore::TextureFormat format);
 
 	private:
 		TextureId InsertTexture(GraphicsCore::Texture* const texture);

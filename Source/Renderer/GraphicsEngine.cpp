@@ -14,6 +14,9 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+
+#include "Engine\World\WorldManager.h"
+#include "Engine\Camera\PerspectiveCamera.h"
 #include "GraphicsCore\Shaders\Shader.h"
 
 namespace Renderer
@@ -143,7 +146,43 @@ namespace Renderer
 	}
 
 
-	void GraphicsEngine::Render()
+	void GraphicsEngine::RenderWorld(Engine::World* world)
+	{
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		unsigned int windowSize[2];
+		m_WindowManager.GetCurrentWindowSize(windowSize[0], windowSize[1]);
+
+		GLint modelLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "model");
+		GLint viewLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "view");
+		GLint projLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "projection");
+
+		// MODEL VIEW MATRICES! Should pass the projection only once!
+		glm::mat4 model;
+		model = glm::rotate(model, 45.f, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+		// Note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+		glm::mat4 projMatrix;
+		((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
+
+		glUseProgram(g_ShaderProgram->GetProgramId());
+		glBindVertexArray(vao1);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindVertexArray(vao2);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindVertexArray(0);
+
+		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
+	}
+
+
+	void GraphicsEngine::RenderTestScene()
 	{
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -29,14 +29,20 @@
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\PerspectiveCamera.cpp" />
+    <ClCompile Include="Entity\Component.cpp" />
+    <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="World\WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\PerspectiveCamera.h" />
+    <ClInclude Include="Entity\Component.h" />
+    <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="World\WorldManager.h" />
   </ItemGroup>

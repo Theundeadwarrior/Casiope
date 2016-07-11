@@ -45,5 +45,6 @@
     <ClInclude Include="Input\KeyboardEvent.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="Core.h" />
   </ItemGroup>
 </Project>

@@ -19,6 +19,9 @@ namespace Engine
 
 		int Loop();
 
+		WorldManager& GetWorldManager() { return m_WorldManager; }
+		Renderer::GraphicsEngine& GetGraphicsEngine() { return m_Renderer; }
+
 	private:
 		Renderer::GraphicsEngine m_Renderer;
 		Core::InputManager m_InputManager;

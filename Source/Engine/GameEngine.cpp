@@ -13,33 +13,6 @@
 
 namespace Engine
 {
-	// TEST SCENE
-
-	void InitializeTestScene()
-	{
-		PerspectiveCameraParams params(45, 1024 / 768.0f, 0.1f, 1000.0f);
-		Camera* camera = new PerspectiveCamera(params, glm::vec3(0, 5, 5), glm::vec3(0, 0, -1), glm::vec3(0, 5, -5));
-		
-		Core::Image<unsigned char> skyBoxImages[6];
-		Core::LoadImageFromFile(skyBoxImages[0], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[1], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[2], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[3], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[4], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[5], "../../data/textures/skybox/front.bmp");
-		
-		//for(auto skyBoxImg : skyBoxImages)
-		//{
-		//	ResourceManager::GetInstance()->GetTextureManager().AddTextureFromImage(skyBoxImg, GraphicsCore::e_TexFormatRGB);
-		//}
-
-		//// Update camera parameters
-		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::VIEWMATRIX, &camera->GetViewMatrix(), SHADER_MATRIX44);
-
-		//glm::mat4x4* projectionMatrix = (dynamic_cast<SceneManager::PerspectiveCamera*>(camera))->GetPerspectiveMat();
-		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::PROJECTIONMATRIX, projectionMatrix, SHADER_MATRIX44);
-	}
-
 	GameEngine::GameEngine()
 	{
 		
@@ -53,18 +26,16 @@ namespace Engine
 	{
 		m_Renderer.Initialize();
 		ResourceManager::CreateInstance();
-
-
-		// todo remove
-		InitializeTestScene();
-		m_Renderer.InitTestGraphics();
-		// end remove
-
-
 	}
 
 	void GameEngine::Shutdown()
 	{
+		// todo remove
+		World* world = m_WorldManager.GetCurrentWorld();
+		m_WorldManager.SetCurrentWorld(nullptr);
+		delete world;
+		// endtodo
+
 		ResourceManager::DestroyInstance();
 		m_Renderer.Shutdown();
 	}
@@ -75,8 +46,9 @@ namespace Engine
 		while (true)
 		{
 			m_InputManager.Update();
+			m_WorldManager.Update();
 
-			m_Renderer.Render();
+			m_Renderer.RenderWorld(m_WorldManager.GetCurrentWorld()); // TODO lcharbonneau: We shouldn't the entire world!
 		}
 		return 0;
 	}
