@@ -2,7 +2,8 @@
 
 #include <stdio.h>
 
-#include "Input\KeyboardEvent.h"
+#include "Core\Input\KeyboardEvent.h"
+#include "Core\Input\MouseEvent.h"
 
 namespace Core
 {
@@ -13,6 +14,24 @@ namespace Core
 
 	InputManager::~InputManager()
 	{
+	}
+
+	void InputManager::RegisterKeyboardListener(KeyboardInputListener * listener)
+	{
+		m_KeyboardListener.push_back(listener);
+	}
+
+	void InputManager::RegisterMouseListener(MouseInputListener * listener)
+	{
+		m_MouseListener.push_back(listener);
+	}
+
+	void InputManager::NotifyKeyboardListener(const KeyboardInputEvent& event)
+	{
+		for (auto* listener : m_KeyboardListener)
+		{
+			listener->OnKeyboardInputEvent(event);
+		}
 	}
 
 	void InputManager::Update()

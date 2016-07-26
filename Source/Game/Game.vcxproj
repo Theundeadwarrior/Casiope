@@ -37,6 +37,14 @@
       <Project>{00632e50-af42-402c-9e5b-d978a3e51bd9}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="World\GameWorld.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="World\GameWorld.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EEC865EA-73BD-42B7-A4B1-51BB52FDA976}</ProjectGuid>
     <RootNamespace>Core</RootNamespace>

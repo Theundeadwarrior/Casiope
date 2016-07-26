@@ -188,12 +188,12 @@
     <ClCompile Include="Casiope.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\Engine.vcxproj">
-      <Project>{d92dae06-f5b7-4080-859f-27f87ec20110}</Project>
-    </ProjectReference>
+    <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestScene.h" />
+    <ProjectReference Include="..\Game\Game.vcxproj">
+      <Project>{eec865ea-73bd-42b7-a4b1-51bb52fda976}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

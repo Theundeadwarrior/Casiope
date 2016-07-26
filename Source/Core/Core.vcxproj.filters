@@ -28,6 +28,9 @@
     <ClCompile Include="Input\KeyboardEvent.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Input\MouseEvent.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory\DebugAllocator.h">
@@ -46,5 +49,8 @@
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Input\MouseEvent.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

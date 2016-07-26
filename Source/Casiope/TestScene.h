@@ -6,6 +6,7 @@
 
 #include "Engine\GameEngine.h"
 #include "Engine\Camera\PerspectiveCamera.h"
+#include "Game\World\GameWorld.h"
 
 namespace Casiope
 {
@@ -35,7 +36,8 @@ namespace Casiope
 
 		Engine::WorldManager& worldManager = gameEngine.GetWorldManager();
 
-		Engine::World* world = new Engine::World();
+		Game::GameWorld* world = new Game::GameWorld();
+		world->SetCurrentPlayer(new Game::Player());
 		worldManager.SetCurrentWorld(world);
 		gameEngine.GetGraphicsEngine().InitTestGraphics();
 

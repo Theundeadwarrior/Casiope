@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Input\InputManager.h"
+#include "Core\Input\InputManager.h"
 
 namespace Core
 {
@@ -22,9 +22,15 @@ namespace Core
 	public:
 		KeyboardInputEvent(unsigned int keyEntered, KeyboardEventType eventType, int x, int y);
 
-
-	private:
 		unsigned int m_Key;
 		KeyboardEventType m_Type;
+	};
+
+	class KeyboardInputListener
+	{
+	public:
+		KeyboardInputListener() {}
+		virtual ~KeyboardInputListener() {}
+		virtual void OnKeyboardInputEvent(const KeyboardInputEvent& event) = 0;
 	};
 }

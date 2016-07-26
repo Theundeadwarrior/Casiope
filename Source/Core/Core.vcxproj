@@ -219,6 +219,7 @@
     <ClCompile Include="Event\Event.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\KeyboardEvent.cpp" />
+    <ClCompile Include="Input\MouseEvent.cpp" />
     <ClCompile Include="Memory\DebugAllocator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +228,7 @@
     <ClInclude Include="File\ImageUtilities.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\KeyboardEvent.h" />
+    <ClInclude Include="Input\MouseEvent.h" />
     <ClInclude Include="Memory\DebugAllocator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
