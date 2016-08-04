@@ -43,8 +43,8 @@ namespace Core
 			case SDL_KEYDOWN:
 			{
 				KeyboardEventType type = KeyboardEventType::KEY_PRESSED;
-				printf("test");
-
+				KeyboardInputEvent keyboardEvent(m_CurrentEvent.key.keysym.sym, type, 0, 0); // todo : pass in the cursor position so we can raycast from there.
+				NotifyKeyboardListener(keyboardEvent);
 			}
 			case SDL_KEYUP:
 			{

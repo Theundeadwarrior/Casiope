@@ -12,11 +12,33 @@ namespace Game
 
 		m_FPCamera = new Engine::PerspectiveCamera(camParams, cameraPos, cameraTarget, up);
 	}
+
 	Player::~Player()
 	{
 	}
+
 	Engine::Camera * Player::GetCamera()
 	{
 		return m_FPCamera;
+	}
+
+	void Player::Update()
+	{
+		if (m_IsKeyPressed['w'])
+		{
+			m_FPCamera->SetPosition(m_FPCamera->GetPosition() + 0.1f * m_FPCamera->GetLookAt());
+		}
+	}
+
+	void Player::OnKeyboardInputEvent(const Core::KeyboardInputEvent & event)
+	{
+		if (event.m_Type == Core::KeyboardEventType::KEY_PRESSED)
+		{
+			m_IsKeyPressed[event.m_Key] = true;
+		}
+		else if (event.m_Type == Core::KeyboardEventType::KEY_RELEASED)
+		{
+			m_IsKeyPressed[event.m_Key] = false;
+		}
 	}
 }
