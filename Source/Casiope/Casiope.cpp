@@ -4,15 +4,13 @@
 
 int main(int argc, char** argv)
 {
-	Engine::GameEngine engine;
-	engine.Initialize();
+	Engine::GameEngine::CreateInstance();
+	Engine::GameEngine::GetInstance()->Initialize();
 	
 	// Init Test Scene!!
-	Casiope::InitializeTestScene(engine);
+	Casiope::InitializeTestScene(*Engine::GameEngine::GetInstance());
 
-
-
-	engine.Loop();
-	engine.Shutdown();
+	Engine::GameEngine::GetInstance()->Loop();
+	Engine::GameEngine::GetInstance()->Shutdown();
 	return 0;
 }
