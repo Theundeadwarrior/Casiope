@@ -2,6 +2,8 @@
 #include "Engine\Camera\PerspectiveCamera.h"
 #include "Engine/GameEngine.h"
 
+#include "glm/glm.hpp"
+
 namespace Game
 {
 	Player::Player()
@@ -28,13 +30,30 @@ namespace Game
 
 	void Player::Update()
 	{
+		static const float speed = 0.001f;
 		if (m_IsKeyPressed['w'])
 		{
-			m_FPCamera->SetPosition(m_FPCamera->GetPosition() + 0.001f * m_FPCamera->GetLookAt());
+			glm::vec3 offset =  speed * m_FPCamera->GetLookAt();
+			m_FPCamera->m_position += offset;
+			m_FPCamera->m_POI += offset;
 		}
 		if (m_IsKeyPressed['s'])
 		{
-			m_FPCamera->SetPosition(m_FPCamera->GetPosition() - 0.001f * m_FPCamera->GetLookAt());
+			glm::vec3 offset = speed * m_FPCamera->GetLookAt();
+			m_FPCamera->m_position -= offset;
+			m_FPCamera->m_POI -= offset;
+		}
+		if (m_IsKeyPressed['a'])
+		{
+			glm::vec3 offset = speed * glm::normalize(glm::cross(m_FPCamera->GetLookAt(), m_FPCamera->GetUp()));
+			m_FPCamera->m_position -= offset;
+			m_FPCamera->m_POI -= offset;
+		}
+		if (m_IsKeyPressed['d'])
+		{
+			glm::vec3 offset = speed * glm::normalize(glm::cross(m_FPCamera->GetLookAt(), m_FPCamera->GetUp()));
+			m_FPCamera->m_position += offset;
+			m_FPCamera->m_POI += offset;
 		}
 	}
 
