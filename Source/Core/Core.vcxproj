@@ -221,6 +221,7 @@
     <ClCompile Include="Input\KeyboardEvent.cpp" />
     <ClCompile Include="Input\MouseEvent.cpp" />
     <ClCompile Include="Memory\DebugAllocator.cpp" />
+    <ClCompile Include="Singleton\Singleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Input\KeyboardEvent.h" />
     <ClInclude Include="Input\MouseEvent.h" />
     <ClInclude Include="Memory\DebugAllocator.h" />
+    <ClInclude Include="Singleton\Singleton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

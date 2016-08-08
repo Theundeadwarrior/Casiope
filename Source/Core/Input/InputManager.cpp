@@ -34,6 +34,8 @@ namespace Core
 		}
 	}
 
+	// todo : change to use SDL_GetKeyboardState instead of using the events for keyboard
+
 	void InputManager::Update()
 	{
 		while (SDL_PollEvent(&m_CurrentEvent))
@@ -42,14 +44,23 @@ namespace Core
 			{
 			case SDL_KEYDOWN:
 			{
-				KeyboardEventType type = KeyboardEventType::KEY_PRESSED;
-				printf("test");
-
+				if (m_CurrentEvent.key.repeat == false)
+				{
+					KeyboardEventType type = KeyboardEventType::KEY_PRESSED;
+					KeyboardInputEvent keyboardEvent(m_CurrentEvent.key.keysym.sym, type, 0, 0); // todo : pass in the cursor position so we can raycast from there.
+					NotifyKeyboardListener(keyboardEvent);
+				}
+				break;
 			}
 			case SDL_KEYUP:
 			{
-				KeyboardEventType type = KeyboardEventType::KEY_RELEASED;
-
+				if (m_CurrentEvent.key.repeat == false)
+				{
+					KeyboardEventType type = KeyboardEventType::KEY_RELEASED;
+					KeyboardInputEvent keyboardEvent(m_CurrentEvent.key.keysym.sym, type, 0, 0); // todo : pass in the cursor position so we can raycast from there.
+					NotifyKeyboardListener(keyboardEvent);
+				}
+				break;
 			}
 			case SDL_QUIT:
 				return;

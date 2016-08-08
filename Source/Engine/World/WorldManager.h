@@ -11,7 +11,7 @@ namespace Engine
 	public:
 		World();
 		virtual ~World() {};
-		void Update();
+		virtual void Update();
 
 		// getters
 		Camera* GetCamera() const { return m_Camera; }

@@ -4,8 +4,8 @@
 
 int main(int argc, char** argv)
 {
-	Engine::GameEngine engine;
-	engine.Initialize();
+	Engine::GameEngine::CreateInstance();
+	Engine::GameEngine::GetInstance()->Initialize();
 
 	const char* imagePath = "../../data/textures/skybox/front.bmp";
 	if (argc == 2)
@@ -14,9 +14,10 @@ int main(int argc, char** argv)
 	}
 
 	// Init Test Scene!!
-	Casiope::InitializeTestScene(engine, imagePath);
+	Casiope::InitializeTestScene(*Engine::GameEngine::GetInstance(), imagePath);
 
-	engine.Loop();
-	engine.Shutdown();
+	Engine::GameEngine::GetInstance()->Loop();
+	Engine::GameEngine::GetInstance()->Shutdown();
+
 	return 0;
 }

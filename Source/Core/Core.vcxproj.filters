@@ -13,6 +13,9 @@
     <Filter Include="Input">
       <UniqueIdentifier>{a9fba134-5348-4fa8-8142-03579755014f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Singleton">
+      <UniqueIdentifier>{ac64fc0d-1680-47fe-aa81-84355b39734b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
@@ -30,6 +33,9 @@
     </ClCompile>
     <ClCompile Include="Input\MouseEvent.cpp">
       <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Singleton\Singleton.cpp">
+      <Filter>Singleton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +57,9 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Input\MouseEvent.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton\Singleton.h">
+      <Filter>Singleton</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
