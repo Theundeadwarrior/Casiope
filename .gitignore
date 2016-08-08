@@ -2,6 +2,7 @@
 Objects/
 Dependencies/
 Bin/
+core
 
 # Windows image file caches
 Thumbs.db
