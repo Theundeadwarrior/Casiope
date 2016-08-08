@@ -1,4 +1,9 @@
- # Windows image file caches
+# Linux build system
+Objects/
+Dependencies/
+Bin/
+
+# Windows image file caches
 Thumbs.db
 ehthumbs.db
 

@@ -1,2 +1,7 @@
 Look into SceneGraph and why they are bad!!
 http://gamedev.stackexchange.com/questions/8278/what-should-be-contained-in-a-game-scene-graph/8281#8281
+
+
+Linux
+---
+apt-get install libsdl2-2.0-0 libsdl2-dev libglm-dev freeglut3-dev libglew1.13 libglew-dev
