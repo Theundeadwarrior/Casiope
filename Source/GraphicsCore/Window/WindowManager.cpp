@@ -26,8 +26,13 @@ namespace GraphicsCore
 		}
 
 		// Version d'OpenGL
+#ifdef _LINUX_
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+#else
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+#endif
 
 		// Double Buffer
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);

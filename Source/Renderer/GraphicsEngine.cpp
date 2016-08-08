@@ -25,7 +25,10 @@ namespace Renderer
 
 	int GraphicsEngine::InitializeGlew()
 	{
-		GLenum glewInitialization(glewInit());
+#ifdef _LINUX_
+		glewExperimental = GL_TRUE;
+#endif
+		GLenum glewInitialization = glewInit();
 
 		if (glewInitialization != GLEW_OK)
 		{
@@ -38,6 +41,8 @@ namespace Renderer
 
 			return -1;
 		}
+
+		std::cout << "GLEW initialized !" << std::endl;
 	}
 
 	int InitializeOpenGL()
