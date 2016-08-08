@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "GraphicsCore\GraphicsType.h"
-#include "GraphicsCore\Shaders\ShaderCompiler.h"
+#include "GraphicsCore/GraphicsType.h"
+#include "GraphicsCore/Shaders/ShaderCompiler.h"
 
 namespace GraphicsCore
 {

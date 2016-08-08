@@ -1,4 +1,4 @@
-#include "Window\WindowManager.h"
+#include "GraphicsCore/Window/WindowManager.h"
 
 #include <SDL.h>
 #include <SDL_opengl.h>
@@ -43,7 +43,7 @@ namespace GraphicsCore
 
 		m_GLContext = SDL_GL_CreateContext(m_Window);
 
-		if (m_GLContext == 0)
+		if (m_GLContext == NULL)
 		{
 			std::cout << SDL_GetError() << std::endl;
 			SDL_DestroyWindow(m_Window);

@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 
-#include "Core\Event\Event.h"
+#include "Core/Event/Event.h"
 
 namespace Core
 {

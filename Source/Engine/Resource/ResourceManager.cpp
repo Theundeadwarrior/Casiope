@@ -1,6 +1,6 @@
-#include "Engine\Resource\ResourceManager.h"
+#include "Engine/Resource/ResourceManager.h"
 
-#include "Core\File\ImageUtilities.h"
+#include "Core/File/ImageUtilities.h"
 
 
 namespace Engine

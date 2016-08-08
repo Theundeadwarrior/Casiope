@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GraphicsCore\Window\WindowManager.h"
+#include "GraphicsCore/Window/WindowManager.h"
 
 namespace Engine { class World; }
 

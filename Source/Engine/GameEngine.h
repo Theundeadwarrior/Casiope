@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core\Input\InputManager.h"
-#include "Engine\World\WorldManager.h"
-#include "Renderer\GraphicsEngine.h"
+#include "Core/Input/InputManager.h"
+#include "Engine/World/WorldManager.h"
+#include "Renderer/GraphicsEngine.h"
 
 
 

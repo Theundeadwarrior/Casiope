@@ -1,8 +1,8 @@
 #include "GameWorld.h"
 
 
-#include "Engine\Camera\PerspectiveCamera.h"
-#include "Game\Player\Player.h"
+#include "Engine/Camera/PerspectiveCamera.h"
+#include "Game/Player/Player.h"
 
 
 namespace Game

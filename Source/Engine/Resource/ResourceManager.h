@@ -3,8 +3,8 @@
 #include <assert.h>
 
 
-#include "GraphicsCore\GraphicsType.h"
-#include "GraphicsCore\Textures\Texture.h"
+#include "GraphicsCore/GraphicsType.h"
+#include "GraphicsCore/Textures/Texture.h"
 
 // TODO!!!!!
 // Need to figure out how to not have duplicate of textures or shaders loaded in memory!!!!

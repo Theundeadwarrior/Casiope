@@ -1,7 +1,9 @@
 #include <assert.h>
 
-#include "Core\File\ImageUtilities.h"
-#include "GraphicsCore\Textures\Texture.h"
+#include "Core/File/ImageUtilities.h"
+#include "GraphicsCore/Textures/Texture.h"
+
+#include <Core/Core.h>
 
 namespace GraphicsCore
 {

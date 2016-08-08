@@ -1,27 +1,27 @@
 #pragma once
 
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 
-#include "Core\File\ImageUtilities.h"
+#include "Core/File/ImageUtilities.h"
 
-#include "Engine\GameEngine.h"
-#include "Engine\Camera\PerspectiveCamera.h"
-#include "Game\World\GameWorld.h"
+#include "Engine/GameEngine.h"
+#include "Engine/Camera/PerspectiveCamera.h"
+#include "Game/World/GameWorld.h"
 
 namespace Casiope
 {
-	void InitializeTestScene(Engine::GameEngine& gameEngine)
+	void InitializeTestScene(Engine::GameEngine& gameEngine, const char* imagePath)
 	{
 		Engine::PerspectiveCameraParams params(45, 1024 / 768.0f, 0.1f, 1000.0f);
 		Engine::Camera* camera = new Engine::PerspectiveCamera(params, glm::vec3(0, 5, 5), glm::vec3(0, 0, -1), glm::vec3(0, 5, -5));
 
 		Core::Image<unsigned char> skyBoxImages[6];
-		Core::LoadImageFromFile(skyBoxImages[0], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[1], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[2], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[3], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[4], "../../data/textures/skybox/front.bmp");
-		Core::LoadImageFromFile(skyBoxImages[5], "../../data/textures/skybox/front.bmp");
+		Core::LoadImageFromFile(skyBoxImages[0], imagePath);
+		Core::LoadImageFromFile(skyBoxImages[1], imagePath);
+		Core::LoadImageFromFile(skyBoxImages[2], imagePath);
+		Core::LoadImageFromFile(skyBoxImages[3], imagePath);
+		Core::LoadImageFromFile(skyBoxImages[4], imagePath);
+		Core::LoadImageFromFile(skyBoxImages[5], imagePath);
 
 		//for(auto skyBoxImg : skyBoxImages)
 		//{

@@ -1,4 +1,15 @@
 
+#pragma once
+
+#ifdef _LINUX_
+    #define DLL_EXPORT
+    #undef assert
+    #define assert(x, y)
+#else
+    #define DLL_EXPORT __declspec(dllexport)
+#endif
+
+
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;

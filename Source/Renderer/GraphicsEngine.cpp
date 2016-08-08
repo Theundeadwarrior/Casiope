@@ -3,21 +3,15 @@
 #include <SDL.h>
 
 
-#ifdef _WIN32
-#include <gl/glew.h>
-#else
-#define GL3_PROTOTYPES 1
-#include <GL3/gl3.h>
-#endif
-
-#include <glm\glm.hpp>
-#include <glm\gtc\matrix_transform.hpp>
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 
-#include "Engine\World\WorldManager.h"
-#include "Engine\Camera\PerspectiveCamera.h"
-#include "GraphicsCore\Shaders\Shader.h"
+#include "Engine/World/WorldManager.h"
+#include "Engine/Camera/PerspectiveCamera.h"
+#include "GraphicsCore/Shaders/Shader.h"
 
 namespace Renderer
 {
@@ -31,8 +25,6 @@ namespace Renderer
 
 	int GraphicsEngine::InitializeGlew()
 	{
-
-#ifdef _WIN32
 		GLenum glewInitialization(glewInit());
 
 		if (glewInitialization != GLEW_OK)
@@ -43,10 +35,9 @@ namespace Renderer
 
 			// On quitte la SDL
 			m_WindowManager.ShutdownWindow();
-				
+
 			return -1;
 		}
-#endif
 	}
 
 	int InitializeOpenGL()

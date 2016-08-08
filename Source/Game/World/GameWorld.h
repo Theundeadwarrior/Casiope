@@ -2,10 +2,10 @@
 
 #include <vector>
 
-#include "Engine\World\WorldManager.h"
-#include "Game\Player\Player.h"
+#include "Engine/World/WorldManager.h"
+#include "Game/Player/Player.h"
 
-#include "Core\Input\KeyboardEvent.h"
+#include "Core/Input/KeyboardEvent.h"
 
 namespace Game
 {

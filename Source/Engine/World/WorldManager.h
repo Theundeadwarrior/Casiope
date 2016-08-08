@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderer\SkyBox\SkyBox.h"
+#include "Renderer/SkyBox/SkyBox.h"
 
 namespace Engine
 {

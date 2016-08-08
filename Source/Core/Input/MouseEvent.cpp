@@ -1,5 +1,5 @@
-#include "Core\Input\InputManager.h"
-#include "Core\Input\MouseEvent.h"
+#include "Core/Input/InputManager.h"
+#include "Core/Input/MouseEvent.h"
 
 namespace Core
 {

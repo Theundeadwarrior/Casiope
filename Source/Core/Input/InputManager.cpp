@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 
-#include "Core\Input\KeyboardEvent.h"
-#include "Core\Input\MouseEvent.h"
+#include "Core/Input/KeyboardEvent.h"
+#include "Core/Input/MouseEvent.h"
 
 namespace Core
 {
