@@ -78,41 +78,77 @@ namespace Renderer
 
 	// REMOVE THIS
 	GraphicsCore::ShaderProgram* g_ShaderProgram;
-	GLuint vao1 = 0, vao2 = 0;
+	GLuint VAO = 0;// , vao2 = 0;
+
+
+
 
 	void GraphicsEngine::InitTestGraphics()
 	{
 		GLfloat vertices[] = {
-			// First triangle
-			-0.9f, -0.5f, 0.0f,  // Left 
-			-0.0f, -0.5f, 0.0f,  // Right
-			-0.45f, 0.5f, 0.0f,  // Top 
-								 // Second triangle
-								 0.0f, -0.5f, 0.0f,  // Left
-								 0.9f, -0.5f, 0.0f,  // Right
-								 0.45f, 0.5f, 0.0f   // Top
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+			0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+			0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+			0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 		};
+
 
 		GLuint vbo1 = 0, vbo2 = 0, ebo = 0;
 
-		glGenVertexArrays(1, &vao1);
-		glGenVertexArrays(1, &vao2);
-		glGenBuffers(1, &vbo1);
-		glGenBuffers(1, &ebo);
-		glGenBuffers(1, &vbo2);
+		GLuint VBO;
+		glGenVertexArrays(1, &VAO);
+		glGenBuffers(1, &VBO);
 
+		glBindVertexArray(VAO);
 
-		glBindVertexArray(vao1);
-			glBindBuffer(GL_ARRAY_BUFFER, vbo1);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) / 2, vertices, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
-			glEnableVertexAttribArray(0);
-		glBindVertexArray(vao2);
-			glBindBuffer(GL_ARRAY_BUFFER, vbo2);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) / 2, vertices + 9, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
-			glEnableVertexAttribArray(0);
-		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		// Position attribute
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(0);
+		// TexCoord attribute
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
+
+		glBindVertexArray(0); // Unbind VAO
 
 		const char* vertex_shader =
 			"#version 400\n"
@@ -141,7 +177,18 @@ namespace Renderer
 		// Need to move everything up somewhere else...
 	}
 
-
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f,  0.0f,  0.0f),
+		glm::vec3(2.0f,  5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f,  3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f,  2.0f, -2.5f),
+		glm::vec3(1.5f,  0.2f, -1.5f),
+		glm::vec3(-1.3f,  1.0f, -1.5f)
+	};
 	void GraphicsEngine::RenderWorld(Engine::World* world)
 	{
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -168,50 +215,21 @@ namespace Renderer
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
 
 		glUseProgram(g_ShaderProgram->GetProgramId());
-		glBindVertexArray(vao1);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glBindVertexArray(vao2);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		glBindVertexArray(VAO);
+		for (GLuint i = 0; i < 10; i++)
+		{
+			// Calculate the model matrix for each object and pass it to shader before drawing
+			glm::mat4 model;
+			model = glm::translate(model, cubePositions[i]);
+			GLfloat angle = 20.0f * i;
+			model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
 		glBindVertexArray(0);
 
 		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
 	}
-
-
-	void GraphicsEngine::RenderTestScene()
-	{
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		glm::mat4 model;
-		glm::mat4 view;
-		glm::mat4 proj;
-		model = glm::rotate(model, 45.f, glm::vec3(1.0f, 0.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-
-		unsigned int windowSize[2];
-		m_WindowManager.GetCurrentWindowSize(windowSize[0], windowSize[1]);
-
-		proj = glm::perspective(45.0f, (GLfloat)windowSize[0] / (GLfloat)windowSize[1], 0.1f, 100.0f);
-
-		GLint modelLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "model");
-		GLint viewLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "view");
-		GLint projLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "projection");
-
-		// Pass them to the shaders
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		// Note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
-
-		glUseProgram(g_ShaderProgram->GetProgramId());
-		glBindVertexArray(vao1);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
-		glBindVertexArray(vao2);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
-		glBindVertexArray(0);
-
-		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
-	}
-
 }

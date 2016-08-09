@@ -3,6 +3,7 @@
 #include <map>
 
 #include "Core/Input/KeyboardEvent.h"
+#include "Core/Input/MouseEvent.h"
 
 namespace Engine
 {
@@ -11,7 +12,7 @@ namespace Engine
 
 namespace Game
 {
-	class Player : public Core::KeyboardInputListener
+	class Player : public Core::KeyboardInputListener, public Core::MouseInputListener
 	{
 	public:
 		Player();
@@ -23,10 +24,14 @@ namespace Game
 
 		// Inherited via InputKeyboardListener
 		virtual void OnKeyboardInputEvent(const Core::KeyboardInputEvent & event) override;
+		virtual void OnMouseInputEvent(const Core::MouseInputEvent& event) override;
+
 
 	private:
 		Engine::Camera* m_FPCamera;
 
+		int m_MouseX, m_MouseY;
+		int m_NewMouseX, m_NewMouseY;
 		std::map<char, bool> m_IsKeyPressed;
 
 	};

@@ -35,8 +35,14 @@ namespace Core
 			// todo
 		}
 
+		void GetMouseState(int& x, int& y)
+		{
+			SDL_GetMouseState(&x, &y);
+		}
+
 	private:
 		void NotifyKeyboardListener(const KeyboardInputEvent& event);
+		void NotifyMouseListener(const MouseInputEvent & event);
 
 	private:
 		std::vector<KeyboardInputListener*> m_KeyboardListener;
