@@ -17,7 +17,6 @@ namespace Renderer
 
 		int Initialize();
 		int Shutdown();
-		void RenderTestScene();
 
 		void RenderWorld(Engine::World* world);
 

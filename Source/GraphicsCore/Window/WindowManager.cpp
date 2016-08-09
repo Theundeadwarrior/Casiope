@@ -51,6 +51,9 @@ namespace GraphicsCore
 
 			return -1;
 		}
+
+		SDL_ShowCursor(0);
+
 		return 0;
 	}
 
