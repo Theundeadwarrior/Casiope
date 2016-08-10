@@ -25,6 +25,9 @@ namespace Engine
 	{
 		m_Renderer.Initialize();
 		ResourceManager::CreateInstance();
+
+		m_InputManager.SetResetMouseBehavior(true); // todo: this needs to be handled in the StateManager
+		m_InputManager.SetResetMouseValues(400, 200); // todo: this needs to be handled in the StateManager
 	}
 
 	void GameEngine::Shutdown()
@@ -46,7 +49,6 @@ namespace Engine
 		{
 			m_InputManager.Update();
 			m_WorldManager.Update();
-
 			m_Renderer.RenderWorld(m_WorldManager.GetCurrentWorld()); // TODO lcharbonneau: We shouldn't the entire world!
 		}
 		return 0;

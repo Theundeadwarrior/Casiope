@@ -31,7 +31,6 @@ namespace Game
 		Engine::Camera* m_FPCamera;
 
 		int m_MouseX, m_MouseY;
-		int m_NewMouseX, m_NewMouseY;
 		std::map<char, bool> m_IsKeyPressed;
 
 	};

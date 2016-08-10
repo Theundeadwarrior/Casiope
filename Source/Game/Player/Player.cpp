@@ -16,11 +16,6 @@ namespace Game
 
 		m_FPCamera = new Engine::PerspectiveCamera(camParams, cameraPos, cameraTarget, up);
 
-
-		Engine::GameEngine::GetInstance()->GetInputManager().GetMouseState(m_MouseX, m_MouseY);
-		m_NewMouseX = m_MouseX;
-		m_NewMouseY = m_MouseY;
-
 		Engine::GameEngine::GetInstance()->GetInputManager().RegisterKeyboardListener(this);
 		Engine::GameEngine::GetInstance()->GetInputManager().RegisterMouseListener(this);
 	}
@@ -63,12 +58,12 @@ namespace Game
 			m_FPCamera->m_position += offset;
 		}
 
-		if (m_MouseX != m_NewMouseX || m_MouseY != m_NewMouseY)
+		if (m_MouseX != 0 || m_MouseY != 0)
 		{
-			float yaw = (m_NewMouseX - m_MouseX) * rotationSpeed;
-			float pitch = (m_NewMouseY - m_MouseY) * rotationSpeed;
-			m_MouseX = m_NewMouseX;
-			m_MouseY = m_NewMouseY;
+			float yaw = m_MouseX * rotationSpeed;
+			float pitch = m_MouseY * rotationSpeed;
+			m_MouseX = 0;
+			m_MouseY = 0;
 
 			m_FPCamera->SetRelativeOrientation(pitch, yaw, 0);
 		}
@@ -94,8 +89,8 @@ namespace Game
 	{
 		if (event.m_EventType == Core::MouseEventType::MOUSE_MOTION_ONLY)
 		{
-			m_NewMouseX = event.m_PosX;
-			m_NewMouseY = event.m_PosY;
+			m_MouseX = event.m_RelativeX;
+			m_MouseY = event.m_RelativeY;
 		}
 	}
 }

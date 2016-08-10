@@ -35,10 +35,14 @@ namespace Core
 			// todo
 		}
 
-		void GetMouseState(int& x, int& y)
-		{
-			SDL_GetMouseState(&x, &y);
-		}
+		void GetMouseState(int& x, int& y);
+
+		void GetResetMouseValues(int& x, int& y);
+		void SetResetMouseValues(int x, int y);
+
+		void SetResetMouseBehavior(bool resetMouse) { m_ResetMouseToPosition = resetMouse; }
+
+		void ResetMouseToCenter();
 
 	private:
 		void NotifyKeyboardListener(const KeyboardInputEvent& event);
@@ -48,6 +52,10 @@ namespace Core
 		std::vector<KeyboardInputListener*> m_KeyboardListener;
 		std::vector<MouseInputListener*> m_MouseListener;
 		SDL_Event m_CurrentEvent;
+
+		bool m_ResetMouseToPosition;
+		int m_OldMousePositionX;
+		int m_OldMousePositionY;
 	};
 
 }

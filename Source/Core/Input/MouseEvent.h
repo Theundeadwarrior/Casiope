@@ -29,12 +29,13 @@ namespace Core
 	class MouseInputEvent : public InputEvent
 	{
 	public:
-		MouseInputEvent(MouseEventType eventType, MouseClick clickType, MouseModifier modifier, int x, int y);
+		MouseInputEvent(MouseEventType eventType, MouseClick clickType, MouseModifier modifier, int x, int y, int relx, int rely);
 	
 		MouseEventType m_EventType;
 		MouseClick m_ClickType;
 		MouseModifier m_Modifier;
 		int m_PosX, m_PosY;
+		int m_RelativeX, m_RelativeY;
 	};
 
 	class MouseInputListener
