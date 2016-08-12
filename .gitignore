@@ -4,6 +4,9 @@ Dependencies/
 Bin/
 core
 
+# Windows build system
+Output/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
