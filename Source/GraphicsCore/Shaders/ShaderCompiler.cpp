@@ -1,9 +1,10 @@
-#include "Shaders\ShaderCompiler.h"
+#include "GraphicsCore/Shaders/ShaderCompiler.h"
 
 #include <GL/glew.h>
 #include <assert.h>
 
-#include "GraphicsCore\Shaders\Shader.h"
+#include <Core/Core.h>
+#include "GraphicsCore/Shaders/Shader.h"
 
 
 namespace GraphicsCore

@@ -22,7 +22,7 @@ namespace Core
 			m_Instance = nullptr;
 		}
 
-		static auto GetInstance()
+		static T* GetInstance()
 		{
 			return m_Instance;
 		}
@@ -34,6 +34,6 @@ namespace Core
 	};
 
 	template<typename T>
-	typename T* Singleton<T>::m_Instance = nullptr;
+	T* Singleton<T>::m_Instance = nullptr;
 }
 

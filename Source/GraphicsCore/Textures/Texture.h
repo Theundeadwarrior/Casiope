@@ -1,14 +1,9 @@
 #pragma once
 #include <string>
 
-#ifdef _WIN32
-#include <gl/glew.h>
-#else
-#define GL3_PROTOTYPES 1
-#include <GL3/gl3.h>
-#endif
+#include <GL/glew.h>
 
-#include "GraphicsCore\GraphicsType.h"
+#include "GraphicsCore/GraphicsType.h"
 
 namespace Core { template<typename T> class Image; }
 

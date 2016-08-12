@@ -1,11 +1,9 @@
 #pragma once
 
-#include "Core\Input\InputManager.h"
+#include "Core/Input/InputManager.h"
 #include "Core/Singleton/Singleton.h"
-#include "Engine\World\WorldManager.h"
-#include "Renderer\GraphicsEngine.h"
-
-
+#include "Engine/World/WorldManager.h"
+#include "Renderer/GraphicsEngine.h"
 
 namespace Engine
 {

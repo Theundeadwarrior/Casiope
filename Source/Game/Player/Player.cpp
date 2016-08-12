@@ -1,5 +1,6 @@
 #include "Player.h"
-#include "Engine\Camera\PerspectiveCamera.h"
+
+#include "Engine/Camera/PerspectiveCamera.h"
 #include "Engine/GameEngine.h"
 
 #include "glm/glm.hpp"

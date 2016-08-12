@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "Engine\World\WorldManager.h"
-#include "Game\Player\Player.h"
+#include "Engine/World/WorldManager.h"
+#include "Game/Player/Player.h"
 
 namespace Game
 {

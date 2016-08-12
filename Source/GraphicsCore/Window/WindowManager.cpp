@@ -1,4 +1,4 @@
-#include "Window\WindowManager.h"
+#include "GraphicsCore/Window/WindowManager.h"
 
 #include <SDL.h>
 #include <SDL_opengl.h>
@@ -26,8 +26,13 @@ namespace GraphicsCore
 		}
 
 		// Version d'OpenGL
+#ifdef _LINUX_
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+#else
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+#endif
 
 		// Double Buffer
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -43,7 +48,7 @@ namespace GraphicsCore
 
 		m_GLContext = SDL_GL_CreateContext(m_Window);
 
-		if (m_GLContext == 0)
+		if (m_GLContext == NULL)
 		{
 			std::cout << SDL_GetError() << std::endl;
 			SDL_DestroyWindow(m_Window);

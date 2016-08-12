@@ -1,8 +1,6 @@
 #include "GameWorld.h"
 
-
-#include "Game\Player\Player.h"
-
+#include "Game/Player/Player.h"
 
 namespace Game
 {

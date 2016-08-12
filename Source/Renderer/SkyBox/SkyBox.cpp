@@ -1,4 +1,4 @@
-#include "SkyBox\SkyBox.h"
+#include "Renderer/SkyBox/SkyBox.h"
 
 namespace Renderer
 {

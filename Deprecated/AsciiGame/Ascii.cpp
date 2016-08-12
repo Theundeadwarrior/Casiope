@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <iostream>
 #include <conio.h>
@@ -5,7 +6,6 @@
 #include "Engine\GameEngine.h"
 
 #define CLEAR_SCREEN_STRING "\n\n\n\n\n\n\n\n\n\n"
-
 
 
 int main(int argc, char** argv)
@@ -30,3 +30,4 @@ int main(int argc, char** argv)
 	}
 	return 0;
 }
+

@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "Engine\Object\Object.h"
-#include "Engine\Entity\Component.h"
+#include "Engine/Object/Object.h"
+#include "Engine/Entity/Component.h"
 
 namespace Engine
 {

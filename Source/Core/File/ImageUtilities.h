@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include <CImg\CImg.h>
+#include <CImg/CImg.h>
 
 
 #define cimg_use_png
@@ -35,7 +35,7 @@ namespace Core
 	};
 
 	template <class T>
-	inline typename void LoadImageFromFile(Image<T>& outputImage, const char* tpath)
+	inline void LoadImageFromFile(Image<T>& outputImage, const char* tpath)
 	{
 		//Do format conversion?
 		outputImage.path = tpath;
@@ -68,7 +68,7 @@ namespace Core
 		delete content;
 	}
 	template <class T>
-	inline typename void SaveImageToFile(const Image<T>& inputParams, const char* tpath)
+	inline void SaveImageToFile(const Image<T>& inputParams, const char* tpath)
 	{
 		T* data = new T[inputParams.imageData.size()];
 

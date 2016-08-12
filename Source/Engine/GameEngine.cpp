@@ -3,19 +3,18 @@
 #include <SDL.h>
 
 
-#include "Camera\PerspectiveCamera.h"
-#include "GraphicsCore\Textures\Texture.h"
-#include "Renderer\SkyBox\SkyBox.h"
-#include "Core\File\ImageUtilities.h"
+#include "Camera/PerspectiveCamera.h"
+#include "GraphicsCore/Textures/Texture.h"
+#include "Renderer/SkyBox/SkyBox.h"
+#include "Core/File/ImageUtilities.h"
 
-#include "Engine\Resource\ResourceManager.h"
+#include "Engine/Resource/ResourceManager.h"
 
 
 namespace Engine
 {
 	GameEngine::GameEngine()
 	{
-		
 	}
 
 	GameEngine::~GameEngine()

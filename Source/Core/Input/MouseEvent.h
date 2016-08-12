@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core\Input\InputManager.h"
+#include "Core/Input/InputManager.h"
 
 namespace Core
 {
