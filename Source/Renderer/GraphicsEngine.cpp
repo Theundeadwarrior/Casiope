@@ -78,10 +78,7 @@ namespace Renderer
 
 	// REMOVE THIS
 	GraphicsCore::ShaderProgram* g_ShaderProgram;
-	GLuint VAO = 0;// , vao2 = 0;
-
-
-
+	GLuint VAO = 0;// , vao2 = 0;	 
 
 	void GraphicsEngine::InitTestGraphics()
 	{
@@ -129,9 +126,6 @@ namespace Renderer
 			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 		};
 
-
-		GLuint vbo1 = 0, vbo2 = 0, ebo = 0;
-
 		GLuint VBO;
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
@@ -146,8 +140,7 @@ namespace Renderer
 		glEnableVertexAttribArray(0);
 		// TexCoord attribute
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);
-
+		glEnableVertexAttribArray(2);		
 		glBindVertexArray(0); // Unbind VAO
 
 		const char* vertex_shader =
@@ -201,11 +194,6 @@ namespace Renderer
 		GLint viewLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "view");
 		GLint projLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "projection");
 
-		// MODEL VIEW MATRICES! Should pass the projection only once!
-		glm::mat4 model;
-		model = glm::rotate(model, 45.f, glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
 		glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
@@ -228,7 +216,9 @@ namespace Renderer
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
+
 		glBindVertexArray(0);
+
 
 		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
 	}

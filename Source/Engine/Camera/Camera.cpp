@@ -24,7 +24,6 @@ namespace Engine
 		glm::quat key_quat = glm::quat(glm::vec3(key_pitch, key_yaw, key_roll));
 
 		m_Orientation = key_quat * m_Orientation;
-		m_Orientation.z = 0;
 		m_Orientation = glm::normalize(m_Orientation);
 	}
 
