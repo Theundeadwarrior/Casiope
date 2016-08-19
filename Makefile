@@ -50,6 +50,9 @@ clean:
 cleaner: clean
 	rm -rf $(OUTPUT_DIR)
 
+run: Game
+	cd Bin; ./Game ../Data/Textures/SkyBox/front.bmp; cd ..
+
 # Dependency stuff
 $(DEPENDENCIES_DIR)/%.d: ;
 .PRECIOUS: $(DEPENDENCIES_DIR)/%.d
