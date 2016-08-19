@@ -2,7 +2,7 @@
 
 #include "GraphicsCore/Window/WindowManager.h"
 
-#include <core/Logging/Logger.h>
+#include <Core/Logging/Logger.h>
 
 namespace Engine { class World; }
 

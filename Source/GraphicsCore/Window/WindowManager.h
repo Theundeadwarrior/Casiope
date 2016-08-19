@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core\Logging\Logger.h>
+#include <Core/Logging/Logger.h>
 
 struct SDL_Window;
 typedef void* SDL_GLContext;
