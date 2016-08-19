@@ -46,9 +46,10 @@ list:
 
 clean:
 	rm -rf $(OBJECTS_DIR) $(DEPENDENCIES_DIR)
+	rm $(OUTPUT_DIR)/casiope.log
 
 cleaner: clean
-	rm -rf $(OUTPUT_DIR)
+	rm $(OUTPUT_DIR)/Game
 
 run: Game
 	cd Bin; ./Game ../Data/Textures/SkyBox/front.bmp; cd ..
