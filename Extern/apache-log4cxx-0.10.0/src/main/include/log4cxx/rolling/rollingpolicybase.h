@@ -42,6 +42,8 @@ namespace log4cxx {
          * 
          * 
          */
+		LOG4CXX_LIST_DEF(PatternConverterList, log4cxx::pattern::PatternConverterPtr);
+		LOG4CXX_LIST_DEF(FormattingInfoList, log4cxx::pattern::FormattingInfoPtr);
         class LOG4CXX_EXPORT RollingPolicyBase :
            public virtual RollingPolicy,
            public virtual helpers::ObjectImpl {
@@ -57,13 +59,11 @@ namespace log4cxx {
           /**
            * File name pattern converters.
            */
-          LOG4CXX_LIST_DEF(PatternConverterList, log4cxx::pattern::PatternConverterPtr);
           PatternConverterList patternConverters;
 
           /**
            * File name field specifiers.
            */
-          LOG4CXX_LIST_DEF(FormattingInfoList, log4cxx::pattern::FormattingInfoPtr);
           FormattingInfoList patternFields;
 
           /**

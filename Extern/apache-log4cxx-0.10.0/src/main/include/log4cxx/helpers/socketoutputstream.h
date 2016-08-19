@@ -33,6 +33,7 @@ namespace log4cxx
         namespace helpers
         {
 
+			    LOG4CXX_LIST_DEF(ByteList, unsigned char);
                 class LOG4CXX_EXPORT SocketOutputStream : public OutputStream
                 {
                 public:
@@ -50,7 +51,6 @@ namespace log4cxx
                         virtual void write(ByteBuffer& buf, Pool& p);
 
                 private:
-                        LOG4CXX_LIST_DEF(ByteList, unsigned char);
                         ByteList array;
                         SocketPtr socket;
                        //

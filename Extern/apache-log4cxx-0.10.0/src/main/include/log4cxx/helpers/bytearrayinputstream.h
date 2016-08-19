@@ -36,10 +36,10 @@ namespace log4cxx
           /**
            * InputStream implemented on top of a byte array.
            */
+		  LOG4CXX_LIST_DEF(ByteList, unsigned char);
           class LOG4CXX_EXPORT ByteArrayInputStream : public InputStream
           {
           private:
-              LOG4CXX_LIST_DEF(ByteList, unsigned char);
               ByteList buf;
               size_t pos;
 

@@ -38,10 +38,10 @@ namespace log4cxx
           /**
           *   OutputStream implemented on top of std::vector
           */
+		  LOG4CXX_LIST_DEF(ByteList, unsigned char);
           class LOG4CXX_EXPORT ByteArrayOutputStream : public OutputStream
           {
           private:
-                 LOG4CXX_LIST_DEF(ByteList, unsigned char);
                  ByteList array;
 
           public:

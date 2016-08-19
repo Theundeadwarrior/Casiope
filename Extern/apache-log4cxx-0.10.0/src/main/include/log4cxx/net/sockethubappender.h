@@ -103,6 +103,7 @@ namespace log4cxx
                 exiting the application.
                 */
 
+		    	LOG4CXX_LIST_DEF(ObjectOutputStreamList, log4cxx::helpers::ObjectOutputStreamPtr);
                 class LOG4CXX_EXPORT SocketHubAppender : public AppenderSkeleton
                 {
                 private:
@@ -112,7 +113,6 @@ namespace log4cxx
                         static int DEFAULT_PORT;
 
                         int port;
-                        LOG4CXX_LIST_DEF(ObjectOutputStreamList, log4cxx::helpers::ObjectOutputStreamPtr);
                         ObjectOutputStreamList streams;
                         bool locationInfo;
 

@@ -50,6 +50,7 @@ namespace log4cxx
         <p><b>Important note:</b> The <code>AsyncAppender</code> can only
         be script configured using the {@link xml::DOMConfigurator DOMConfigurator}.
         */
+	    LOG4CXX_LIST_DEF(LoggingEventList, log4cxx::spi::LoggingEventPtr);
         class LOG4CXX_EXPORT AsyncAppender :
                 public virtual spi::AppenderAttachable,
                 public virtual AppenderSkeleton
@@ -194,7 +195,6 @@ namespace log4cxx
                 /**
                  * Event buffer.
                 */
-                LOG4CXX_LIST_DEF(LoggingEventList, log4cxx::spi::LoggingEventPtr);
                 LoggingEventList buffer;
 
                 /**

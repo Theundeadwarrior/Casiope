@@ -324,6 +324,8 @@ namespace log4cxx
         Philip E. Margolis' highly recommended book "C -- a Software
         Engineering Approach", ISBN 0-387-97389-3.
         */
+        LOG4CXX_LIST_DEF(LoggingEventPatternConverterList, log4cxx::pattern::LoggingEventPatternConverterPtr);
+		LOG4CXX_LIST_DEF(FormattingInfoList, log4cxx::pattern::FormattingInfoPtr);
         class LOG4CXX_EXPORT PatternLayout : public Layout
         {
                  /**
@@ -334,13 +336,11 @@ namespace log4cxx
                 /**
                  * Pattern converters.
                  */
-                LOG4CXX_LIST_DEF(LoggingEventPatternConverterList, log4cxx::pattern::LoggingEventPatternConverterPtr);
                 LoggingEventPatternConverterList patternConverters;
 
                /**
                 * Field widths and alignment corresponding to pattern converters.
                 */
-                LOG4CXX_LIST_DEF(FormattingInfoList, log4cxx::pattern::FormattingInfoPtr);
                 FormattingInfoList patternFields;
 
 

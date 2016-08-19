@@ -64,6 +64,8 @@ servlet.
 <td>5875</td>
 </table>
 */
+		typedef log4cxx::helpers::SocketPtr Connection;
+		LOG4CXX_LIST_DEF(ConnectionList, Connection);
         class LOG4CXX_EXPORT TelnetAppender : public AppenderSkeleton
                 {
                 class SocketHandler;
@@ -131,8 +133,6 @@ servlet.
                         TelnetAppender(const TelnetAppender&);
                         TelnetAppender& operator=(const TelnetAppender&);
 
-                        typedef log4cxx::helpers::SocketPtr Connection;
-                        LOG4CXX_LIST_DEF(ConnectionList, Connection);
                         
                         void write(log4cxx::helpers::ByteBuffer&);
                         void writeStatus(const log4cxx::helpers::SocketPtr& socket, const LogString& msg, log4cxx::helpers::Pool& p);

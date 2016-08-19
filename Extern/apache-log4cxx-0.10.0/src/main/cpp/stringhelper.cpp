@@ -20,6 +20,7 @@
 #include <log4cxx/helpers/stringhelper.h>
 #include <log4cxx/helpers/transcoder.h>
 #include <algorithm>
+#include <iterator>
 #include <vector>
 #include <apr_strings.h>
 #include <log4cxx/helpers/pool.h>

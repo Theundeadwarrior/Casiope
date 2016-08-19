@@ -59,9 +59,9 @@ void PropertiesPatternConverter::format(
     if (option.length() == 0) {
       toAppendTo.append(1, (logchar) 0x7B /* '{' */);
 
-      LoggingEvent::KeySet keySet(event->getMDCKeySet());
+      KeySet keySet(event->getMDCKeySet());
 
-      for(LoggingEvent::KeySet::const_iterator iter = keySet.begin();
+      for(KeySet::const_iterator iter = keySet.begin();
           iter != keySet.end();
           iter++) {
           toAppendTo.append(1, (logchar) 0x7B /* '{' */);

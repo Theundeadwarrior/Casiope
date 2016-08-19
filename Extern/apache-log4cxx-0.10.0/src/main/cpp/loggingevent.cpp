@@ -124,9 +124,9 @@ bool LoggingEvent::getMDC(const LogString& key, LogString& dest) const
 
 }
 
-LoggingEvent::KeySet LoggingEvent::getMDCKeySet() const
+KeySet LoggingEvent::getMDCKeySet() const
 {
-        LoggingEvent::KeySet set;
+        KeySet set;
 
         if (mdcCopy != 0 && !mdcCopy->empty())
         {
@@ -185,9 +185,9 @@ bool LoggingEvent::getProperty(const LogString& key, LogString& dest) const
         return false;
 }
 
-LoggingEvent::KeySet LoggingEvent::getPropertyKeySet() const
+KeySet LoggingEvent::getPropertyKeySet() const
 {
-        LoggingEvent::KeySet set;
+        KeySet set;
 
         if (properties != 0)
         {

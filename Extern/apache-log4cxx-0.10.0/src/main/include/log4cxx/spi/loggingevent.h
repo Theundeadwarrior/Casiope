@@ -52,6 +52,7 @@ namespace log4cxx
 
                 <p>This class is of concern to those wishing to extend log4cxx.
                 */
+			    LOG4CXX_LIST_DEF(KeySet, LogString);
                 class LOG4CXX_EXPORT LoggingEvent :
                         public virtual helpers::ObjectImpl
                 {
@@ -152,7 +153,6 @@ namespace log4cxx
                         */
                         bool getMDC(const LogString& key, LogString& dest) const;
 
-                        LOG4CXX_LIST_DEF(KeySet, LogString);
                         /**
                         * Returns the set of of the key values in the MDC for the event.
                         * The returned set is unmodifiable by the caller.
