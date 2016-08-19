@@ -2,6 +2,8 @@
 
 #include "GraphicsCore/Window/WindowManager.h"
 
+#include <core/Logging/Logger.h>
+
 namespace Engine { class World; }
 
 namespace Renderer
@@ -23,10 +25,11 @@ namespace Renderer
 		// Getters
 		const GraphicsCore::WindowManager& GetWindowManager() const { return m_WindowManager; }
 
-
-
 	private:
 		int InitializeGlew();
+		int InitializeOpenGL();
+
+		log4cxx::LoggerPtr m_Logger;
 
 	private:
 		GraphicsCore::WindowManager m_WindowManager;

@@ -148,7 +148,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOG4CXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -201,7 +202,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOG4CXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -220,6 +222,7 @@
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\KeyboardEvent.cpp" />
     <ClCompile Include="Input\MouseEvent.cpp" />
+    <ClCompile Include="Logging\Logger.cpp" />
     <ClCompile Include="Memory\DebugAllocator.cpp" />
     <ClCompile Include="Singleton\Singleton.cpp" />
   </ItemGroup>
@@ -230,6 +233,7 @@
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\KeyboardEvent.h" />
     <ClInclude Include="Input\MouseEvent.h" />
+    <ClInclude Include="Logging\Logger.h" />
     <ClInclude Include="Memory\DebugAllocator.h" />
     <ClInclude Include="Singleton\Singleton.h" />
   </ItemGroup>

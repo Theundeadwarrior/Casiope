@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Core\Logging\Logger.h>
+
 struct SDL_Window;
 typedef void* SDL_GLContext;
 
@@ -24,6 +26,8 @@ namespace GraphicsCore
 	private:
 		SDL_Window* m_Window;
 		SDL_GLContext m_GLContext;
+
+		log4cxx::LoggerPtr m_Logger;
 
 	};
 
