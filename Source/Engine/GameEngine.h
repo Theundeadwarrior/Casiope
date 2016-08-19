@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SDL.h>
+
 #include "Core/Input/InputManager.h"
 #include "Core/Singleton/Singleton.h"
 #include "Engine/World/WorldManager.h"
@@ -14,6 +16,8 @@ namespace Engine
 
 		void Initialize();
 		void Shutdown();
+
+		void HandleEvents();
 
 		int Loop();
 
@@ -31,6 +35,8 @@ namespace Engine
 		Renderer::GraphicsEngine m_Renderer;
 		Core::InputManager m_InputManager;
 		WorldManager m_WorldManager;
+
+		SDL_Event m_CurrentEvent;
 
 	};
 

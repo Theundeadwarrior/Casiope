@@ -23,6 +23,7 @@ namespace Core
 		~InputManager();
 
 		void Update();
+		void HandleEvent(const SDL_Event & event);
 
 		void RegisterKeyboardListener(KeyboardInputListener* listener);
 		void UnregisterKeyboardListener(KeyboardInputListener* listener)
@@ -48,10 +49,10 @@ namespace Core
 		void NotifyKeyboardListener(const KeyboardInputEvent& event);
 		void NotifyMouseListener(const MouseInputEvent & event);
 
+
 	private:
 		std::vector<KeyboardInputListener*> m_KeyboardListener;
 		std::vector<MouseInputListener*> m_MouseListener;
-		SDL_Event m_CurrentEvent;
 
 		bool m_ResetMouseToPosition;
 		int m_OldMousePositionX;

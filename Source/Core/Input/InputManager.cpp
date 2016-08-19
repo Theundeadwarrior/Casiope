@@ -64,41 +64,35 @@ namespace Core
 		}
 	}
 
-	// todo : change to use SDL_GetKeyboardState instead of using the events for keyboard
+	void InputManager::HandleEvent(const SDL_Event& event)
+	{
+		switch (event.type)
+		{
+		case SDL_KEYDOWN:
+		{
+			if (event.key.repeat == false)
+			{
+				KeyboardEventType type = KeyboardEventType::KEY_PRESSED;
+				KeyboardInputEvent keyboardEvent(event.key.keysym.sym, type, 0, 0); // todo : pass in the cursor position so we can raycast from there.
+				NotifyKeyboardListener(keyboardEvent);
+			}
+			break;
+		}
+		case SDL_KEYUP:
+		{
+			if (event.key.repeat == false)
+			{
+				KeyboardEventType type = KeyboardEventType::KEY_RELEASED;
+				KeyboardInputEvent keyboardEvent(event.key.keysym.sym, type, 0, 0); // todo : pass in the cursor position so we can raycast from there.
+				NotifyKeyboardListener(keyboardEvent);
+			}
+			break;
+		}
+		}
+	}
 
 	void InputManager::Update()
 	{
-		while (SDL_PollEvent(&m_CurrentEvent))
-		{
-			switch (m_CurrentEvent.type)
-			{
-			case SDL_KEYDOWN:
-			{
-				if (m_CurrentEvent.key.repeat == false)
-				{
-					KeyboardEventType type = KeyboardEventType::KEY_PRESSED;
-					KeyboardInputEvent keyboardEvent(m_CurrentEvent.key.keysym.sym, type, 0, 0); // todo : pass in the cursor position so we can raycast from there.
-					NotifyKeyboardListener(keyboardEvent);
-				}
-				break;
-			}
-			case SDL_KEYUP:
-			{
-				if (m_CurrentEvent.key.repeat == false)
-				{
-					KeyboardEventType type = KeyboardEventType::KEY_RELEASED;
-					KeyboardInputEvent keyboardEvent(m_CurrentEvent.key.keysym.sym, type, 0, 0); // todo : pass in the cursor position so we can raycast from there.
-					NotifyKeyboardListener(keyboardEvent);
-				}
-				break;
-			}
-			case SDL_QUIT:
-				exit(0);
-				return;
-			}
-
-
-		}
 		// Mouse motion only since we cannot rely on MouseMotion events from SDL because we might reset the mouse.
 		{
 			int x = m_OldMousePositionX, y = m_OldMousePositionY;

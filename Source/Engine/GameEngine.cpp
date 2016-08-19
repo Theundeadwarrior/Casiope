@@ -42,11 +42,41 @@ namespace Engine
 		m_Renderer.Shutdown();
 	}
 
+	void GameEngine::HandleEvents()
+	{
+		while (SDL_PollEvent(&m_CurrentEvent))
+		{
+			if (m_CurrentEvent.type == SDL_KEYDOWN || m_CurrentEvent.type == SDL_KEYUP)
+			{
+				m_InputManager.HandleEvent(m_CurrentEvent);
+				break;
+			}
+			else if (m_CurrentEvent.type == SDL_WINDOWEVENT)
+			{
+				switch (m_CurrentEvent.window.event)
+				{
+				case SDL_WINDOWEVENT_FOCUS_GAINED:
+					m_InputManager.SetResetMouseBehavior(true);
+					break;
+				case SDL_WINDOWEVENT_FOCUS_LOST:
+					m_InputManager.SetResetMouseBehavior(false);
+					break;
+				}
+			}
+			else if (m_CurrentEvent.type == SDL_QUIT)
+			{
+				exit(0);
+				return;
+			}
+		}
+	}
+
 	int GameEngine::Loop()
 	{
 		// Loop
 		while (true)
 		{
+			HandleEvents();
 			m_InputManager.Update();
 			m_WorldManager.Update();
 			m_Renderer.RenderWorld(m_WorldManager.GetCurrentWorld()); // TODO lcharbonneau: We shouldn't the entire world!
