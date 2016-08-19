@@ -15,7 +15,7 @@ DEP_FILES = $(patsubst $(GAME_SOURCE_DIR)/%.cpp,$(DEPENDENCIES_DIR)/%.d,$(CPP_FI
 # Compiler config
 #CPPFLAGS += -MMD -D_LINUX_ -I$(GAME_SOURCE_DIR) -IExtern -IExtern/glm/include -std=c++11 -Werror -Wall -Wextra -Wstrict-aliasing -pedantic -Wunreachable-code -ggdb $(shell sdl2-config --cflags --libs)
 CPPFLAGS += -MMD -D_LINUX_ -DLOG4CXX_STATIC -I$(GAME_SOURCE_DIR) -IExtern -IExtern/glm/include -IExtern/apache-log4cxx-0.10.0/src/main/include -std=c++11 -ggdb $(shell sdl2-config --cflags --libs)
-LIBRARIES =  $(shell sdl2-config --static-libs) -lGL -lGLU -lglut -lGLEW -lGLEWmx
+LIBRARIES = $(shell sdl2-config --static-libs) -lGL -lGLU -lglut -lGLEW -lGLEWmx -llog4cxx 
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPENDENCIES_DIR)/$*.Td
 
 # Actions
