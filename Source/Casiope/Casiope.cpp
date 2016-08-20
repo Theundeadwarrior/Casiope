@@ -1,13 +1,18 @@
-#include "Engine/GameEngine.h"
+#include <Core/Logging/Logger.h>
+#include <Engine/GameEngine.h>
 
 #include "TestScene.h"
 
+
 int main(int argc, char** argv)
 {
+	core::Logger::CreateInstance();
+	core::Logger::GetInstance()->Initialize();
+
 	Engine::GameEngine::CreateInstance();
 	Engine::GameEngine::GetInstance()->Initialize();
 
-	const char* imagePath = "../../data/textures/skybox/front.bmp";
+	const char* imagePath = "../../../data/textures/skybox/front.bmp";
 	if (argc == 2)
 	{
 		imagePath = argv[1];

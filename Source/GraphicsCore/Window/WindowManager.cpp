@@ -8,8 +8,8 @@ namespace GraphicsCore
 {
 	WindowManager::WindowManager()
 	{
+		m_Logger = log4cxx::Logger::getLogger("graphics.window.WindowManager");
 	}
-
 
 	WindowManager::~WindowManager()
 	{
@@ -20,7 +20,7 @@ namespace GraphicsCore
 		// Initialisation de la SDL
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		{
-			std::cout << "Error when initializing SDL : " << SDL_GetError() << std::endl;
+			LOG4CXX_ERROR(m_Logger, "Error when initializing SDL: " << SDL_GetError());
 			SDL_Quit();
 			return -1;
 		}
@@ -41,7 +41,7 @@ namespace GraphicsCore
 		m_Window = SDL_CreateWindow("Casiope", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 		if (m_Window == nullptr)
 		{
-			std::cout << "Error when creating SDL Window: " << SDL_GetError() << std::endl;
+			LOG4CXX_ERROR(m_Logger, "Error when creating SDL Window: " << SDL_GetError());
 			SDL_Quit();
 			return -1;
 		}
@@ -50,7 +50,7 @@ namespace GraphicsCore
 
 		if (m_GLContext == NULL)
 		{
-			std::cout << SDL_GetError() << std::endl;
+			LOG4CXX_ERROR(m_Logger, "Error when creating SDL context: " << SDL_GetError());
 			SDL_DestroyWindow(m_Window);
 			SDL_Quit();
 

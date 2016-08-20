@@ -16,6 +16,9 @@
     <Filter Include="Singleton">
       <UniqueIdentifier>{ac64fc0d-1680-47fe-aa81-84355b39734b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{87cf9486-f746-4312-8394-a73b6063dc99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
@@ -36,6 +39,9 @@
     </ClCompile>
     <ClCompile Include="Singleton\Singleton.cpp">
       <Filter>Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="Logging\Logger.cpp">
+      <Filter>Logging</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +66,9 @@
     </ClInclude>
     <ClInclude Include="Singleton\Singleton.h">
       <Filter>Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="Logging\Logger.h">
+      <Filter>Logging</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -28,13 +28,13 @@ namespace Renderer
 #ifdef _LINUX_
 		glewExperimental = GL_TRUE;
 #endif
+		LOG4CXX_INFO(m_Logger, "GLEW initializing");
 		GLenum glewInitialization = glewInit();
 
 		if (glewInitialization != GLEW_OK)
 		{
 			// On affiche l'erreur grâce à la fonction : glewGetErrorString(GLenum code)
-
-			std::cout << "Erreur d'initialisation de GLEW : " << glewGetErrorString(glewInitialization) << std::endl;
+			LOG4CXX_ERROR(m_Logger, "Could no initialize GLEW: " << glewGetErrorString(glewInitialization));
 
 			// On quitte la SDL
 			m_WindowManager.ShutdownWindow();
@@ -42,15 +42,16 @@ namespace Renderer
 			return -1;
 		}
 
-		std::cout << "GLEW initialized !" << std::endl;
+		LOG4CXX_INFO(m_Logger, "GLEW initialized");
+		return 0;
 	}
 
-	int InitializeOpenGL()
+	int GraphicsEngine::InitializeOpenGL()
 	{
 		const GLubyte* renderer = glGetString(GL_RENDERER); // get renderer string
 		const GLubyte* version = glGetString(GL_VERSION); // version as a string
-		printf("Renderer: %s\n", renderer);
-		printf("OpenGL version supported %s\n", version);
+		LOG4CXX_INFO(m_Logger, "Renderer: " << renderer);
+		LOG4CXX_INFO(m_Logger, "OpenGL version supported: " << version);
 
 		// tell GL to only draw onto a pixel if the shape is closer to the viewer
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
@@ -61,6 +62,9 @@ namespace Renderer
 
 	int GraphicsEngine::Initialize()
 	{
+		// First, logger
+		m_Logger = log4cxx::Logger::getLogger("renderer.GraphicsEngine");
+
 		int result = m_WindowManager.InitWindow();
 		if (result != -1)
 			result = InitializeGlew();
