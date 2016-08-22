@@ -65,7 +65,7 @@ namespace Core
 			}
 		}
 
-		delete content;
+		delete[] content;
 	}
 	template <class T>
 	inline void SaveImageToFile(const Image<T>& inputParams, const char* tpath)

@@ -44,10 +44,6 @@ namespace Renderer
 		~SkyBox();
 
 		void Init(const SkyBoxParams& params); // todo: Change it to reset
-
-
-	private:
-		unsigned int m_TextureId;
 	};
 }
 

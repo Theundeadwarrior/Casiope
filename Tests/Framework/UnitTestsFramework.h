@@ -18,7 +18,7 @@ struct TestRegistry
 
 	void RunAllTests()
 	{
-		for each (auto& test in m_TestsToRun)
+		for (auto& test: m_TestsToRun)
 		{
 			test();
 		}
@@ -33,9 +33,10 @@ static TestRegistry s_TestRegistry;
 
 struct AutoRegister
 {
-	AutoRegister(void(*fn)(), const char* className)
+	AutoRegister(void(*fn)(), const char* /*className*/)
 	{
-		s_TestRegistry.RegisterTest(std::function<void()>(fn));
+		std::function<void()> fct(fn);
+		s_TestRegistry.RegisterTest(fct);
 	}
 };
 
@@ -48,4 +49,5 @@ struct AutoRegister
 	namespace name
 
 #define CHECK(expr) \
-	if (expr == false) throw;
+	if ((expr) == false) throw;
+

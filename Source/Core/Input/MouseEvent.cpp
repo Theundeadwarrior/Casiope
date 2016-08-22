@@ -8,6 +8,7 @@ namespace Core
 		, m_ClickType(clickType)
 		, m_Modifier(modifier)
 		, m_PosX(x)
+		, m_PosY(y)
 		, m_RelativeX(relx)
 		, m_RelativeY(rely)
 	{

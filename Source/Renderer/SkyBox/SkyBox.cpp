@@ -16,7 +16,7 @@ namespace Renderer
 	{
 	}
 
-	void SkyBox::Init(const SkyBoxParams& params)
+	void SkyBox::Init(const SkyBoxParams& /*params*/)
 	{
 
 	}

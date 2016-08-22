@@ -26,12 +26,12 @@ namespace Core
 		void HandleEvent(const SDL_Event & event);
 
 		void RegisterKeyboardListener(KeyboardInputListener* listener);
-		void UnregisterKeyboardListener(KeyboardInputListener* listener)
+		void UnregisterKeyboardListener(KeyboardInputListener* /*listener*/)
 		{
 			// todo
 		}
 		void RegisterMouseListener(MouseInputListener* listener);
-		void UnregisterMouseListener(MouseInputListener* listener)
+		void UnregisterMouseListener(MouseInputListener* /*listener*/)
 		{
 			// todo
 		}
