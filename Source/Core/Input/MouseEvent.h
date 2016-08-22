@@ -30,7 +30,7 @@ namespace Core
 	{
 	public:
 		MouseInputEvent(MouseEventType eventType, MouseClick clickType, MouseModifier modifier, int x, int y, int relx, int rely);
-	
+
 		MouseEventType m_EventType;
 		MouseClick m_ClickType;
 		MouseModifier m_Modifier;

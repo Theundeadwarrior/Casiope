@@ -13,7 +13,7 @@ namespace Casiope
 	void InitializeTestScene(Engine::GameEngine& gameEngine, const char* imagePath)
 	{
 		Engine::PerspectiveCameraParams params(45, 1024 / 768.0f, 0.1f, 1000.0f);
-		Engine::Camera* camera = new Engine::PerspectiveCamera(params, glm::vec3(0, 5, 5), glm::vec3(0, 0, -1), glm::vec3(0, 5, -5));
+//		Engine::Camera* camera = new Engine::PerspectiveCamera(params, glm::vec3(0, 5, 5), glm::vec3(0, 0, -1), glm::vec3(0, 5, -5));
 
 		Core::Image<unsigned char> skyBoxImages[6];
 		Core::LoadImageFromFile(skyBoxImages[0], imagePath);

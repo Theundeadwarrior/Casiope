@@ -8,13 +8,13 @@
 namespace Engine
 {
 	// TODO!!! FIX THE INIT OF POI AND UP!!!
-	Camera::Camera(const glm::vec3& position, const glm::vec3& POI, const glm::vec3& up)
+	Camera::Camera(const glm::vec3& position, const glm::vec3& /*POI*/, const glm::vec3& /*up*/)
 	: m_position(position)
 	, m_Orientation(1.0f,0.0f,0.0f,0.0f)
 	{
 	}
 
-	void Camera::GetViewMatrix(glm::mat4x4& matrix) 
+	void Camera::GetViewMatrix(glm::mat4x4& matrix)
 	{
 		matrix = GetViewMatrix();
 	}
