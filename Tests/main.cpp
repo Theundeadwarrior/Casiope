@@ -1,6 +1,6 @@
-#include "Framework\UnitTestsFramework.h"
+#include "Framework/UnitTestsFramework.h"
 
-#include "Core\DebugAllocatorTest.h"
+#include "Core/DebugAllocatorTest.h"
 
 int main()
 
