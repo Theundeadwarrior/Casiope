@@ -53,6 +53,8 @@ $RECYCLE.BIN/
 .AppleDesktop
 Network Trash Folder
 Temporary Items
+!/Extern
+/Temp
 .apdisk
 *.[Oo]bj
 *.user
