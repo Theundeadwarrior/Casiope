@@ -4,7 +4,7 @@
 
 #include <log4cxx/logger.h>
 
-namespace core {
+namespace Core {
 	class Logger : public Core::Singleton<Logger>
 	{
 	public:

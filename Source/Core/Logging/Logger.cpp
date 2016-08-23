@@ -7,7 +7,7 @@
 #include <iostream>
 #include <fstream>
 
-namespace core
+namespace Core
 {
 	Logger::Logger()
 	{}

@@ -6,8 +6,8 @@
 
 int main(int argc, char** argv)
 {
-	core::Logger::CreateInstance();
-	core::Logger::GetInstance()->Initialize();
+	Core::Logger::CreateInstance();
+	Core::Logger::GetInstance()->Initialize();
 
 	Engine::GameEngine::CreateInstance();
 	Engine::GameEngine::GetInstance()->Initialize();
