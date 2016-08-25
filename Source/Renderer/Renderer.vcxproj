@@ -182,7 +182,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)$(ProjectName)\;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\glm\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir);$(SolutionDir)$(ProjectName)\;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
