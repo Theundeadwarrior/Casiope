@@ -53,7 +53,6 @@ $RECYCLE.BIN/
 .AppleDesktop
 Network Trash Folder
 Temporary Items
-!/Extern
 /Temp
 .apdisk
 *.[Oo]bj
@@ -72,15 +71,15 @@ Temporary Items
 *.[Cc]ache
 *.ilk
 *.log
-*.lib
 *.sbr
 *.sdf
-*.exe
 /CodeWar.VC.VC.opendb
 *.tlog
 *.idb
-*.pdb
 *.db
-*.dll
 *.exp
 *.opendb
+/Output/*.lib
+/Output/*.exe
+/Output/*.pdb
+/Output/*.dll
