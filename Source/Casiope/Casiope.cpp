@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 	Engine::GameEngine::CreateInstance();
 	Engine::GameEngine::GetInstance()->Initialize();
 
-	const char* imagePath = "../../data/textures/skybox/front.bmp";
+	const char* imagePath = "../../../data/textures/skybox/front.bmp";
 	if (argc == 2)
 	{
 		imagePath = argv[1];
