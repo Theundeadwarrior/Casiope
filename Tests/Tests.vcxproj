@@ -132,7 +132,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);$(SolutionDir)..\Extern;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\Catch-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,13 +163,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\DebugAllocatorTest.cpp" />
     <ClCompile Include="main.cpp">
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">true</ShowIncludes>
+      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">false</ShowIncludes>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Core\DebugAllocatorTest.h" />
-    <ClInclude Include="Framework\UnitTestsFramework.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Core\Core.vcxproj">

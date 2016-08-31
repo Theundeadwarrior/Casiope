@@ -10,13 +10,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Framework\UnitTestsFramework.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\DebugAllocatorTest.h">
+    <ClCompile Include="Core\DebugAllocatorTest.cpp">
       <Filter>Core</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
 </Project>
