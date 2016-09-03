@@ -11,6 +11,7 @@
 
 #include "Engine/World/WorldManager.h"
 #include "Engine/Camera/PerspectiveCamera.h"
+#include "GraphicsCore/RenderState/RenderState.h"
 #include "GraphicsCore/Shaders/Shader.h"
 
 namespace Renderer
@@ -186,6 +187,58 @@ namespace Renderer
 		glm::vec3(1.5f,  0.2f, -1.5f),
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
+
+	void DrawSkyBox(Engine::World* world)
+	{
+
+	}
+
+	void MethodToCallOnceEverythingWorks(Engine::World* world)
+	{
+		////todo : add visibility system outside and iterate on visible objects only
+
+		//// Skybox
+		//DrawSkyBox(world);
+
+		////LowLevelGraphics::LowLevelAPI::ActivateWireframeMode();
+
+		GraphicsCore::RenderState::EnableDepthRead();
+		//{
+		//	//Opaque objects
+			GraphicsCore::RenderState::EnableDepthWrite();
+		//	{
+				GraphicsCore::RenderState::EnableBackFaceCulling();
+		//		{
+		//			DrawOpaqueObjects(scene);
+		//		}
+				GraphicsCore::RenderState::DisableBackFaceCulling();
+		//		//-----------------------------------------------------------------------------
+		//		//Opaque objects with holes (if we know the information?)
+		//		//draw
+		//	}
+		//	DrawDebugInfo(scene); // for debug only
+			GraphicsCore::RenderState::DisableDepthWrite();
+
+
+		//	//-----------------------------------------------------------------------------
+		//	//Alpha
+			GraphicsCore::RenderState::EnableAlphaBlending();
+		//	{
+		//		//-----------------------------------------------------------------------------
+		//		// draw alpha objects
+		//		//-----------------------------------------------------------------------------
+		//		LowLevelGraphics::LowLevelAPI::SetAlphaBlendFunc();
+
+		//		DrawAlphaObjects(scene);
+
+		//	}
+			GraphicsCore::RenderState::DisableAlphaBlending();
+			//}
+		GraphicsCore::RenderState::DisableDepthRead();
+		////LowLevelGraphics::LowLevelAPI::DeactivateWireframeMode();
+
+	}
+
 	void GraphicsEngine::RenderWorld(Engine::World* world)
 	{
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

@@ -10,6 +10,9 @@
     <Filter Include="Window">
       <UniqueIdentifier>{91bf547d-31a9-4165-ae83-bdf43b11563f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderState">
+      <UniqueIdentifier>{e9237b71-7392-4fd5-9c2e-2f4ad2279905}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Textures\Texture.h">
@@ -25,6 +28,9 @@
     <ClInclude Include="Shaders\Shader.h">
       <Filter>Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="RenderState\RenderState.h">
+      <Filter>RenderState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shaders\Shader.cpp">
@@ -38,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="Shaders\ShaderCompiler.cpp">
       <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderState\RenderState.cpp">
+      <Filter>RenderState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

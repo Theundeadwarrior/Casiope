@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RenderState\RenderState.cpp" />
     <ClCompile Include="Shaders\Shader.cpp" />
     <ClCompile Include="Shaders\ShaderCompiler.cpp" />
     <ClCompile Include="Textures\Texture.cpp" />
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsType.h" />
+    <ClInclude Include="RenderState\RenderState.h" />
     <ClInclude Include="Shaders\Shader.h" />
     <ClInclude Include="Shaders\ShaderCompiler.h" />
     <ClInclude Include="Textures\Texture.h" />
