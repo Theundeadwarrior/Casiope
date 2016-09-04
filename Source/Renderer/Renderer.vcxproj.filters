@@ -7,6 +7,12 @@
     <Filter Include="Material">
       <UniqueIdentifier>{ba42226d-de62-4e55-a7be-c067788a2eec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{5ba85ba1-7701-4ae0-b9e6-f13235dd8e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{96a81550-81c2-453d-8a97-677bf29d3a2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsEngine.h" />
@@ -16,6 +22,12 @@
     <ClInclude Include="Material\Material.h">
       <Filter>Material</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh\Mesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\GeometryInstance.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine.cpp" />
@@ -24,6 +36,12 @@
     </ClCompile>
     <ClCompile Include="Material\Material.cpp">
       <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh\Mesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\GeometryInstance.cpp">
+      <Filter>Geometry</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

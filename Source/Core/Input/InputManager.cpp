@@ -106,7 +106,7 @@ namespace Core
 
 			if (m_ResetMouseToPosition)
 			{
-				SDL_WarpMouseGlobal(m_OldMousePositionX, m_OldMousePositionY); // todo: change to window and not global warp
+				ResetMouseToCenter();
 			}
 			else
 			{

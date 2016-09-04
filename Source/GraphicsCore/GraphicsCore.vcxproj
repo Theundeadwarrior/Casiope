@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Geometry\Geometry.cpp" />
     <ClCompile Include="RenderState\RenderState.cpp" />
     <ClCompile Include="Shaders\Shader.cpp" />
     <ClCompile Include="Shaders\ShaderCompiler.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="Window\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Geometry\Geometry.h" />
     <ClInclude Include="GraphicsType.h" />
     <ClInclude Include="RenderState\RenderState.h" />
     <ClInclude Include="Shaders\Shader.h" />

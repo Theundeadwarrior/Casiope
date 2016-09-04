@@ -13,6 +13,9 @@
     <Filter Include="RenderState">
       <UniqueIdentifier>{e9237b71-7392-4fd5-9c2e-2f4ad2279905}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{cd5e646c-4c3b-4298-9590-7085cca6ec03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Textures\Texture.h">
@@ -31,6 +34,9 @@
     <ClInclude Include="RenderState\RenderState.h">
       <Filter>RenderState</Filter>
     </ClInclude>
+    <ClInclude Include="Geometry\Geometry.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shaders\Shader.cpp">
@@ -47,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="RenderState\RenderState.cpp">
       <Filter>RenderState</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Geometry.cpp">
+      <Filter>Geometry</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

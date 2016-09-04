@@ -20,8 +20,11 @@
     <ClInclude Include="Entity\Entity.h">
       <Filter>Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\Component.h">
-      <Filter>Entity</Filter>
+    <ClInclude Include="Component\Component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\VisualComponent.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -44,8 +47,11 @@
     <ClCompile Include="Entity\Entity.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\Component.cpp">
-      <Filter>Entity</Filter>
+    <ClCompile Include="Component\Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\VisualComponent.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +69,9 @@
     </Filter>
     <Filter Include="Entity">
       <UniqueIdentifier>{0da504ce-488c-4946-a0e4-82057702965b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{9ebf1586-fc0a-4cef-adad-eb703f2a65ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

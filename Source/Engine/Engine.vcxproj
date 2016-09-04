@@ -29,7 +29,8 @@
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\PerspectiveCamera.cpp" />
-    <ClCompile Include="Entity\Component.cpp" />
+    <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\VisualComponent.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="Object\Object.cpp" />
@@ -39,7 +40,8 @@
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\PerspectiveCamera.h" />
-    <ClInclude Include="Entity\Component.h" />
+    <ClInclude Include="Component\Component.h" />
+    <ClInclude Include="Component\VisualComponent.h" />
     <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Object\Object.h" />

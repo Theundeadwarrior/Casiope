@@ -4,12 +4,65 @@
 
 #include "Core/File/ImageUtilities.h"
 
+#include "GraphicsCore/Geometry/Geometry.h"
+
+#include "Engine/Component/VisualComponent.h"
+#include "Engine/Entity/Entity.h"
 #include "Engine/GameEngine.h"
 #include "Engine/Camera/PerspectiveCamera.h"
 #include "Game/World/GameWorld.h"
 
 namespace Casiope
 {
+	void GetCubeGeometry(GraphicsCore::Geometry& geoToFill) 
+	{
+		geoToFill.m_Vertex = std::vector<float> {
+			-0.5f, -0.5f, -0.5f,	0.5f, -0.5f, -0.5f,
+			0.5f, 0.5f, -0.5f,		0.5f, 0.5f, -0.5f,
+			-0.5f, 0.5f, -0.5f,		-0.5f, -0.5f, -0.5f,
+
+			-0.5f, -0.5f, 0.5f,		0.5f, -0.5f, 0.5f,
+			0.5f, 0.5f, 0.5f,		0.5f, 0.5f, 0.5f,
+			-0.5f, 0.5f, 0.5f,		-0.5f, -0.5f, 0.5f,
+
+			-0.5f, 0.5f, 0.5f,		-0.5f, 0.5f, -0.5f,
+			-0.5f, -0.5f, -0.5f,	-0.5f, -0.5f, -0.5f,
+			-0.5f, -0.5f, 0.5f,		-0.5f, 0.5f, 0.5f,
+
+			0.5f, 0.5f, 0.5f,		0.5f, 0.5f, -0.5f,
+			0.5f, -0.5f, -0.5f,		0.5f, -0.5f, -0.5f,
+			0.5f, -0.5f, 0.5f,		0.5f, 0.5f, 0.5f,
+
+			-0.5f, -0.5f, -0.5f,	0.5f, -0.5f, -0.5f,
+			0.5f, -0.5f, 0.5f,		0.5f, -0.5f, 0.5f,
+			-0.5f, -0.5f, 0.5f,		-0.5f, -0.5f, -0.5f,
+
+			-0.5f, 0.5f, -0.5f,		0.5f, 0.5f, -0.5f,
+			0.5f, 0.5f, 0.5f,		0.5f, 0.5f, 0.5f,
+			-0.5f, 0.5f, 0.5f,		-0.5f, 0.5f, -0.5f 
+		};
+
+		geoToFill.m_TextureCoordinates = std::vector<float>{
+			0.0f, 0.0f, 1.0f, 0.0f,	1.0f, 1.0f,
+			1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+
+			0.0f, 0.0f,	1.0f, 0.0f,	1.0f, 1.0f,
+			1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+
+			1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+			1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+			0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+			1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+
+			0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 
+			1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f
+		};
+	}
+
 	void InitializeTestScene(Engine::GameEngine& gameEngine, const char* imagePath)
 	{
 		Engine::PerspectiveCameraParams params(45, 1024 / 768.0f, 0.1f, 1000.0f);
@@ -34,12 +87,21 @@ namespace Casiope
 		//glm::mat4x4* projectionMatrix = (dynamic_cast<SceneManager::PerspectiveCamera*>(camera))->GetPerspectiveMat();
 		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::PROJECTIONMATRIX, projectionMatrix, SHADER_MATRIX44);
 
+		Engine::Entity cubes;
+		auto* m_VisComp = new Engine::VisualComponent();
+
+		GraphicsCore::Geometry cubesGeometry;
+		GetCubeGeometry(cubesGeometry);
+
+		cubes.AddComponent((Engine::Component*)m_VisComp);
+
+		// Do some shit with the visual component... need to fill in the Mesh and geometry.
+
 		Engine::WorldManager& worldManager = gameEngine.GetWorldManager();
 
 		Game::GameWorld* world = new Game::GameWorld();
 		world->SetCurrentPlayer(new Game::Player());
 		worldManager.SetCurrentWorld(world);
 		gameEngine.GetGraphicsEngine().InitTestGraphics();
-
 	}
 }

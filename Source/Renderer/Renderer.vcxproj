@@ -27,13 +27,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Geometry\GeometryInstance.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="Material\Material.h" />
+    <ClInclude Include="Mesh\Mesh.h" />
     <ClInclude Include="SkyBox\SkyBox.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Geometry\GeometryInstance.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="Material\Material.cpp" />
+    <ClCompile Include="Mesh\Mesh.cpp" />
     <ClCompile Include="SkyBox\SkyBox.cpp" />
   </ItemGroup>
   <ItemGroup>

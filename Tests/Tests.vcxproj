@@ -132,7 +132,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\Catch-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\Catch-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\DebugAllocatorTest.cpp" />
+    <ClCompile Include="Engine\CameraTest.cpp" />
     <ClCompile Include="main.cpp">
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">false</ShowIncludes>
     </ClCompile>
@@ -171,6 +172,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Source\Core\Core.vcxproj">
       <Project>{b2b761d1-9b8e-4405-bc21-57f42556d5bf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Source\Engine\Engine.vcxproj">
+      <Project>{d92dae06-f5b7-4080-859f-27f87ec20110}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
