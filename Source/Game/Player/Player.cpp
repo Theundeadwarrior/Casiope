@@ -11,8 +11,8 @@ namespace Game
 	{
 		Engine::PerspectiveCameraParams camParams(45, 1280 / 720.f, 0.1f, 1000.0f);
 		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-		glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-		glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+		glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
+		glm::vec3 cameraTarget = glm::vec3(1.0f, 0.0f, 0.0f);
 
 		m_FPCamera = new Engine::PerspectiveCamera(camParams, cameraPos, cameraTarget, up);
 
@@ -34,34 +34,34 @@ namespace Game
 	void Player::Update()
 	{
 		static const float movementSpeed = 0.005f; // todo, use the frameTime passed by parameter!
-		static const float rotationSpeed = 0.002f; // todo, use the frameTime passed by parameter!
+		static const float rotationSpeed = 0.2f; // todo, use the frameTime passed by parameter!
 
 
 		if (m_IsKeyPressed['w'])
 		{
-			glm::vec3 offset =  movementSpeed * m_FPCamera->GetPOI();
-			m_FPCamera->m_position += offset;
+			glm::vec3 offset =  movementSpeed * m_FPCamera->GetForward();
+			m_FPCamera->m_Position += offset;
 		}
 		if (m_IsKeyPressed['s'])
 		{
-			glm::vec3 offset = movementSpeed * m_FPCamera->GetPOI();
-			m_FPCamera->m_position -= offset;
+			glm::vec3 offset = movementSpeed * m_FPCamera->GetForward();
+			m_FPCamera->m_Position -= offset;
 		}
 		if (m_IsKeyPressed['a'])
 		{
-			glm::vec3 offset = movementSpeed * glm::normalize(m_FPCamera->GetRight());
-			m_FPCamera->m_position -= offset;
+			glm::vec3 offset = movementSpeed * m_FPCamera->GetRight();
+			m_FPCamera->m_Position -= offset;
 		}
 		if (m_IsKeyPressed['d'])
 		{
-			glm::vec3 offset = movementSpeed * glm::normalize( m_FPCamera->GetRight());
-			m_FPCamera->m_position += offset;
+			glm::vec3 offset = movementSpeed * m_FPCamera->GetRight();
+			m_FPCamera->m_Position += offset;
 		}
 
 		if (m_MouseX != 0 || m_MouseY != 0)
 		{
 			float yaw = m_MouseX * rotationSpeed;
-			float pitch = m_MouseY * rotationSpeed;
+			float pitch = -m_MouseY * rotationSpeed;
 			m_MouseX = 0;
 			m_MouseY = 0;
 

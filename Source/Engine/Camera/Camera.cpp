@@ -8,9 +8,10 @@
 namespace Engine
 {
 	// TODO!!! FIX THE INIT OF POI AND UP!!!
-	Camera::Camera(const glm::vec3& position, const glm::vec3& /*POI*/, const glm::vec3& /*up*/)
-	: m_position(position)
-	, m_Orientation(1.0f,0.0f,0.0f,0.0f)
+	Camera::Camera(const glm::vec3& position, const glm::vec3& POI, const glm::vec3& up)
+		: m_Position(position)
+		, m_Forward(POI)
+		, m_Up(up)
 	{
 	}
 
@@ -21,27 +22,34 @@ namespace Engine
 
 	void Camera::SetRelativeOrientation(float key_pitch, float key_yaw, float key_roll)
 	{
-		glm::quat key_quat = glm::quat(glm::vec3(key_pitch, key_yaw, key_roll));
+		m_Yaw += key_yaw;
+		m_Pitch += key_pitch;
 
-		m_Orientation = key_quat * m_Orientation;
-		m_Orientation = glm::normalize(m_Orientation);
+		if (m_Pitch >= 89.0f)
+			m_Pitch = 89.0f;
+		else if (m_Pitch <= -89.0f)
+			m_Pitch = -89.0f;
+
+		if (m_Yaw >= 360.0f)
+			m_Yaw -= 360.0f;
+		else if (m_Yaw <= -360.0f)
+			m_Yaw += 360.0f;
+
+		m_Forward.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+		m_Forward.y = sin(glm::radians(m_Pitch));
+		m_Forward.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+		m_Forward = glm::normalize(m_Forward);
 	}
 
 
 	void Camera::UpdateViewMatrix()
 	{
-		glm::mat4 rotate = glm::mat4_cast(m_Orientation);
-
-		glm::mat4 translate = glm::mat4(1.0f);
-		translate = glm::translate(translate, -m_position);
-
-		m_viewMatrix = rotate * translate;
+		m_ViewMatrix = glm::lookAt(m_Position, m_Position + m_Forward, m_Up);
 	}
 
 	glm::mat4x4 Camera::GetViewMatrix()
 	{
-
-		return m_viewMatrix;
+		return m_ViewMatrix;
 	}
 }
 
