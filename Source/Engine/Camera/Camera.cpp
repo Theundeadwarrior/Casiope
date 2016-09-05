@@ -12,6 +12,8 @@ namespace Engine
 		: m_Position(position)
 		, m_Forward(POI)
 		, m_Up(up)
+		, m_Pitch(0)
+		, m_Yaw(0)
 	{
 	}
 
