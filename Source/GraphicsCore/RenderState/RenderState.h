@@ -12,5 +12,5 @@ namespace GraphicsCore
 		void DisableBackFaceCulling();
 		void EnableAlphaBlending();
 		void DisableAlphaBlending();
-	};
+	}
 }

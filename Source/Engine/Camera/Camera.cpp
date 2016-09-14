@@ -22,7 +22,7 @@ namespace Engine
 		matrix = GetViewMatrix();
 	}
 
-	void Camera::SetRelativeOrientation(float key_pitch, float key_yaw, float key_roll)
+	void Camera::SetRelativeOrientation(float key_pitch, float key_yaw, float /*key_roll*/)
 	{
 		m_Yaw += key_yaw;
 		m_Pitch += key_pitch;

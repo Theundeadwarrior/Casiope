@@ -83,7 +83,7 @@ namespace Renderer
 
 	// REMOVE THIS
 	GraphicsCore::ShaderProgram* g_ShaderProgram;
-	GLuint VAO = 0;// , vao2 = 0;	 
+	GLuint VAO = 0;// , vao2 = 0;
 
 	void GraphicsEngine::InitTestGraphics()
 	{
@@ -145,7 +145,7 @@ namespace Renderer
 		glEnableVertexAttribArray(0);
 		// TexCoord attribute
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);		
+		glEnableVertexAttribArray(2);
 		glBindVertexArray(0); // Unbind VAO
 
 		const char* vertex_shader =
@@ -165,7 +165,7 @@ namespace Renderer
 			"  frag_colour = vec4 (1.0f, 0.5f, 0.2f, 1.0f);"
 			"}";
 
-		
+
 		g_ShaderProgram = new GraphicsCore::ShaderProgram(vertex_shader, fragment_shader, "");
 
 
@@ -188,12 +188,12 @@ namespace Renderer
 		glm::vec3(0.0f, 0.0f, 0.0f)
 	};
 
-	void DrawSkyBox(Engine::World* world)
+	void DrawSkyBox(Engine::World* /*world*/)
 	{
 
 	}
 
-	void MethodToCallOnceEverythingWorks(Engine::World* world)
+	void MethodToCallOnceEverythingWorks(Engine::World* /*world*/)
 	{
 		////todo : add visibility system outside and iterate on visible objects only
 
