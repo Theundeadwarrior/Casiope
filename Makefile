@@ -19,7 +19,7 @@ TESTS_DEP_FILES = $(patsubst $(TESTS_SOURCE_DIR)/%.cpp,$(DEPENDENCIES_DIR)/$(TES
 
 # Compiler config
 CPPFLAGS += -Wno-shift-negative-value -MMD -D_LINUX_ -DLOG4CXX_STATIC -I$(GAME_SOURCE_DIR) -IExtern -IExtern/glm/include -IExtern/apache-log4cxx-0.10.0/src/main/include -std=c++14 -Werror -Wall -Wextra -Wstrict-aliasing -pedantic -Wunreachable-code -ggdb $(shell sdl2-config --cflags)
-TESTFLAGS = -ITests
+TESTFLAGS = -ITests -IExtern/Catch-master/include
 LIBRARIES = $(shell sdl2-config --static-libs) -lGL -lGLU -lglut -lGLEW -lGLEWmx -llog4cxx
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPENDENCIES_DIR)/$(GAME_SOURCE_DIR)/$*.Td
 
@@ -76,6 +76,9 @@ all: Game Tests
 
 run: Game
 	cd Bin; ./Game ../Data/Textures/SkyBox/front.bmp; cd ..
+
+run-tests: Tests
+	./Bin/Tests
 
 # Dependency stuff
 $(DEPENDENCIES_DIR)/%.d: ;
