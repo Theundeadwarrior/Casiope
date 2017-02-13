@@ -19,6 +19,12 @@
     <Filter Include="Logging">
       <UniqueIdentifier>{87cf9486-f746-4312-8394-a73b6063dc99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{fb4a28cd-7be4-4fee-b854-1105f4615401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{4f243cdc-2776-497f-8f81-c0c4ad53c80f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
@@ -69,6 +75,12 @@
     </ClInclude>
     <ClInclude Include="Logging\Logger.h">
       <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="Containers\SmallVector.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

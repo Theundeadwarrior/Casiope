@@ -6,7 +6,7 @@
 
 #include "GraphicsCore/Geometry/Geometry.h"
 
-#include "Engine/Component/VisualComponent.h"
+#include "Engine/Component/StaticMeshComponent.h"
 #include "Engine/Entity/Entity.h"
 #include "Engine/GameEngine.h"
 #include "Engine/Camera/PerspectiveCamera.h"
@@ -88,7 +88,7 @@ namespace Casiope
 		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::PROJECTIONMATRIX, projectionMatrix, SHADER_MATRIX44);
 
 		Engine::Entity cubes;
-		auto* m_VisComp = new Engine::VisualComponent();
+		auto* m_VisComp = new Engine::StaticMeshComponent();
 
 		GraphicsCore::Geometry cubesGeometry;
 		GetCubeGeometry(cubesGeometry);

@@ -227,6 +227,7 @@
     <ClCompile Include="Singleton\Singleton.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Containers\SmallVector.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event\Event.h" />
     <ClInclude Include="File\ImageUtilities.h" />
@@ -234,6 +235,7 @@
     <ClInclude Include="Input\KeyboardEvent.h" />
     <ClInclude Include="Input\MouseEvent.h" />
     <ClInclude Include="Logging\Logger.h" />
+    <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Memory\DebugAllocator.h" />
     <ClInclude Include="Singleton\Singleton.h" />
   </ItemGroup>

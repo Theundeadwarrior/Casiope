@@ -23,8 +23,11 @@
     <ClInclude Include="Component\Component.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\VisualComponent.h">
+    <ClInclude Include="Component\StaticMeshComponent.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="World\MinecraftWorld.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -50,8 +53,11 @@
     <ClCompile Include="Component\Component.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\VisualComponent.cpp">
+    <ClCompile Include="Component\StaticMeshComponent.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="World\MinecraftWorld.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

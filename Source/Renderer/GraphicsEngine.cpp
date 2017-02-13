@@ -26,9 +26,8 @@ namespace Renderer
 
 	int GraphicsEngine::InitializeGlew()
 	{
-#ifdef _LINUX_
 		glewExperimental = GL_TRUE;
-#endif
+		
 		LOG4CXX_INFO(m_Logger, "GLEW initializing");
 		GLenum glewInitialization = glewInit();
 

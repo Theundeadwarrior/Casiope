@@ -16,5 +16,8 @@
     <ClCompile Include="Engine\CameraTest.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Core\SmallVectorTest.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

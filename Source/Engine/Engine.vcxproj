@@ -30,22 +30,24 @@
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="Component\Component.cpp" />
-    <ClCompile Include="Component\VisualComponent.cpp" />
+    <ClCompile Include="Component\StaticMeshComponent.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Resource\ResourceManager.cpp" />
+    <ClCompile Include="World\MinecraftWorld.cpp" />
     <ClCompile Include="World\WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\PerspectiveCamera.h" />
     <ClInclude Include="Component\Component.h" />
-    <ClInclude Include="Component\VisualComponent.h" />
+    <ClInclude Include="Component\StaticMeshComponent.h" />
     <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
+    <ClInclude Include="World\MinecraftWorld.h" />
     <ClInclude Include="World\WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
