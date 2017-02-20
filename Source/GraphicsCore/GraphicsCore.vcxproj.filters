@@ -16,6 +16,9 @@
     <Filter Include="Geometry">
       <UniqueIdentifier>{cd5e646c-4c3b-4298-9590-7085cca6ec03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LowLevelAPI">
+      <UniqueIdentifier>{2390abc6-3304-417b-90e2-476440dfe042}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Textures\Texture.h">
@@ -37,6 +40,9 @@
     <ClInclude Include="Geometry\Geometry.h">
       <Filter>Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="LowLevelAPI\LowLevelGPUAPI.h">
+      <Filter>LowLevelAPI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shaders\Shader.cpp">
@@ -56,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="Geometry\Geometry.cpp">
       <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="LowLevelAPI\LowLevelGPUAPI.cpp">
+      <Filter>LowLevelAPI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

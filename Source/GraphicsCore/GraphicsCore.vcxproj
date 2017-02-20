@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Geometry\Geometry.cpp" />
+    <ClCompile Include="LowLevelAPI\LowLevelGPUAPI.cpp" />
     <ClCompile Include="RenderState\RenderState.cpp" />
     <ClCompile Include="Shaders\Shader.cpp" />
     <ClCompile Include="Shaders\ShaderCompiler.cpp" />
@@ -37,6 +38,7 @@
   <ItemGroup>
     <ClInclude Include="Geometry\Geometry.h" />
     <ClInclude Include="GraphicsType.h" />
+    <ClInclude Include="LowLevelAPI\LowLevelGPUAPI.h" />
     <ClInclude Include="RenderState\RenderState.h" />
     <ClInclude Include="Shaders\Shader.h" />
     <ClInclude Include="Shaders\ShaderCompiler.h" />

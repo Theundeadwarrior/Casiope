@@ -20,7 +20,9 @@ namespace Renderer
 		int Initialize();
 		int Shutdown();
 
+		void StartRendering();
 		void RenderWorld(Engine::World* world);
+		void EndRendering();
 
 		// Getters
 		const GraphicsCore::WindowManager& GetWindowManager() const { return m_WindowManager; }

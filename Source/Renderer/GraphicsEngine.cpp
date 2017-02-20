@@ -187,28 +187,50 @@ namespace Renderer
 		glm::vec3(0.0f, 0.0f, 0.0f)
 	};
 
-	void DrawSkyBox(Engine::World* /*world*/)
+	void DrawOpaqueObjects(Engine::World* world)
 	{
+		GLint modelLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "model");
+		GLint viewLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "view");
+		GLint projLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "projection");
 
+		glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+		glm::mat4 projMatrix;
+		((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
+
+
+		glUseProgram(g_ShaderProgram->GetProgramId());
+		glBindVertexArray(VAO);
+
+		for (GLuint i = 0; i < 10; i++)
+		{
+			// Calculate the model matrix for each object and pass it to shader before drawing
+			glm::mat4 model;
+			model = glm::translate(model, cubePositions[i]);
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		glBindVertexArray(0);
 	}
 
-	void MethodToCallOnceEverythingWorks(Engine::World* /*world*/)
+	void GraphicsEngine::RenderWorld(Engine::World* world)
 	{
 		////todo : add visibility system outside and iterate on visible objects only
 
 		//// Skybox
 		//DrawSkyBox(world);
 
-		////LowLevelGraphics::LowLevelAPI::ActivateWireframeMode();
-
-		GraphicsCore::RenderState::EnableDepthRead();
+		//GraphicsCore::RenderState::EnableDepthRead();
 		//{
 		//	//Opaque objects
-			GraphicsCore::RenderState::EnableDepthWrite();
+			//GraphicsCore::RenderState::EnableDepthWrite();
 		//	{
 				GraphicsCore::RenderState::EnableBackFaceCulling();
 		//		{
-		//			DrawOpaqueObjects(scene);
+					DrawOpaqueObjects(world);
 		//		}
 				GraphicsCore::RenderState::DisableBackFaceCulling();
 		//		//-----------------------------------------------------------------------------
@@ -216,12 +238,12 @@ namespace Renderer
 		//		//draw
 		//	}
 		//	DrawDebugInfo(scene); // for debug only
-			GraphicsCore::RenderState::DisableDepthWrite();
+			//GraphicsCore::RenderState::DisableDepthWrite();
 
 
 		//	//-----------------------------------------------------------------------------
 		//	//Alpha
-			GraphicsCore::RenderState::EnableAlphaBlending();
+			//GraphicsCore::RenderState::EnableAlphaBlending();
 		//	{
 		//		//-----------------------------------------------------------------------------
 		//		// draw alpha objects
@@ -231,51 +253,19 @@ namespace Renderer
 		//		DrawAlphaObjects(scene);
 
 		//	}
-			GraphicsCore::RenderState::DisableAlphaBlending();
+			//GraphicsCore::RenderState::DisableAlphaBlending();
 			//}
-		GraphicsCore::RenderState::DisableDepthRead();
-		////LowLevelGraphics::LowLevelAPI::DeactivateWireframeMode();
-
+		//GraphicsCore::RenderState::DisableDepthRead();
 	}
 
-	void GraphicsEngine::RenderWorld(Engine::World* world)
+	void GraphicsEngine::StartRendering()
 	{
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
 
-		unsigned int windowSize[2];
-		m_WindowManager.GetCurrentWindowSize(windowSize[0], windowSize[1]);
-
-		GLint modelLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "model");
-		GLint viewLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "view");
-		GLint projLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "projection");
-
-		glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-
-		// Note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-		glm::mat4 projMatrix;
-		((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
-
-		glUseProgram(g_ShaderProgram->GetProgramId());
-
-		glBindVertexArray(VAO);
-		for (GLuint i = 0; i < 10; i++)
-		{
-			// Calculate the model matrix for each object and pass it to shader before drawing
-			glm::mat4 model;
-			model = glm::translate(model, cubePositions[i]);
-			//GLfloat angle = 20.0f * i;
-			//model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
-
-		glBindVertexArray(0);
-
-
+	void GraphicsEngine::EndRendering()
+	{
 		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
 	}
 }

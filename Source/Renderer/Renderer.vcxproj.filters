@@ -28,6 +28,9 @@
     <ClInclude Include="Geometry\GeometryInstance.h">
       <Filter>Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh\MinecraftWorldMesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine.cpp" />
@@ -42,6 +45,9 @@
     </ClCompile>
     <ClCompile Include="Geometry\GeometryInstance.cpp">
       <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh\MinecraftWorldMesh.cpp">
+      <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

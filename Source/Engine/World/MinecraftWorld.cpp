@@ -24,6 +24,8 @@ namespace Engine
 		testChunk->m_Blocks[3][2][0] = MinecraftBlockType::Grass;
 		testChunk->m_Blocks[3][3][0] = MinecraftBlockType::Grass;
 		m_LoadedChunks.push_back(testChunk);
+
+		testChunk->UpdateWorldChunkMesh();
 	}
 
 	MinecraftWorld::MinecraftWorld()
@@ -33,5 +35,20 @@ namespace Engine
 
 	MinecraftWorld::~MinecraftWorld()
 	{
+	}
+
+	void MinecraftWorldChunk::UpdateWorldChunkMesh()
+	{
+		m_Mesh.Reset();
+		for (uint32_t i = 0; i < WORLD_CHUNK_WIDTH; ++i)
+		{
+			for (uint32_t j = 0; j < WORLD_CHUNK_LENGHT; ++j)
+			{
+				for (uint32_t k = 0; k < WORLD_CHUNK_HEIGHT; ++k)
+				{
+					m_Mesh.AddBlock(i, j, k, static_cast<uint8_t>(m_Blocks[i][j][k]));
+				}
+			}
+		}
 	}
 }
