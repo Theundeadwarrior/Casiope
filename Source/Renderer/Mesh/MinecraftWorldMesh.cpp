@@ -11,14 +11,12 @@ namespace Renderer
 
 	inline void MinecraftChunkMesh::AddBlock(uint8_t i, uint8_t j, uint8_t k, uint8_t textureValue)
 	{
-		m_ChunkGeometry->m_Vertex.push_back(Core::Vector3(i, j, k));
-		m_ChunkGeometry->m_TextureNumber.push_back(textureValue);
+		m_ChunkGeometry->m_Vertex.push_back(Core::Vector4(i, j, k, textureValue));
 	}
 
 	inline void MinecraftChunkMesh::Reset()
 	{
 		m_ChunkGeometry->m_Vertex.clear();
-		m_ChunkGeometry->m_TextureNumber.clear();
 	}
 
 	MinecraftChunkMesh::~MinecraftChunkMesh()

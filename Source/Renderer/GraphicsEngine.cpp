@@ -2,17 +2,18 @@
 #include <iostream>
 #include <SDL.h>
 
-
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 #include "Engine/World/WorldManager.h"
 #include "Engine/Camera/PerspectiveCamera.h"
+
+#include "GraphicsCore/LowLevelAPI/LowLevelGPUAPI.h"
 #include "GraphicsCore/RenderState/RenderState.h"
 #include "GraphicsCore/Shaders/Shader.h"
+#include "GraphicsCore/Geometry/Geometry.h"
 
 namespace Renderer
 {
@@ -82,6 +83,7 @@ namespace Renderer
 
 	// REMOVE THIS
 	GraphicsCore::ShaderProgram* g_ShaderProgram;
+	GraphicsCore::Geometry g_Geometry;
 	GLuint VAO = 0;// , vao2 = 0;
 
 	void GraphicsEngine::InitTestGraphics()
@@ -130,22 +132,7 @@ namespace Renderer
 			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 		};
 
-		GLuint VBO;
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		// Position attribute
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
-		// TexCoord attribute
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);
-		glBindVertexArray(0); // Unbind VAO
+		GraphicsCore::GeometryBuilder(g_Geometry, GraphicsCore::GeometryGPUType::V3T2, vertices, sizeof(vertices));
 
 		const char* vertex_shader =
 			"#version 400\n"
@@ -164,14 +151,7 @@ namespace Renderer
 			"  frag_colour = vec4 (1.0f, 0.5f, 0.2f, 1.0f);"
 			"}";
 
-
 		g_ShaderProgram = new GraphicsCore::ShaderProgram(vertex_shader, fragment_shader, "");
-
-
-
-
-
-		// Need to move everything up somewhere else...
 	}
 
 	glm::vec3 cubePositions[] = {
@@ -201,9 +181,6 @@ namespace Renderer
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
 
 
-		glUseProgram(g_ShaderProgram->GetProgramId());
-		glBindVertexArray(VAO);
-
 		for (GLuint i = 0; i < 10; i++)
 		{
 			// Calculate the model matrix for each object and pass it to shader before drawing
@@ -211,9 +188,8 @@ namespace Renderer
 			model = glm::translate(model, cubePositions[i]);
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			GraphicsCore::GPUAPI::DrawCall(&g_Geometry, g_ShaderProgram);
 		}
-		glBindVertexArray(0);
 	}
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
@@ -223,10 +199,10 @@ namespace Renderer
 		//// Skybox
 		//DrawSkyBox(world);
 
-		//GraphicsCore::RenderState::EnableDepthRead();
+		GraphicsCore::RenderState::EnableDepthRead();
 		//{
 		//	//Opaque objects
-			//GraphicsCore::RenderState::EnableDepthWrite();
+			GraphicsCore::RenderState::EnableDepthWrite();
 		//	{
 				GraphicsCore::RenderState::EnableBackFaceCulling();
 		//		{
@@ -238,7 +214,7 @@ namespace Renderer
 		//		//draw
 		//	}
 		//	DrawDebugInfo(scene); // for debug only
-			//GraphicsCore::RenderState::DisableDepthWrite();
+			GraphicsCore::RenderState::DisableDepthWrite();
 
 
 		//	//-----------------------------------------------------------------------------
@@ -255,13 +231,17 @@ namespace Renderer
 		//	}
 			//GraphicsCore::RenderState::DisableAlphaBlending();
 			//}
-		//GraphicsCore::RenderState::DisableDepthRead();
+		GraphicsCore::RenderState::DisableDepthRead();
 	}
 
 	void GraphicsEngine::StartRendering()
 	{
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+		GraphicsCore::RenderState::EnableDepthWrite();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		GraphicsCore::RenderState::DisableDepthWrite();
+
 	}
 
 	void GraphicsEngine::EndRendering()
