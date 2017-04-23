@@ -83,3 +83,11 @@ Temporary Items
 /Output/*.exe
 /Output/*.pdb
 /Output/*.dll
+/Source/.vs/Casiope/v15
+/Source/.vs/Casiope/v15
+/Source/.vs/Casiope/v15/Solution.VC.db-wal
+/Source/.vs/Casiope/v15/Solution.VC.db-shm
+/Source/.vs/Casiope/v15/ipch/AutoPCH/RENDERER-9d32ac33/MINECRAFTWORLDMESH-b84f944a
+/Source/.vs/Casiope/v15/Solution.VC.db-shm
+*.db-wal
+*.db-shm

@@ -43,6 +43,9 @@
     <ClInclude Include="LowLevelAPI\LowLevelGPUAPI.h">
       <Filter>LowLevelAPI</Filter>
     </ClInclude>
+    <ClInclude Include="LowLevelAPI\LowLevelGPUResource.h">
+      <Filter>LowLevelAPI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shaders\Shader.cpp">
@@ -64,6 +67,9 @@
       <Filter>Geometry</Filter>
     </ClCompile>
     <ClCompile Include="LowLevelAPI\LowLevelGPUAPI.cpp">
+      <Filter>LowLevelAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="LowLevelAPI\LowLevelGPUResource.cpp">
       <Filter>LowLevelAPI</Filter>
     </ClCompile>
   </ItemGroup>

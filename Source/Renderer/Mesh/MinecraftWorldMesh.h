@@ -1,25 +1,23 @@
 #pragma once
 
 #include <stdint.h>
-
-namespace GraphicsCore { class MinecraftWorldGeometry; }
+#include "GraphicsCore/Geometry/Geometry.h"
 
 namespace Renderer
 {
+	// GPU resource wrapper
 	class MinecraftChunkMesh
 	{
 	public:
-		MinecraftChunkMesh(unsigned int chunkSizeX, unsigned int chunkSizeY, unsigned int chunkSizeZ);
+		//MinecraftChunkMesh(unsigned int chunkSizeX, unsigned int chunkSizeY, unsigned int chunkSizeZ);
 
-
-		void AddBlock(uint8_t i, uint8_t j, uint8_t k, uint8_t textureValue);
-
-		void Reset();
+		inline void Update(void* data, uint32_t count);
+		inline void Reset();
 
 		~MinecraftChunkMesh();
 
 	private:
-		GraphicsCore::MinecraftWorldGeometry* m_ChunkGeometry; // maybe we should have this not as a pointer!!
+		GraphicsCore::MinecraftChunkGeometry m_ChunkGeometry; // maybe we should have this not as a pointer!!
 	};
 }
 

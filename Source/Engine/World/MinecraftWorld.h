@@ -23,22 +23,25 @@ namespace Engine
 		Air = 0
 	};
 
+	// CPU Resource
 	class MinecraftWorldChunk
 	{
 	public:
-		MinecraftWorldChunk()
-			: m_Mesh(WORLD_CHUNK_WIDTH, WORLD_CHUNK_LENGHT, WORLD_CHUNK_HEIGHT)
-		{
-		}
-
 		void UpdateWorldChunkMesh();
-		
+
+		MinecraftBlockType GetBlock(uint32_t x, uint32_t y, uint32_t z);
+
+		void SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type);
+
 		Renderer::MinecraftChunkMesh m_Mesh;
 		MinecraftBlockType m_Blocks[WORLD_CHUNK_WIDTH][WORLD_CHUNK_LENGHT][WORLD_CHUNK_HEIGHT];
 		Core::Vector3 m_Position = { 0, 0, 0 };
+		bool m_NeedsUpdate = false;
 		// todo: cache important information
 	};
 
+
+	// World is in charge of managing the chunks and streaming them as we go. It is also called to see which chunks needs to be updated.
 	class MinecraftWorld
 	{
 	public:
@@ -49,6 +52,7 @@ namespace Engine
 
 	private:
 		std::list<MinecraftWorldChunk*> m_LoadedChunks;
+		MinecraftWorldChunk* m_CurrentChunk; // player is currently in that chunk
 	};
 
 }

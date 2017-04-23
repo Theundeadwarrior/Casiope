@@ -14,6 +14,7 @@
 #include "GraphicsCore/RenderState/RenderState.h"
 #include "GraphicsCore/Shaders/Shader.h"
 #include "GraphicsCore/Geometry/Geometry.h"
+#include "GraphicsCore/LowLevelAPI/LowLevelGPUResource.h"
 
 namespace Renderer
 {
@@ -64,7 +65,7 @@ namespace Renderer
 	int GraphicsEngine::Initialize()
 	{
 		// First, logger
-		m_Logger = log4cxx::Logger::getLogger("renderer.GraphicsEngine");
+		m_Logger = log4cxx::Logger::getLogger("GraphicsEngine");
 
 		int result = m_WindowManager.InitWindow();
 		if (result != -1)
@@ -132,7 +133,7 @@ namespace Renderer
 			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 		};
 
-		GraphicsCore::GeometryBuilder(g_Geometry, GraphicsCore::GeometryGPUType::V3T2, vertices, sizeof(vertices));
+		g_Geometry.m_GPUParams.m_VAO = GraphicsCore::BuildVertexBufferFromVertexArray(GraphicsCore::GeometryGPUType::V3FT2F, vertices, sizeof(vertices));
 
 		const char* vertex_shader =
 			"#version 400\n"

@@ -5,6 +5,7 @@
 #include <log4cxx/logger.h>
 
 namespace Core {
+
 	class Logger : public Core::Singleton<Logger>
 	{
 	public:
@@ -13,7 +14,6 @@ namespace Core {
 		void Initialize();
 		void Shutdown();
 
-	protected:
 
 	private:
 		Logger();
