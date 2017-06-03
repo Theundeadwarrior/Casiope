@@ -14,11 +14,10 @@ namespace Core {
 		void Initialize();
 		void Shutdown();
 
-
 	private:
 		Logger();
 		~Logger();
-
+		 
 		log4cxx::LoggerPtr m_Logger;
 	};
 }

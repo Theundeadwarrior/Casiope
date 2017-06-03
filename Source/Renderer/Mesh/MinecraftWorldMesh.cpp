@@ -14,12 +14,12 @@ namespace Renderer
 		g_Geometry.m_GPUParams.m_VAO = GraphicsCore::BuildVertexBufferFromVertexArray(GraphicsCore::GeometryGPUType::V3T2, vertices, sizeof(vertices));*/
 	
 
-	inline void MinecraftChunkMesh::Update(void* data, uint32_t count)
+	void MinecraftChunkMesh::Update(void* data, uint32_t count)
 	{
 		m_ChunkGeometry.UpdateGeometry(data, count);
 	}
 
-	inline void MinecraftChunkMesh::Reset()
+	void MinecraftChunkMesh::Reset()
 	{
 		//m_ChunkGeometry->m_Vertex.clear();
 	}

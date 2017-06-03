@@ -16,6 +16,7 @@ namespace Engine
 			}
 		}
 		m_LoadedChunks.push_back(testChunk);
+		testChunk->m_NeedsUpdate = true;
 
 		testChunk->UpdateWorldChunkMesh();
 	}

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Renderer/SkyBox/SkyBox.h"
 
 namespace Engine
 {
@@ -13,14 +12,10 @@ namespace Engine
 		virtual ~World() {};
 		virtual void Update();
 
-		// getters
 		Camera* GetCamera() const { return m_Camera; }
 
 	protected:
 		Camera* m_Camera; // todo: Move this to a player class!! We could have multiple players!
-
-	private:
-		Renderer::SkyBox m_SkyBox;
 	};
 
 

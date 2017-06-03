@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\DebugAllocatorTest.cpp" />
+    <ClCompile Include="Core\FileManagementTest.cpp" />
     <ClCompile Include="Core\SmallVectorTest.cpp" />
     <ClCompile Include="Engine\CameraTest.cpp" />
     <ClCompile Include="main.cpp">

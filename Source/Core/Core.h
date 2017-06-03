@@ -1,11 +1,24 @@
-
 #pragma once
 
+#define USING(x) (4 / (x) - x)
+
+#define IN_USE 1
+#define NOT_IN_USE 2
+
 #ifdef _LINUX_
+#define PLATFORM_LINUX IN_USE
+#define PLATFORM_WINDOWS NOT_IN_USE
+#elif _WIN32
+#define PLATFORM_LINUX NOT_IN_USE
+#define PLATFORM_WINDOWS IN_USE
+#endif 
+
+
+#if USING( PLATFORM_LINUX )
     #define DLL_EXPORT
     #undef assert
     #define assert(x, y)
-#else
+#elif USING( PLATFORM_WINDOWS )
     #define DLL_EXPORT __declspec(dllexport)
 #endif
 

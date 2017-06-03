@@ -11,8 +11,8 @@ namespace Renderer
 	public:
 		//MinecraftChunkMesh(unsigned int chunkSizeX, unsigned int chunkSizeY, unsigned int chunkSizeZ);
 
-		inline void Update(void* data, uint32_t count);
-		inline void Reset();
+		void Update(void* data, uint32_t count);
+		void Reset();
 
 		~MinecraftChunkMesh();
 

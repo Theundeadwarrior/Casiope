@@ -18,7 +18,7 @@ namespace Core
 		static void DestroyInstance()
 		{
 			assert(m_Instance != nullptr);
-			delete m_Instance();
+			delete m_Instance;
 			m_Instance = nullptr;
 		}
 
@@ -30,6 +30,7 @@ namespace Core
 		Singleton() {}
 		virtual ~Singleton() {}
 	private:
+		Singleton(const Singleton&) = delete;
 		static T* m_Instance;
 	};
 

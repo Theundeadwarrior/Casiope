@@ -219,6 +219,7 @@
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event\Event.cpp" />
+    <ClCompile Include="File\FileManagement.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\KeyboardEvent.cpp" />
     <ClCompile Include="Input\MouseEvent.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Containers\SmallVector.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event\Event.h" />
+    <ClInclude Include="File\FileManagement.h" />
     <ClInclude Include="File\ImageUtilities.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\KeyboardEvent.h" />

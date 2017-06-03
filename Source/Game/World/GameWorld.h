@@ -2,8 +2,13 @@
 
 #include <vector>
 
+#include "Renderer/SkyBox/SkyBox.h"
+
+#include "Engine/World/MinecraftWorld.h"
 #include "Engine/World/WorldManager.h"
+
 #include "Game/Player/Player.h"
+
 
 namespace Game
 {
@@ -16,5 +21,7 @@ namespace Game
 
 	private:
 		Player* m_CurrentPlayer;
+		Engine::MinecraftWorld m_MinecraftWorld;
+		Renderer::SkyBox m_SkyBox;
 	};
 }
