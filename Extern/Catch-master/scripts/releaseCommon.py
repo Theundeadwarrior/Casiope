@@ -7,7 +7,7 @@ import string
 
 from scriptCommon import catchPath
 
-versionParser = re.compile( r'(\s*Version\slibraryVersion)\s*\(\s*(.*)\s*,\s*(.*)\s*,\s*(.*)\s*,\s*\"(.*)\"\s*,\s*(.*)\s*\).*' )
+versionParser = re.compile( r'(\s*static\sVersion\sversion)\s*\(\s*(.*)\s*,\s*(.*)\s*,\s*(.*)\s*,\s*\"(.*)\"\s*,\s*(.*)\s*\).*' )
 rootPath = os.path.join( catchPath, 'include/' )
 versionPath = os.path.join( rootPath, "internal/catch_version.hpp" )
 readmePath = os.path.join( catchPath, "README.md" )
@@ -75,6 +75,7 @@ class Version:
             f.write( line + "\n" )
 
     def updateReadmeFile(self):
+        downloadParser = re.compile( r'<a href=\"https://github.com/philsquared/Catch/releases/download/v\d+\.\d+\.\d+/catch.hpp\">' )
         f = open( readmePath, 'r' )
         lines = []
         for line in f:
@@ -82,8 +83,6 @@ class Version:
         f.close()
         f = open( readmePath, 'w' )
         for line in lines:
-            if line.startswith( "*v" ):
-                f.write( '*v{0}*\n'.format( self.getVersionString() ) )
-            else:
-                f.write( line + "\n" )
+            line = downloadParser.sub( r'<a href="https://github.com/philsquared/Catch/releases/download/v{0}/catch.hpp">'.format(self.getVersionString()) , line)
+            f.write( line + "\n" )
 

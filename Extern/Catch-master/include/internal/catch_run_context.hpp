@@ -64,7 +64,8 @@ namespace Catch {
             m_context( getCurrentMutableContext() ),
             m_activeTestCase( CATCH_NULL ),
             m_config( _config ),
-            m_reporter( reporter )
+            m_reporter( reporter ),
+            m_shouldReportUnexpected ( true )
         {
             m_context.setRunner( this );
             m_context.setConfig( m_config );
@@ -97,10 +98,12 @@ namespace Catch {
 
 
             do {
-                m_trackerContext.startRun();
+                ITracker& rootTracker = m_trackerContext.startRun();
+                assert( rootTracker.isSectionTracker() );
+                static_cast<SectionTracker&>( rootTracker ).addInitialFilters( m_config->getSectionsToRun() );
                 do {
                     m_trackerContext.startCycle();
-                    m_testCaseTracker = &SectionTracker::acquire( m_trackerContext, testInfo.name );
+                    m_testCaseTracker = &SectionTracker::acquire( m_trackerContext, TestCaseTracking::NameAndLocation( testInfo.name, testInfo.lineInfo ) );
                     runCurrentTest( redirectedCout, redirectedCerr );
                 }
                 while( !m_testCaseTracker->isSuccessfullyCompleted() && !aborting() );
@@ -142,11 +145,12 @@ namespace Catch {
                 m_totals.assertions.failed++;
             }
 
-            if( m_reporter->assertionEnded( AssertionStats( result, m_messages, m_totals ) ) )
-                m_messages.clear();
+            // We have no use for the return value (whether messages should be cleared), because messages were made scoped
+            // and should be let to clear themselves out.
+            static_cast<void>(m_reporter->assertionEnded(AssertionStats(result, m_messages, m_totals)));
 
             // Reset working state
-            m_lastAssertionInfo = AssertionInfo( "", m_lastAssertionInfo.lineInfo, "{Unknown expression after the reported line}" , m_lastAssertionInfo.resultDisposition );
+            m_lastAssertionInfo = AssertionInfo( std::string(), m_lastAssertionInfo.lineInfo, "{Unknown expression after the reported line}" , m_lastAssertionInfo.resultDisposition );
             m_lastResult = result;
         }
 
@@ -155,10 +159,7 @@ namespace Catch {
             Counts& assertions
         )
         {
-            std::ostringstream oss;
-            oss << sectionInfo.name << "@" << sectionInfo.lineInfo;
-
-            ITracker& sectionTracker = SectionTracker::acquire( m_trackerContext, oss.str() );
+            ITracker& sectionTracker = SectionTracker::acquire( m_trackerContext, TestCaseTracking::NameAndLocation( sectionInfo.name, sectionInfo.lineInfo ) );
             if( !sectionTracker.isOpen() )
                 return false;
             m_activeSections.push_back( &sectionTracker );
@@ -217,18 +218,26 @@ namespace Catch {
         virtual std::string getCurrentTestName() const {
             return m_activeTestCase
                 ? m_activeTestCase->getTestCaseInfo().name
-                : "";
+                : std::string();
         }
 
         virtual const AssertionResult* getLastResult() const {
             return &m_lastResult;
         }
 
+        virtual void exceptionEarlyReported() {
+            m_shouldReportUnexpected = false;
+        }
+
         virtual void handleFatalErrorCondition( std::string const& message ) {
-            ResultBuilder resultBuilder = makeUnexpectedResultBuilder();
-            resultBuilder.setResultType( ResultWas::FatalErrorCondition );
-            resultBuilder << message;
-            resultBuilder.captureExpression();
+            // Don't rebuild the result -- the stringification itself can cause more fatal errors
+            // Instead, fake a result data.
+            AssertionResultData tempResult;
+            tempResult.resultType = ResultWas::FatalErrorCondition;
+            tempResult.message = message;
+            AssertionResult result(m_lastAssertionInfo, tempResult);
+
+            getResultCapture().assertionEnded(result);
 
             handleUnfinishedSections();
 
@@ -247,11 +256,11 @@ namespace Catch {
             deltaTotals.testCases.failed = 1;
             m_reporter->testCaseEnded( TestCaseStats(   testInfo,
                                                         deltaTotals,
-                                                        "",
-                                                        "",
+                                                        std::string(),
+                                                        std::string(),
                                                         false ) );
             m_totals.testCases.failed++;
-            testGroupEnded( "", m_totals, 1, 1 );
+            testGroupEnded( std::string(), m_totals, 1, 1 );
             m_reporter->testRunEnded( TestRunStats( m_runInfo, m_totals, false ) );
         }
 
@@ -269,8 +278,9 @@ namespace Catch {
             m_reporter->sectionStarting( testCaseSection );
             Counts prevAssertions = m_totals.assertions;
             double duration = 0;
+            m_shouldReportUnexpected = true;
             try {
-                m_lastAssertionInfo = AssertionInfo( "TEST_CASE", testCaseInfo.lineInfo, "", ResultDisposition::Normal );
+                m_lastAssertionInfo = AssertionInfo( "TEST_CASE", testCaseInfo.lineInfo, std::string(), ResultDisposition::Normal );
 
                 seedRng( *m_config );
 
@@ -290,7 +300,11 @@ namespace Catch {
                 // This just means the test was aborted due to failure
             }
             catch(...) {
-                makeUnexpectedResultBuilder().useActiveException();
+                // Under CATCH_CONFIG_FAST_COMPILE, unexpected exceptions under REQUIRE assertions
+                // are reported without translation at the point of origin.
+                if (m_shouldReportUnexpected) {
+                    makeUnexpectedResultBuilder().useActiveException();
+                }
             }
             m_testCaseTracker->close();
             handleUnfinishedSections();
@@ -350,6 +364,7 @@ namespace Catch {
         std::vector<SectionEndInfo> m_unfinishedSections;
         std::vector<ITracker*> m_activeSections;
         TrackerContext m_trackerContext;
+        bool m_shouldReportUnexpected;
     };
 
     IResultCapture& getResultCapture() {

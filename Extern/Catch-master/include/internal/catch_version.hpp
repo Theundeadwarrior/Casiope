@@ -16,7 +16,7 @@ namespace Catch {
         (   unsigned int _majorVersion,
             unsigned int _minorVersion,
             unsigned int _patchNumber,
-            std::string const& _branchName,
+            char const * const _branchName,
             unsigned int _buildNumber )
     :   majorVersion( _majorVersion ),
         minorVersion( _minorVersion ),
@@ -26,18 +26,21 @@ namespace Catch {
     {}
 
     std::ostream& operator << ( std::ostream& os, Version const& version ) {
-        os  << version.majorVersion << "."
-            << version.minorVersion << "."
+        os  << version.majorVersion << '.'
+            << version.minorVersion << '.'
             << version.patchNumber;
-
-        if( !version.branchName.empty() ) {
-            os  << "-" << version.branchName
-                << "." << version.buildNumber;
+        // branchName is never null -> 0th char is \0 if it is empty
+        if (version.branchName[0]) {
+            os << '-' << version.branchName
+               << '.' << version.buildNumber;
         }
         return os;
     }
 
-    Version libraryVersion( 1, 5, 6, "", 0 );
+    inline Version libraryVersion() {
+        static Version version( 1, 9, 4, "", 0 );
+        return version;
+    }
 
 }
 

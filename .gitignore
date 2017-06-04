@@ -2,7 +2,6 @@
 Objects/
 Dependencies/
 Bin/
-core
 
 # Windows build system
 Output/

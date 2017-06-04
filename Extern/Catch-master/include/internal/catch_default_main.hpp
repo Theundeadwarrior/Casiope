@@ -10,9 +10,16 @@
 
 #ifndef __OBJC__
 
+#if defined(WIN32) && defined(_UNICODE) && !defined(DO_NOT_USE_WMAIN)
+// Standard C/C++ Win32 Unicode wmain entry point
+extern "C" int wmain (int argc, wchar_t * argv[], wchar_t * []) {
+#else
 // Standard C/C++ main entry point
 int main (int argc, char * argv[]) {
-    return Catch::Session().run( argc, argv );
+#endif
+
+    int result = Catch::Session().run( argc, argv );
+    return ( result < 0xff ? result : 0xff );
 }
 
 #else // __OBJC__
@@ -30,7 +37,7 @@ int main (int argc, char * const argv[]) {
     [pool drain];
 #endif
 
-    return result;
+    return ( result < 0xff ? result : 0xff );
 }
 
 #endif // __OBJC__
