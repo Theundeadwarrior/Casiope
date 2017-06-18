@@ -219,7 +219,8 @@
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event\Event.cpp" />
-    <ClCompile Include="File\FileManagement.cpp" />
+    <ClCompile Include="File\File.cpp" />
+    <ClCompile Include="File\FileSystem.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\KeyboardEvent.cpp" />
     <ClCompile Include="Input\MouseEvent.cpp" />
@@ -231,12 +232,14 @@
     <ClInclude Include="Containers\SmallVector.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event\Event.h" />
-    <ClInclude Include="File\FileManagement.h" />
+    <ClInclude Include="File\File.h" />
+    <ClInclude Include="File\FileSystem.h" />
     <ClInclude Include="File\ImageUtilities.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\KeyboardEvent.h" />
     <ClInclude Include="Input\MouseEvent.h" />
     <ClInclude Include="Logging\Logger.h" />
+    <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Memory\DebugAllocator.h" />
     <ClInclude Include="Singleton\Singleton.h" />

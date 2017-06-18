@@ -10,10 +10,11 @@ namespace Core
 	{
 		friend T;
 	public:
-		static void CreateInstance()
+		static T* CreateInstance()
 		{
 			assert(m_Instance == nullptr);
 			m_Instance = new T();
+			return m_Instance;
 		}
 		static void DestroyInstance()
 		{

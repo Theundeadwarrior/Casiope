@@ -49,7 +49,10 @@
     <ClCompile Include="Logging\Logger.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
-    <ClCompile Include="File\FileManagement.cpp">
+    <ClCompile Include="File\File.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileSystem.cpp">
       <Filter>File</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,7 +88,13 @@
     <ClInclude Include="Math\Vector.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="File\FileManagement.h">
+    <ClInclude Include="Math\Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileSystem.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\File.h">
       <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>
