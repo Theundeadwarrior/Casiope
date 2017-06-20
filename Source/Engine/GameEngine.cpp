@@ -24,7 +24,6 @@ namespace Engine
 	void GameEngine::Initialize()
 	{
 		m_Renderer.Initialize();
-		ResourceManager::CreateInstance();
 
 		m_InputManager.SetResetMouseBehavior(true); // todo: this needs to be handled in the StateManager
 		m_InputManager.SetResetMouseValues(400, 200); // todo: this needs to be handled in the StateManager
@@ -39,7 +38,6 @@ namespace Engine
 		delete world;
 		// endtodo
 
-		ResourceManager::DestroyInstance();
 		m_Renderer.Shutdown();
 	}
 

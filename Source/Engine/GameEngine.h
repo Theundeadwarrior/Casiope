@@ -4,6 +4,7 @@
 
 #include "Core/Input/InputManager.h"
 #include "Core/Singleton/Singleton.h"
+#include "Engine/Resource/ResourceManager.h"
 #include "Engine/World/WorldManager.h"
 #include "Renderer/GraphicsEngine.h"
 
@@ -26,7 +27,7 @@ namespace Engine
 
 		// Getters
 		Core::InputManager& GetInputManager() { return m_InputManager; }
-
+		ResourceManager& GetResourceManager() { return m_ResourceManager; }
 
 	private:
 		GameEngine();
@@ -34,11 +35,9 @@ namespace Engine
 
 		Renderer::GraphicsEngine m_Renderer;
 		Core::InputManager m_InputManager;
+		ResourceManager m_ResourceManager;
 		WorldManager m_WorldManager;
 
 		SDL_Event m_CurrentEvent;
-
 	};
-
 }
-

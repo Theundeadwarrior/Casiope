@@ -83,7 +83,7 @@ namespace Renderer
 	}
 
 	// REMOVE THIS
-	GraphicsCore::ShaderProgram* g_ShaderProgram;
+	ShaderProgramId g_ShaderProgramId;
 	GraphicsCore::Geometry g_Geometry;
 	GLuint VAO = 0;// , vao2 = 0;
 
