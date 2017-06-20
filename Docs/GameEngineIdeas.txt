@@ -1,0 +1,36 @@
+#1 todo: 
+- Think about renaming the ResourceManager to GraphicsResources or something like that and move it to the GraphicsEngine.
+
+Table Top Simulator.
+- Can recreate MTG or AH:LCG or whatever else into it. 
+
+- For minecraft, we need a octree to parse the scene quickly
+- Use a priority flag on meshes
+
+
+- Create a Transform object
+- Create a skybox as well
+- Static Mesh should be the basis of the worlds. That's what I should start doing first instead of a component or whatever system.
+
+
+
+
+- We could implement Entity Component system with virtual inheritance or we could do it with a structure of all the 
+
+
+Todo:
+- Update the world so that it allows minecraft world. Maybe we need to add some inheritance here or template.
+- Maybe instead of having a minecraft world, we should have a minecraft mesh.
+
+
+
+
+
+LOOK INTO PAK FILES (FPakFileHandle)
+
+
+
+
+
+
+
