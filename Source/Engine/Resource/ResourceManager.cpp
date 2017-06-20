@@ -27,20 +27,6 @@ namespace Engine
 		return CreateTextureFromImage(img, format);
 	}
 
-	void ResourceManager::CreateInstance()
-	{
-		assert(m_Instance == nullptr);
-		m_Instance = new ResourceManager();
-	}
-	ResourceManager * ResourceManager::GetInstance()
-	{
-		return m_Instance;
-	}
-	void ResourceManager::DestroyInstance()
-	{
-		assert(m_Instance != nullptr);
-		delete m_Instance;
-	}
 	TextureManager & ResourceManager::GetTextureManager()
 	{
 		return m_TextureManager;

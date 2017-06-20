@@ -1,8 +1,7 @@
 #pragma once
 #include <map>
-#include <assert.h>
 
-
+#include "Core/Singleton/Singleton.h"
 #include "GraphicsCore/GraphicsType.h"
 #include "GraphicsCore/Textures/Texture.h"
 
@@ -13,7 +12,6 @@ namespace Core { template<typename T> class Image; }
 
 namespace Engine
 {
-
 	typedef std::map<TextureId, GraphicsCore::Texture*> TextureBank;
 
 	class TextureManager
@@ -28,12 +26,10 @@ namespace Engine
 
 	};
 
-	class ResourceManager
+	class ResourceManager : public Core::Singleton<ResourceManager>
 	{
 	public:
-		static void CreateInstance();
-		static ResourceManager* GetInstance();
-		static void DestroyInstance();
+		SINGLETON_DECLARATION(ResourceManager);
 
 	public:
 		TextureManager& GetTextureManager();
