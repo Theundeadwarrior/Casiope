@@ -1,4 +1,4 @@
-#include "Engine/Resource/ResourceManager.h"
+#include "Renderer/Resource/GraphicsResourceManager.h"
 
 #include "Core/File/ImageUtilities.h"
 #include "Core/File/FileSystem.h"
@@ -6,7 +6,7 @@
 #include <malloc.h>
 
 
-namespace Engine
+namespace Renderer
 {
 	TextureId TextureManager::InsertTexture(GraphicsCore::Texture* const texture)
 	{

@@ -11,7 +11,7 @@
 namespace GraphicsCore { class Texture; }
 namespace Core { template<typename T> class Image; }
 
-namespace Engine
+namespace Renderer
 {
 	typedef std::map<TextureId, GraphicsCore::Texture*> TextureBank;
 
@@ -40,12 +40,12 @@ namespace Engine
 		ShaderBank m_ShaderBank;
 	};
 
-	class ResourceManager
+	class GraphicsResourceManager
 	{
 	public:
-		ResourceManager() {};
-		ResourceManager(const ResourceManager& manager) = delete;
-		ResourceManager operator=(const ResourceManager& manager) = delete;
+		GraphicsResourceManager() {};
+		GraphicsResourceManager(const GraphicsResourceManager& manager) = delete;
+		GraphicsResourceManager operator=(const GraphicsResourceManager& manager) = delete;
 		inline TextureManager& GetTextureManager() { return m_TextureManager; }
 
 	private:

@@ -12,6 +12,6 @@ namespace GraphicsCore
 		V3FT2F // V1, V2, V3, UV1, UV2
 	};
 
-	static BufferId BuildVertexBufferFromVertexArray(GeometryGPUType type, void * buffer, uint32_t count);
+	BufferId BuildVertexBufferFromVertexArray(GeometryGPUType type, void * buffer, uint32_t count);
 }
 

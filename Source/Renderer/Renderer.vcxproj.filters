@@ -13,6 +13,9 @@
     <Filter Include="Geometry">
       <UniqueIdentifier>{96a81550-81c2-453d-8a97-677bf29d3a2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{4d19d044-44da-45b5-80e6-1e8be85daebb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsEngine.h" />
@@ -31,6 +34,9 @@
     <ClInclude Include="Mesh\MinecraftWorldMesh.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\GraphicsResourceManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine.cpp" />
@@ -48,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="Mesh\MinecraftWorldMesh.cpp">
       <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\GraphicsResourceManager.cpp">
+      <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

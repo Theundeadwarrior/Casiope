@@ -2,6 +2,8 @@
 
 #include "GraphicsCore/Window/WindowManager.h"
 
+#include "Renderer/Resource/GraphicsResourceManager.h"
+
 #include <Core/Logging/Logger.h>
 
 namespace Engine { class World; }
@@ -26,6 +28,7 @@ namespace Renderer
 
 		// Getters
 		const GraphicsCore::WindowManager& GetWindowManager() const { return m_WindowManager; }
+		const GraphicsResourceManager& GetResourceManager() const { return m_ResourceManager; }
 
 	private:
 		int InitializeGlew();
@@ -35,6 +38,7 @@ namespace Renderer
 
 	private:
 		GraphicsCore::WindowManager m_WindowManager;
+		GraphicsResourceManager m_ResourceManager;
 	};
 }
 

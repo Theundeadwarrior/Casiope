@@ -11,9 +11,6 @@
     <ClInclude Include="World\WorldManager.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="Resource\ResourceManager.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Object\Object.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -40,9 +37,6 @@
     </ClCompile>
     <ClCompile Include="World\WorldManager.cpp">
       <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource\ResourceManager.cpp">
-      <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="Object\Object.cpp">
       <Filter>Object</Filter>

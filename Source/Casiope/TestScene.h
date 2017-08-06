@@ -78,7 +78,7 @@ namespace Casiope
 
 		//for(auto skyBoxImg : skyBoxImages)
 		//{
-		//	ResourceManager::GetInstance()->GetTextureManager().AddTextureFromImage(skyBoxImg, GraphicsCore::e_TexFormatRGB);
+		//	GraphicsResourceManager::GetInstance()->GetTextureManager().AddTextureFromImage(skyBoxImg, GraphicsCore::e_TexFormatRGB);
 		//}
 
 		//// Update camera parameters
