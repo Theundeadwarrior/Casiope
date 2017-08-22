@@ -31,7 +31,6 @@ namespace GraphicsCore
 		ShaderProgramId GetProgramId() const { return m_ShaderProgramId; }
 
 	private:
-		std::vector<ShaderParameterId> m_ShaderParameterIds;
 		Shader* m_VertexShader;
 		Shader* m_FragmentShader;
 		ShaderProgramId m_ShaderProgramId;
