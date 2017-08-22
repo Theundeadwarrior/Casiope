@@ -76,12 +76,10 @@ namespace Game
 		if (event.m_Type == Core::KeyboardEventType::KEY_PRESSED)
 		{
 			m_IsKeyPressed[event.m_Key] = true;
-			printf("pressed\n");
 		}
 		else if (event.m_Type == Core::KeyboardEventType::KEY_RELEASED)
 		{
 			m_IsKeyPressed[event.m_Key] = false;
-			printf("unpressed\n");
 		}
 	}
 
