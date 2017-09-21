@@ -9,14 +9,18 @@ namespace Renderer
 	class GeometryInstance
 	{
 	public:
-		GeometryInstance();
 		GeometryInstance(GraphicsCore::Geometry* geometry);
 		~GeometryInstance() {};
+
+		GraphicsCore::Geometry* GetGeometry() const
+		{
+			return m_GeometryId;
+		}
 
 		void SetGeometry(GraphicsCore::Geometry* geometry);
 
 	private:
-		GraphicsCore::Geometry* m_Geometry;
+		GraphicsCore::Geometry* m_GeometryId;
 	};
 }
 

@@ -10,11 +10,11 @@ namespace Renderer
 	class Mesh
 	{
 	public:
-		Mesh() {};
-		~Mesh() {};
+		Mesh();
+		~Mesh();
 
-	private:
-		GeometryInstance m_GeometryInstance;
+	public: // todo lcharbonneau: move that back to protected
+		GeometryId m_GeometryId;
 		IMaterial* m_Material; 
 	};
 }

@@ -15,30 +15,22 @@ namespace GraphicsCore
 	{
 		uint32_t m_VertexCount;
 		uint32_t m_TexCoordCount;
-		BufferId m_VAO;
-		BufferId m_VBO;
-		BufferId m_EBO;
+		VertexBufferResource m_Vbr;
 	};
 
-	class Geometry
+	class StaticGeometry
 	{
 	public:
 		GeometryGPUParameters m_GPUParams;
-		std::vector<float> m_Vertex;
-		std::vector<float> m_TextureCoordinates;
 	};
 
-	// Maybe for this we would have multiple set of vertex and VBO for the different passes we need to make to render everything
-	// One pass would be for everything static, another one could be for animated blocks, another one for entities.
-	class MinecraftChunkGeometry
+	class Geometry : public StaticGeometry
 	{
 	public:
-		void UpdateGeometry(void* data, uint32_t count)
+		void UpdateGeometry(void* data, uint32_t count, GeometryGPUType type)
 		{
-			m_VAO = GraphicsCore::BuildVertexBufferFromVertexArray(GraphicsCore::GeometryGPUType::V4B, data, count);
+			m_GPUParams.m_Vbr.InitBuffer(type, data, count);
+			m_GPUParams.m_VertexCount = count;
 		}
-
-	private:
-		BufferId m_VAO;
 	};
 }

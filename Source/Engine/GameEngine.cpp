@@ -1,4 +1,8 @@
+
 #include "GameEngine.h"
+
+#include "Core/File/FileSystem.h"
+
 #include <iostream>
 #include <SDL.h>
 
@@ -14,6 +18,7 @@ namespace Engine
 
 	void GameEngine::Initialize()
 	{
+		Core::FileSystem::CreateInstance();
 		m_Renderer.Initialize();
 
 		m_InputManager.SetResetMouseBehavior(true); // todo: this needs to be handled in the StateManager
@@ -30,6 +35,7 @@ namespace Engine
 		// endtodo
 
 		m_Renderer.Shutdown();
+		Core::FileSystem::DestroyInstance();
 	}
 
 	void GameEngine::HandleEvents()

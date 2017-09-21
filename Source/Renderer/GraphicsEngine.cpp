@@ -16,6 +16,9 @@
 #include "GraphicsCore/Geometry/Geometry.h"
 #include "GraphicsCore/LowLevelAPI/LowLevelGPUResource.h"
 
+#include "Renderer/Resource/GraphicsResourceManager.h"
+#include "Renderer/Mesh/Mesh.h"
+
 namespace Renderer
 {
 	GraphicsEngine::GraphicsEngine()
@@ -67,6 +70,8 @@ namespace Renderer
 		// First, logger
 		m_Logger = log4cxx::Logger::getLogger("GraphicsEngine");
 
+		GraphicsResourceManager::CreateInstance();
+
 		int result = m_WindowManager.InitWindow();
 		if (result != -1)
 			result = InitializeGlew();
@@ -77,82 +82,100 @@ namespace Renderer
 		return result;
 	}
 
+
+	GraphicsCore::Geometry g_Geometry;
+	ShaderProgramId g_ShaderProgramId;
+
+
 	int GraphicsEngine::Shutdown()
 	{
-		return m_WindowManager.ShutdownWindow();
+		int result = 0;
+		result = m_WindowManager.ShutdownWindow();
+
+		GraphicsResourceManager::DestroyInstance();
+
+		return result;
 	}
 
-	// REMOVE THIS
-	ShaderProgramId g_ShaderProgramId;
-	GraphicsCore::Geometry g_Geometry;
-	GLuint VAO = 0;// , vao2 = 0;
+
 
 	void GraphicsEngine::InitTestGraphics()
 	{
 		GLfloat vertices[] = {
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-			0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+			// Back face
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // Bottom-left
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right      
+			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, // bottom-right    
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
+			0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // bottom-left    
 
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			// Front face
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
+			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-right        
+			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
+			0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right
+			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, // top-left        
 
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			// Left face
+			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-right
+			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-left       
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left
+			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-right
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-right
 
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			// Right face
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left
+			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-right          
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right      
+			 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
+			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-right
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left
 
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			// Bottom face          
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // top-right
+			 0.5f, -0.5f, -0.5f,  1.0f, 1.0f, // top-left        
+			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-left
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // top-right
+			0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-left
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-right
 
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+			// Top face
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right                 
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right
+			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, // bottom-left  
+			0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f  // top-left    
 		};
 
-		g_Geometry.m_GPUParams.m_VAO = GraphicsCore::BuildVertexBufferFromVertexArray(GraphicsCore::GeometryGPUType::V3FT2F, vertices, sizeof(vertices));
+		g_Geometry.UpdateGeometry(vertices, sizeof(vertices), GraphicsCore::GeometryGPUType::V3FT2F);
 
-		const char* vertex_shader =
-			"#version 400\n"
-			"in vec3 vp;"
-			"uniform mat4 model;"
-			"uniform mat4 view;"
-			"uniform mat4 projection;"
-			"void main () {"
-			"  gl_Position = projection * view * model *  vec4 (vp, 1.0);"
-			"}";
+		//const char* vertex_shader =
+		//	"#version 400\n"
+		//	"in vec3 vp;"
+		//	"out vec4 color;"
+		//	"uniform mat4 model;"
+		//	"uniform mat4 view;"
+		//	"uniform mat4 projection;"
+		//	"void main () {"
+		//	"  gl_Position = projection * view * model *  vec4 (vp, 1.0);"
+		//	"  color = vec4(vp, 1.0) / 10.0;"
+		//	"}";
 
-		const char* fragment_shader =
-			"#version 400\n"
-			"out vec4 frag_colour;"
-			"void main () {"
-			"  frag_colour = vec4 (1.0f, 0.5f, 0.2f, 1.0f);"
-			"}";
+		//const char* fragment_shader =
+		//	"#version 400\n"
+		//	"in vec4 color;"
+		//	"out vec4 frag_colour;"
+		//	"void main () {"
+		//	"  frag_colour = color;"
+		//	"}";
 
-		g_ShaderProgram = new GraphicsCore::ShaderProgram(vertex_shader, fragment_shader, "");
+		g_ShaderProgramId = GraphicsResourceManager::GetInstance()->GetShaderManager().CreateShaderProgram("shaders/basic_shader.fg", "shaders/basic_shader.vx");
+
+		//g_ShaderProgramId = new GraphicsCore::ShaderProgram(vertex_shader, fragment_shader, "");
 	}
 
 	glm::vec3 cubePositions[] = {
@@ -168,11 +191,11 @@ namespace Renderer
 		glm::vec3(0.0f, 0.0f, 0.0f)
 	};
 
-	void DrawOpaqueObjects(Engine::World* world)
+	void GraphicsEngine::DrawOpaqueObjects(Engine::World* world)
 	{
-		GLint modelLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "model");
-		GLint viewLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "view");
-		GLint projLoc = glGetUniformLocation(g_ShaderProgram->GetProgramId(), "projection");
+		GLint modelLoc = glGetUniformLocation(g_ShaderProgramId, "model");
+		GLint viewLoc = glGetUniformLocation(g_ShaderProgramId, "view");
+		GLint projLoc = glGetUniformLocation(g_ShaderProgramId, "projection");
 
 		glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
@@ -189,8 +212,14 @@ namespace Renderer
 			model = glm::translate(model, cubePositions[i]);
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-			GraphicsCore::GPUAPI::DrawCall(&g_Geometry, g_ShaderProgram);
+			GraphicsCore::GPUAPI::DrawCall(&g_Geometry, g_ShaderProgramId);
 		}
+
+		glm::mat4 model;
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		Mesh* mesh = world->GetMesh();
+		GraphicsCore::Geometry* worldGeometry = GraphicsResourceManager::GetInstance()->GetGeometryManager().GetGeometry(mesh->m_GeometryId);
+		GraphicsCore::GPUAPI::DrawCall(worldGeometry, g_ShaderProgramId);
 	}
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
@@ -205,7 +234,7 @@ namespace Renderer
 		//	//Opaque objects
 			GraphicsCore::RenderState::EnableDepthWrite();
 		//	{
-				GraphicsCore::RenderState::EnableBackFaceCulling();
+				GraphicsCore::RenderState::EnableBackFaceCulling(); // todo lcharbonneau: move that to the mesh property.
 		//		{
 					DrawOpaqueObjects(world);
 		//		}
@@ -237,7 +266,7 @@ namespace Renderer
 
 	void GraphicsEngine::StartRendering()
 	{
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
 		GraphicsCore::RenderState::EnableDepthWrite();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

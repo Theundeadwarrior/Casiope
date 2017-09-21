@@ -1,5 +1,6 @@
 #include "MinecraftWorldMesh.h"
 
+#include "Renderer/Resource/GraphicsResourceManager.h"
 #include "GraphicsCore/Geometry/Geometry.h"
 
 namespace Renderer
@@ -16,12 +17,21 @@ namespace Renderer
 
 	void MinecraftChunkMesh::Update(void* data, uint32_t count)
 	{
-		m_ChunkGeometry.UpdateGeometry(data, count);
+		if (m_GeometryId != INVALID_GEOMETRY_ID)
+		{
+			GraphicsResourceManager::GetInstance()->GetGeometryManager().RemoveGeometry(m_GeometryId);
+		}
+		m_RealGeometry.UpdateGeometry(data, count, GraphicsCore::GeometryGPUType::V3BT2B);
+		m_GeometryId = GraphicsResourceManager::GetInstance()->GetGeometryManager().AddGeometry(&m_RealGeometry);
 	}
 
 	void MinecraftChunkMesh::Reset()
 	{
-		//m_ChunkGeometry->m_Vertex.clear();
+		if (m_GeometryId != INVALID_GEOMETRY_ID)
+		{
+			GraphicsResourceManager::GetInstance()->GetGeometryManager().RemoveGeometry(m_GeometryId);
+		}
+		m_GeometryId = INVALID_GEOMETRY_ID;
 	}
 
 	MinecraftChunkMesh::~MinecraftChunkMesh()

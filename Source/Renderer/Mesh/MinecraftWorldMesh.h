@@ -2,14 +2,15 @@
 
 #include <stdint.h>
 #include "GraphicsCore/Geometry/Geometry.h"
+#include "Renderer\Mesh\Mesh.h"
 
 namespace Renderer
 {
 	// GPU resource wrapper
-	class MinecraftChunkMesh
+	class MinecraftChunkMesh : public Mesh
 	{
 	public:
-		//MinecraftChunkMesh(unsigned int chunkSizeX, unsigned int chunkSizeY, unsigned int chunkSizeZ);
+		MinecraftChunkMesh() = default;
 
 		void Update(void* data, uint32_t count);
 		void Reset();
@@ -17,7 +18,7 @@ namespace Renderer
 		~MinecraftChunkMesh();
 
 	private:
-		GraphicsCore::MinecraftChunkGeometry m_ChunkGeometry; // maybe we should have this not as a pointer!!
+		GraphicsCore::Geometry m_RealGeometry;
 	};
 }
 

@@ -1,7 +1,11 @@
 #pragma once
 
-typedef unsigned long int TextureId;
-typedef int ShaderParameterId;
-typedef unsigned int ShaderId;
-typedef unsigned int ShaderProgramId;
-typedef unsigned int BufferId;
+#include <stdint.h>
+
+typedef uint32_t TextureId;
+typedef uint32_t ShaderId;
+typedef uint32_t ShaderProgramId;
+typedef uint32_t BufferId;
+typedef uint32_t GeometryId;
+
+#define INVALID_GEOMETRY_ID static_cast<uint32_t>(-1)

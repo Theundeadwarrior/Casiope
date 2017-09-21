@@ -7,7 +7,8 @@ namespace GraphicsCore
 {
 	namespace GPUAPI
 	{
-		void DrawCall(const Geometry* const geometry, const ShaderProgram* const shaderProgram);
+		// todo P0: PASS IN A MESH INSTEAD OF A GEOM AND SHADERPROGRAM!!!
+		void DrawCall(const Geometry* const geometry, ShaderProgramId shaderProgram);
 	}
 
 }

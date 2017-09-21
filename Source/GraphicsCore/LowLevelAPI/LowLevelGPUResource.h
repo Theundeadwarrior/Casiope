@@ -9,9 +9,21 @@ namespace GraphicsCore
 	enum class GeometryGPUType : uint8_t
 	{
 		V4B,
+		V3BT2B,
 		V3FT2F // V1, V2, V3, UV1, UV2
 	};
 
-	BufferId BuildVertexBufferFromVertexArray(GeometryGPUType type, void * buffer, uint32_t count);
+	struct VertexBufferResource
+	{
+		VertexBufferResource();
+		~VertexBufferResource();
+
+
+		void InitBuffer(GeometryGPUType type, void* buffer, uint32_t count);
+		void ReleaseBuffer();
+		BufferId VAO;
+		BufferId VBO;
+		bool m_IsInitialized;
+	};
 }
 

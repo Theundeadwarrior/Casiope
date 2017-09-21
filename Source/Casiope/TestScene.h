@@ -14,55 +14,6 @@
 
 namespace Casiope
 {
-	void GetCubeGeometry(GraphicsCore::Geometry& geoToFill) 
-	{
-		geoToFill.m_Vertex = std::vector<float> {
-			-0.5f, -0.5f, -0.5f,	0.5f, -0.5f, -0.5f,
-			0.5f, 0.5f, -0.5f,		0.5f, 0.5f, -0.5f,
-			-0.5f, 0.5f, -0.5f,		-0.5f, -0.5f, -0.5f,
-
-			-0.5f, -0.5f, 0.5f,		0.5f, -0.5f, 0.5f,
-			0.5f, 0.5f, 0.5f,		0.5f, 0.5f, 0.5f,
-			-0.5f, 0.5f, 0.5f,		-0.5f, -0.5f, 0.5f,
-
-			-0.5f, 0.5f, 0.5f,		-0.5f, 0.5f, -0.5f,
-			-0.5f, -0.5f, -0.5f,	-0.5f, -0.5f, -0.5f,
-			-0.5f, -0.5f, 0.5f,		-0.5f, 0.5f, 0.5f,
-
-			0.5f, 0.5f, 0.5f,		0.5f, 0.5f, -0.5f,
-			0.5f, -0.5f, -0.5f,		0.5f, -0.5f, -0.5f,
-			0.5f, -0.5f, 0.5f,		0.5f, 0.5f, 0.5f,
-
-			-0.5f, -0.5f, -0.5f,	0.5f, -0.5f, -0.5f,
-			0.5f, -0.5f, 0.5f,		0.5f, -0.5f, 0.5f,
-			-0.5f, -0.5f, 0.5f,		-0.5f, -0.5f, -0.5f,
-
-			-0.5f, 0.5f, -0.5f,		0.5f, 0.5f, -0.5f,
-			0.5f, 0.5f, 0.5f,		0.5f, 0.5f, 0.5f,
-			-0.5f, 0.5f, 0.5f,		-0.5f, 0.5f, -0.5f 
-		};
-
-		geoToFill.m_TextureCoordinates = std::vector<float>{
-			0.0f, 0.0f, 1.0f, 0.0f,	1.0f, 1.0f,
-			1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-
-			0.0f, 0.0f,	1.0f, 0.0f,	1.0f, 1.0f,
-			1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-
-			1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-
-			1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-
-			0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-			1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-
-			0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 
-			1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f
-		};
-	}
-
 	void InitializeTestScene(Engine::GameEngine& gameEngine, const char* imagePath)
 	{
 		Engine::PerspectiveCameraParams params(45, 1024 / 768.0f, 0.1f, 1000.0f);
@@ -91,7 +42,6 @@ namespace Casiope
 		auto* m_VisComp = new Engine::StaticMeshComponent();
 
 		GraphicsCore::Geometry cubesGeometry;
-		GetCubeGeometry(cubesGeometry);
 
 		cubes.AddComponent((Engine::Component*)m_VisComp);
 

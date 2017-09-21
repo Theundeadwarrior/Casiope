@@ -5,6 +5,7 @@
 #include "GraphicsCore/GraphicsType.h"
 #include "GraphicsCore/Textures/Texture.h"
 #include "GraphicsCore/Shaders/Shader.h"
+#include "GraphicsCore/Geometry/Geometry.h"
 
 // TODO!!!!!
 // Need to figure out how to not have duplicate of textures or shaders loaded in memory!!!!
@@ -14,6 +15,21 @@ namespace Core { template<typename T> class Image; }
 namespace Renderer
 {
 	typedef std::map<TextureId, GraphicsCore::Texture*> TextureBank;
+	typedef std::map<ShaderProgramId, GraphicsCore::ShaderProgram*> ShaderBank;
+	typedef std::map<GeometryId, GraphicsCore::Geometry*> GeometryBank;
+
+	class GeometryManager
+	{
+	public:
+		~GeometryManager();
+		GeometryId AddGeometry(GraphicsCore::Geometry* const geometry);
+		void RemoveGeometry(GeometryId geometryId);
+
+		GraphicsCore::Geometry* GetGeometry(GeometryId geometryId);
+
+	private:
+		GeometryBank m_GeometryBank;
+	};
 
 	class TextureManager
 	{
@@ -28,28 +44,33 @@ namespace Renderer
 		TextureBank m_TextureBank;
 	};
 
-	typedef std::map<ShaderProgramId, GraphicsCore::ShaderProgram*> ShaderBank;
 
 	class ShaderManager
 	{
 	public:
 		~ShaderManager();
 		ShaderProgramId CreateShaderProgram(const char* vsFileName, const char* psFileName); // todo lcharbonneau: add compile flags here std::bitset<MATERIALEFFECT_COUNT> shaderCompileFlags
+		void RemoveShader(ShaderProgramId shaderId);
 	
 	private:
 		ShaderBank m_ShaderBank;
 	};
 
-	class GraphicsResourceManager
+	class GraphicsResourceManager : public Core::Singleton<GraphicsResourceManager>
 	{
+	public: 
+		SINGLETON_DECLARATION(GraphicsResourceManager);
 	public:
 		GraphicsResourceManager() {};
 		GraphicsResourceManager(const GraphicsResourceManager& manager) = delete;
 		GraphicsResourceManager operator=(const GraphicsResourceManager& manager) = delete;
 		inline TextureManager& GetTextureManager() { return m_TextureManager; }
+		inline GeometryManager& GetGeometryManager() { return m_GeometryManager; }
+		inline ShaderManager& GetShaderManager() { return m_ShaderManager; }
 
 	private:
 		TextureManager m_TextureManager;
 		ShaderManager m_ShaderManager;
+		GeometryManager m_GeometryManager;
 	};
 }

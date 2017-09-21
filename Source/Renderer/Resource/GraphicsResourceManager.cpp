@@ -5,9 +5,55 @@
 
 #include <malloc.h>
 
+namespace
+{
+	uint32_t Hash64to32(uint64_t key)
+	{
+		key = (~key) + (key << 18); // key = (key << 18) - key - 1;
+		key = key ^ (key >> 31);
+		key = key * 21; // key = (key + (key << 2)) + (key << 4);
+		key = key ^ (key >> 11);
+		key = key + (key << 6);
+		key = key ^ (key >> 22);
+		return (uint32_t)key;
+	}
+}
 
 namespace Renderer
 {
+	GeometryManager::~GeometryManager()
+	{
+		for (auto& it : m_GeometryBank)
+		{
+			delete it.second;
+		}
+		m_GeometryBank.clear();
+	}
+
+	GeometryId GeometryManager::AddGeometry(GraphicsCore::Geometry* const geometry)
+	{
+		// todo refactor this to have better uid
+		uint64_t geoAddr = reinterpret_cast<uint64_t>(geometry);
+		GeometryId geoId = static_cast<GeometryId>(Hash64to32(geoAddr));
+		m_GeometryBank[geoId] = geometry;
+		return geoId;
+	}
+
+	void GeometryManager::RemoveGeometry(GeometryId geometryId)
+	{
+		auto it = m_GeometryBank.find(geometryId);
+		if (it != m_GeometryBank.end()) //id exists!
+		{
+			delete (*it).second;
+			m_GeometryBank.erase(it);
+		}
+	}
+
+	GraphicsCore::Geometry* GeometryManager::GetGeometry(GeometryId geometryId)
+	{
+		return m_GeometryBank[geometryId];
+	}
+
 	TextureId TextureManager::InsertTexture(GraphicsCore::Texture* const texture)
 	{
 		TextureId id = texture->GetID();
@@ -39,7 +85,7 @@ namespace Renderer
 
 	void TextureManager::RemoveTexture(TextureId textureID)
 	{
-		TextureBank::iterator it(m_TextureBank.find(textureID));
+		auto it = m_TextureBank.find(textureID);
 		if (it != m_TextureBank.end()) //id exists!
 		{
 			delete (*it).second;
@@ -75,8 +121,20 @@ namespace Renderer
 		auto shaderId = shaderProgram->GetProgramId();
 		m_ShaderBank[shaderId] = shaderProgram;
 
+		free(psCode);
+		free(vsCode);
+
 		return shaderId;
 	}
 
+	void ShaderManager::RemoveShader(ShaderProgramId shaderId)
+	{
+		auto it = m_ShaderBank.find(shaderId);
+		if (it != m_ShaderBank.end()) //id exists!
+		{
+			delete (*it).second;
+			m_ShaderBank.erase(it);
+		}
+	}
 }
 
