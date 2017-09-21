@@ -49,7 +49,7 @@ namespace Renderer
 	{
 	public:
 		~ShaderManager();
-		ShaderProgramId CreateShaderProgram(const char* vsFileName, const char* psFileName); // todo lcharbonneau: add compile flags here std::bitset<MATERIALEFFECT_COUNT> shaderCompileFlags
+		ShaderProgramId LinkShadersIntoProgram(const char* vsFileName, const char* psFileName); // todo lcharbonneau: add compile flags here std::bitset<MATERIALEFFECT_COUNT> shaderCompileFlags
 		void RemoveShader(ShaderProgramId shaderId);
 	
 	private:

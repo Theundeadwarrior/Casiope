@@ -153,29 +153,7 @@ namespace Renderer
 
 		g_Geometry.UpdateGeometry(vertices, sizeof(vertices), GraphicsCore::GeometryGPUType::V3FT2F);
 
-		//const char* vertex_shader =
-		//	"#version 400\n"
-		//	"in vec3 vp;"
-		//	"out vec4 color;"
-		//	"uniform mat4 model;"
-		//	"uniform mat4 view;"
-		//	"uniform mat4 projection;"
-		//	"void main () {"
-		//	"  gl_Position = projection * view * model *  vec4 (vp, 1.0);"
-		//	"  color = vec4(vp, 1.0) / 10.0;"
-		//	"}";
-
-		//const char* fragment_shader =
-		//	"#version 400\n"
-		//	"in vec4 color;"
-		//	"out vec4 frag_colour;"
-		//	"void main () {"
-		//	"  frag_colour = color;"
-		//	"}";
-
-		g_ShaderProgramId = GraphicsResourceManager::GetInstance()->GetShaderManager().CreateShaderProgram("shaders/basic_shader.fg", "shaders/basic_shader.vx");
-
-		//g_ShaderProgramId = new GraphicsCore::ShaderProgram(vertex_shader, fragment_shader, "");
+		g_ShaderProgramId = GraphicsResourceManager::GetInstance()->GetShaderManager().LinkShadersIntoProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
 	}
 
 	glm::vec3 cubePositions[] = {

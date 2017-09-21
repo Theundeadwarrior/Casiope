@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+#include "Core/Logging/Logger.h"
+
 #include <iostream>
 #include <fstream>
 #include <assert.h>
@@ -8,7 +10,7 @@ namespace GraphicsCore
 {
 	Shader::Shader(ShaderType type, const char* shaderCode, const std::string& args)
 	{
-		m_ShaderId = ShaderCompiler::CompileShader(type, shaderCode, args);
+		ShaderCompiler::CompileShader(m_ShaderId, type, shaderCode, args);
 		m_Type = type;
 	}
 
@@ -33,7 +35,7 @@ namespace GraphicsCore
 		m_VertexShader = new Shader(ShaderType::e_VertexShader, vertexShaderCode, args);
 		m_FragmentShader = new Shader(ShaderType::e_FragmentShader, fragmentShaderCode, args);
 
-		m_ShaderProgramId = ShaderCompiler::CreateShaderProgram(*m_VertexShader, *m_FragmentShader);
+		m_ShaderProgramId = ShaderCompiler::LinkShadersIntoProgram(*m_VertexShader, *m_FragmentShader);
 	}
 
 	ShaderProgram::~ShaderProgram()

@@ -14,6 +14,8 @@ namespace Core {
 		void Initialize();
 		void Shutdown();
 
+		log4cxx::LoggerPtr GetDefaultLogger() const { return m_Logger; };
+
 	private:
 		Logger();
 		~Logger();

@@ -20,9 +20,9 @@ namespace GraphicsCore
 	class ShaderCompiler
 	{
 	public:
-		static ShaderId CompileShader(ShaderType type, const std::string& code, const std::string& args);
-		static ShaderProgramId CreateShaderProgram(const Shader& vertexShader, const Shader& fragmentShader);
-		std::string ShaderLog(ShaderId shaderId);
+		static bool CompileShader(ShaderId& shaderIdOut, ShaderType type, const std::string& code, const std::string& args);
+		static ShaderProgramId LinkShadersIntoProgram(const Shader& vertexShader, const Shader& fragmentShader);
+		static std::string ShaderLog(ShaderId shaderId);
 	};
 }
 

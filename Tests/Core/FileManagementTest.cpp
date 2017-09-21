@@ -1,6 +1,8 @@
 #include "catch.hpp"
 #include "Core/File/FileSystem.h"
 
+#include <stdlib.h>
+
 TEST_CASE("OpenFileForRead")
 {
 	auto* fileSystem = Core::FileSystem::CreateInstance();
@@ -54,4 +56,16 @@ TEST_CASE("OpenFileForReadTwiceShouldWork")
 	fileSystem->CloseFile(file2);
 	fileSystem->CloseFile(file1);
 	Core::FileSystem::DestroyInstance();
+}
+
+// TODO: Add a '\0' at the end of the buffer...
+TEST_CASE("ReadFileAndVerifyBufferTermination")
+{
+	auto* fileSystem = Core::FileSystem::CreateInstance();
+	Core::File* file1 = fileSystem->OpenRead("test2.txt");
+
+	void* buffer = malloc(file1->GetSize() + 1);
+	file1->Read(static_cast<uint8*>(buffer), file1->GetSize() + 1);
+
+	REQUIRE(strlen(static_cast<char*>(buffer)) == 16);
 }

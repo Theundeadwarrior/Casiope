@@ -16,12 +16,14 @@ namespace Core
 		assert(IsValid() && IsReadMode());
 
 		uint32 bytesRead = 0;
-		bool succeed = ReadFile(m_FileHandle, buffer, maxReadSize, &bytesRead, nullptr);
+		bool succeed = ReadFile(m_FileHandle, buffer, maxReadSize - 1, &bytesRead, nullptr);
 
-		if (!succeed || bytesRead != maxReadSize)
-			return false;
+		if (succeed && bytesRead > 0)
+		{
+			buffer[bytesRead] = '\0';
+		}
 
-		return true;
+		return succeed;
 	}
 
 	//std::string File::ReadAll()
@@ -57,7 +59,7 @@ namespace Core
 		int64 endPos = FileSeek(0, Seek_End);
 		FileSeek(currentPos, Seek_Begin);
 		if (currentPos != -1)
-			return (uint64)endPos;
+			return static_cast<uint64>(endPos);
 		else
 			return 0;
 	}

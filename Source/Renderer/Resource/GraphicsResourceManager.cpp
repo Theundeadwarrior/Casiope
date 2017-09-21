@@ -102,19 +102,19 @@ namespace Renderer
 		m_ShaderBank.clear();
 	}
 
-	ShaderId ShaderManager::CreateShaderProgram(const char * vsFileName, const char * psFileName)
+	ShaderId ShaderManager::LinkShadersIntoProgram(const char * vsFileName, const char * psFileName)
 	{
 		auto* fsInstance = Core::FileSystem::GetInstance();
 		auto* vsFile = fsInstance->OpenRead(vsFileName);
-		size_t vsFileSize = vsFile->GetSize();
-		char* vsCode = static_cast<char*>(malloc(vsFileSize));
-		vsFile->Read(reinterpret_cast<uint8*>(vsCode), vsFileSize);
+		size_t vsBufferSize = vsFile->GetSize() + 1;
+		char* vsCode = static_cast<char*>(malloc(vsBufferSize));
+		vsFile->Read(reinterpret_cast<uint8*>(vsCode), vsBufferSize);
 		fsInstance->CloseFile(vsFile);
 
 		auto* psFile = fsInstance->OpenRead(psFileName);
-		size_t psFileSize = psFile->GetSize();
-		char* psCode = static_cast<char*>(malloc(psFileSize));
-		psFile->Read(reinterpret_cast<uint8*>(psCode), psFileSize);
+		size_t psBufferSize = psFile->GetSize() + 1;
+		char* psCode = static_cast<char*>(malloc(psBufferSize));
+		psFile->Read(reinterpret_cast<uint8*>(psCode), psBufferSize);
 		fsInstance->CloseFile(psFile);
 
 		auto* shaderProgram = new GraphicsCore::ShaderProgram(vsCode, psCode, "");
