@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Renderer { class Mesh; }
+namespace Renderer { class Model; }
 
 namespace Engine
 {
@@ -15,7 +15,7 @@ namespace Engine
 		virtual void Update();
 
 		// Getters for renderer. Probably should create a RendererWorld class and move that there...
-		virtual Renderer::Mesh* GetMesh() { return nullptr; }
+		virtual Renderer::Model* GetModel() { return nullptr; }
 
 		Camera* GetCamera() const { return m_Camera; }
 

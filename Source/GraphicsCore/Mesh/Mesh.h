@@ -18,13 +18,13 @@ namespace GraphicsCore
 		VertexBufferResource m_Vbr;
 	};
 
-	class StaticGeometry
+	class StaticMesh
 	{
 	public:
 		GeometryGPUParameters m_GPUParams;
 	};
 
-	class Geometry : public StaticGeometry
+	class Mesh : public StaticMesh
 	{
 	public:
 		void UpdateGeometry(void* data, uint32_t count, GeometryGPUType type)

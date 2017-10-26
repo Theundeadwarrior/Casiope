@@ -1,8 +1,10 @@
 #include "LowLevelGPUAPI.h"
 
+#include "GraphicsCore/Mesh/Mesh.h"
+
 namespace GraphicsCore
 {
-	void GPUAPI::DrawCall(const Geometry * const geometry, ShaderProgramId shaderProgramId)
+	void GPUAPI::DrawCall(const Mesh * const geometry, ShaderProgramId shaderProgramId)
 	{
 		glUseProgram(shaderProgramId);
 		glBindVertexArray(geometry->m_GPUParams.m_Vbr.VAO);

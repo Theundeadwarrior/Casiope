@@ -1,17 +1,17 @@
 #pragma once
 
 #include "Engine/Component/Component.h"
-#include "Renderer/Mesh/Mesh.h"
+#include "Renderer/Model/Model.h"
 
 namespace Engine
 {
-	class StaticMeshComponent : public Component
+	class StaticModelComponent : public Component
 	{
 	public:
-		StaticMeshComponent();
-		virtual ~StaticMeshComponent();
+		StaticModelComponent();
+		virtual ~StaticModelComponent();
 
 	private:
-		Renderer::Mesh m_Mesh;
+		Renderer::Model m_Model;
 	};
 }

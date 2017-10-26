@@ -7,14 +7,14 @@
     <Filter Include="Material">
       <UniqueIdentifier>{ba42226d-de62-4e55-a7be-c067788a2eec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{5ba85ba1-7701-4ae0-b9e6-f13235dd8e6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Geometry">
       <UniqueIdentifier>{96a81550-81c2-453d-8a97-677bf29d3a2a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{4d19d044-44da-45b5-80e6-1e8be85daebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{5ba85ba1-7701-4ae0-b9e6-f13235dd8e6d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,17 +25,17 @@
     <ClInclude Include="Material\Material.h">
       <Filter>Material</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh\Mesh.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Geometry\GeometryInstance.h">
       <Filter>Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh\MinecraftWorldMesh.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Resource\GraphicsResourceManager.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Model.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\MinecraftWorldMesh.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -46,17 +46,17 @@
     <ClCompile Include="Material\Material.cpp">
       <Filter>Material</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh\Mesh.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Geometry\GeometryInstance.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh\MinecraftWorldMesh.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Resource\GraphicsResourceManager.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Model.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\MinecraftWorldMesh.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,12 +2,12 @@
 
 namespace Engine
 {
-	StaticMeshComponent::StaticMeshComponent()
+	StaticModelComponent::StaticModelComponent()
 	{
 	}
 
 
-	StaticMeshComponent::~StaticMeshComponent()
+	StaticModelComponent::~StaticModelComponent()
 	{
 	}
 }

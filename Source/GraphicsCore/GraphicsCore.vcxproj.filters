@@ -13,11 +13,11 @@
     <Filter Include="RenderState">
       <UniqueIdentifier>{e9237b71-7392-4fd5-9c2e-2f4ad2279905}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Geometry">
-      <UniqueIdentifier>{cd5e646c-4c3b-4298-9590-7085cca6ec03}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LowLevelAPI">
       <UniqueIdentifier>{2390abc6-3304-417b-90e2-476440dfe042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{99cd1b13-639b-48a2-a4b5-e6d1d2ad268f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,14 +37,14 @@
     <ClInclude Include="RenderState\RenderState.h">
       <Filter>RenderState</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry\Geometry.h">
-      <Filter>Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="LowLevelAPI\LowLevelGPUAPI.h">
       <Filter>LowLevelAPI</Filter>
     </ClInclude>
     <ClInclude Include="LowLevelAPI\LowLevelGPUResource.h">
       <Filter>LowLevelAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh\Mesh.h">
+      <Filter>Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -63,14 +63,14 @@
     <ClCompile Include="RenderState\RenderState.cpp">
       <Filter>RenderState</Filter>
     </ClCompile>
-    <ClCompile Include="Geometry\Geometry.cpp">
-      <Filter>Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="LowLevelAPI\LowLevelGPUAPI.cpp">
       <Filter>LowLevelAPI</Filter>
     </ClCompile>
     <ClCompile Include="LowLevelAPI\LowLevelGPUResource.cpp">
       <Filter>LowLevelAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh\Mesh.cpp">
+      <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

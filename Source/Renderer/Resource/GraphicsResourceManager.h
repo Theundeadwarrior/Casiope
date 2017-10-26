@@ -5,7 +5,7 @@
 #include "GraphicsCore/GraphicsType.h"
 #include "GraphicsCore/Textures/Texture.h"
 #include "GraphicsCore/Shaders/Shader.h"
-#include "GraphicsCore/Geometry/Geometry.h"
+#include "GraphicsCore/Mesh/Mesh.h"
 
 // TODO!!!!!
 // Need to figure out how to not have duplicate of textures or shaders loaded in memory!!!!
@@ -16,19 +16,19 @@ namespace Renderer
 {
 	typedef std::map<TextureId, GraphicsCore::Texture*> TextureBank;
 	typedef std::map<ShaderProgramId, GraphicsCore::ShaderProgram*> ShaderBank;
-	typedef std::map<GeometryId, GraphicsCore::Geometry*> GeometryBank;
+	typedef std::map<MeshId, GraphicsCore::Mesh*> MeshBank;
 
-	class GeometryManager
+	class MeshManager
 	{
 	public:
-		~GeometryManager();
-		GeometryId AddGeometry(GraphicsCore::Geometry* const geometry);
-		void RemoveGeometry(GeometryId geometryId);
+		~MeshManager();
+		MeshId AddMesh(GraphicsCore::Mesh* const geometry);
+		void RemoveGeometry(MeshId geometryId);
 
-		GraphicsCore::Geometry* GetGeometry(GeometryId geometryId);
+		GraphicsCore::Mesh* GetModel(MeshId geometryId);
 
 	private:
-		GeometryBank m_GeometryBank;
+		MeshBank m_MeshBank;
 	};
 
 	class TextureManager
@@ -65,12 +65,12 @@ namespace Renderer
 		GraphicsResourceManager(const GraphicsResourceManager& manager) = delete;
 		GraphicsResourceManager operator=(const GraphicsResourceManager& manager) = delete;
 		inline TextureManager& GetTextureManager() { return m_TextureManager; }
-		inline GeometryManager& GetGeometryManager() { return m_GeometryManager; }
+		inline MeshManager& GetGeometryManager() { return m_GeometryManager; }
 		inline ShaderManager& GetShaderManager() { return m_ShaderManager; }
 
 	private:
 		TextureManager m_TextureManager;
 		ShaderManager m_ShaderManager;
-		GeometryManager m_GeometryManager;
+		MeshManager m_GeometryManager;
 	};
 }

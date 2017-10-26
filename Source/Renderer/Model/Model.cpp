@@ -1,12 +1,12 @@
-#include "Renderer/Mesh/Mesh.h"
+#include "Renderer/Model/Model.h"
 
 namespace Renderer
 {
-	Mesh::Mesh() 
+	Model::Model() 
 		: m_GeometryId(INVALID_GEOMETRY_ID) 
 	{}
 
-	Mesh::~Mesh()
+	Model::~Model()
 	{
 		m_GeometryId = INVALID_GEOMETRY_ID;
 	}

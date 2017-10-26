@@ -30,8 +30,8 @@
     <ClInclude Include="Geometry\GeometryInstance.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="Material\Material.h" />
-    <ClInclude Include="Mesh\Mesh.h" />
-    <ClInclude Include="Mesh\MinecraftWorldMesh.h" />
+    <ClInclude Include="Model\MinecraftWorldMesh.h" />
+    <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Resource\GraphicsResourceManager.h" />
     <ClInclude Include="SkyBox\SkyBox.h" />
   </ItemGroup>
@@ -39,8 +39,8 @@
     <ClCompile Include="Geometry\GeometryInstance.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="Material\Material.cpp" />
-    <ClCompile Include="Mesh\Mesh.cpp" />
-    <ClCompile Include="Mesh\MinecraftWorldMesh.cpp" />
+    <ClCompile Include="Model\MinecraftWorldMesh.cpp" />
+    <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Resource\GraphicsResourceManager.cpp" />
     <ClCompile Include="SkyBox\SkyBox.cpp" />
   </ItemGroup>

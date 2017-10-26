@@ -21,37 +21,37 @@ namespace
 
 namespace Renderer
 {
-	GeometryManager::~GeometryManager()
+	MeshManager::~MeshManager()
 	{
-		for (auto& it : m_GeometryBank)
+		for (auto& it : m_MeshBank)
 		{
 			delete it.second;
 		}
-		m_GeometryBank.clear();
+		m_MeshBank.clear();
 	}
 
-	GeometryId GeometryManager::AddGeometry(GraphicsCore::Geometry* const geometry)
+	MeshId MeshManager::AddMesh(GraphicsCore::Mesh* const mesh)
 	{
 		// todo refactor this to have better uid
-		uint64_t geoAddr = reinterpret_cast<uint64_t>(geometry);
-		GeometryId geoId = static_cast<GeometryId>(Hash64to32(geoAddr));
-		m_GeometryBank[geoId] = geometry;
-		return geoId;
+		uint64_t meshAddr = reinterpret_cast<uint64_t>(mesh);
+		MeshId meshId = static_cast<MeshId>(Hash64to32(meshAddr));
+		m_MeshBank[meshId] = mesh;
+		return meshId;
 	}
 
-	void GeometryManager::RemoveGeometry(GeometryId geometryId)
+	void MeshManager::RemoveGeometry(MeshId geometryId)
 	{
-		auto it = m_GeometryBank.find(geometryId);
-		if (it != m_GeometryBank.end()) //id exists!
+		auto it = m_MeshBank.find(geometryId);
+		if (it != m_MeshBank.end()) //id exists!
 		{
 			delete (*it).second;
-			m_GeometryBank.erase(it);
+			m_MeshBank.erase(it);
 		}
 	}
 
-	GraphicsCore::Geometry* GeometryManager::GetGeometry(GeometryId geometryId)
+	GraphicsCore::Mesh* MeshManager::GetModel(MeshId geometryId)
 	{
-		return m_GeometryBank[geometryId];
+		return m_MeshBank[geometryId];
 	}
 
 	TextureId TextureManager::InsertTexture(GraphicsCore::Texture* const texture)

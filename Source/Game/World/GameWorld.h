@@ -19,7 +19,7 @@ namespace Game
 
 		virtual void Update() override;
 
-		virtual Renderer::Mesh* GetMesh() override { return m_MinecraftWorld.GetMesh(); };
+		virtual Renderer::Model* GetModel() override { return m_MinecraftWorld.GetModel(); };
 
 
 	private:

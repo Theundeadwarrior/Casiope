@@ -4,7 +4,7 @@
 
 #include "Core/File/ImageUtilities.h"
 
-#include "GraphicsCore/Geometry/Geometry.h"
+#include "GraphicsCore/Mesh/Mesh.h"
 
 #include "Engine/Component/StaticMeshComponent.h"
 #include "Engine/Entity/Entity.h"
@@ -39,9 +39,9 @@ namespace Casiope
 		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::PROJECTIONMATRIX, projectionMatrix, SHADER_MATRIX44);
 
 		Engine::Entity cubes;
-		auto* m_VisComp = new Engine::StaticMeshComponent();
+		auto* m_VisComp = new Engine::StaticModelComponent();
 
-		GraphicsCore::Geometry cubesGeometry;
+		GraphicsCore::Mesh cubesGeometry;
 
 		cubes.AddComponent((Engine::Component*)m_VisComp);
 

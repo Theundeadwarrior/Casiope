@@ -13,11 +13,11 @@
 #include "GraphicsCore/LowLevelAPI/LowLevelGPUAPI.h"
 #include "GraphicsCore/RenderState/RenderState.h"
 #include "GraphicsCore/Shaders/Shader.h"
-#include "GraphicsCore/Geometry/Geometry.h"
+#include "GraphicsCore/Mesh/Mesh.h"
 #include "GraphicsCore/LowLevelAPI/LowLevelGPUResource.h"
 
 #include "Renderer/Resource/GraphicsResourceManager.h"
-#include "Renderer/Mesh/Mesh.h"
+#include "Renderer/Model/Model.h"
 
 namespace Renderer
 {
@@ -83,7 +83,7 @@ namespace Renderer
 	}
 
 
-	GraphicsCore::Geometry g_Geometry;
+	GraphicsCore::Mesh g_Mesh;
 	ShaderProgramId g_ShaderProgramId;
 
 
@@ -151,7 +151,7 @@ namespace Renderer
 			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f  // top-left    
 		};
 
-		g_Geometry.UpdateGeometry(vertices, sizeof(vertices), GraphicsCore::GeometryGPUType::V3FT2F);
+		g_Mesh.UpdateGeometry(vertices, sizeof(vertices), GraphicsCore::GeometryGPUType::V3FT2F);
 
 		g_ShaderProgramId = GraphicsResourceManager::GetInstance()->GetShaderManager().LinkShadersIntoProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
 	}
@@ -186,18 +186,18 @@ namespace Renderer
 		for (GLuint i = 0; i < 10; i++)
 		{
 			// Calculate the model matrix for each object and pass it to shader before drawing
-			glm::mat4 model;
-			model = glm::translate(model, cubePositions[i]);
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glm::mat4 modelMatrix;
+			modelMatrix = glm::translate(modelMatrix, cubePositions[i]);
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-			GraphicsCore::GPUAPI::DrawCall(&g_Geometry, g_ShaderProgramId);
+			GraphicsCore::GPUAPI::DrawCall(&g_Mesh, g_ShaderProgramId);
 		}
 
-		glm::mat4 model;
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		Mesh* mesh = world->GetMesh();
-		GraphicsCore::Geometry* worldGeometry = GraphicsResourceManager::GetInstance()->GetGeometryManager().GetGeometry(mesh->m_GeometryId);
-		GraphicsCore::GPUAPI::DrawCall(worldGeometry, g_ShaderProgramId);
+		glm::mat4 modelMatrix;
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		Model* model = world->GetModel();
+		GraphicsCore::Mesh* worldMesh = GraphicsResourceManager::GetInstance()->GetGeometryManager().GetModel(model->m_GeometryId);
+		GraphicsCore::GPUAPI::DrawCall(worldMesh, g_ShaderProgramId);
 	}
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)

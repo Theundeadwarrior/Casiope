@@ -1,7 +1,7 @@
 #include "MinecraftWorldMesh.h"
 
 #include "Renderer/Resource/GraphicsResourceManager.h"
-#include "GraphicsCore/Geometry/Geometry.h"
+#include "GraphicsCore/Mesh/Mesh.h"
 
 namespace Renderer
 {
@@ -12,7 +12,7 @@ namespace Renderer
 
 		/*m_ChunkGeometry->m_Vertex.push_back(Core::Vector4(i, j, k, textureValue));
 		m_ChunkGeometry->m_Vao
-		g_Geometry.m_GPUParams.m_VAO = GraphicsCore::BuildVertexBufferFromVertexArray(GraphicsCore::GeometryGPUType::V3T2, vertices, sizeof(vertices));*/
+		g_Mesh.m_GPUParams.m_VAO = GraphicsCore::BuildVertexBufferFromVertexArray(GraphicsCore::GeometryGPUType::V3T2, vertices, sizeof(vertices));*/
 	
 
 	void MinecraftChunkMesh::Update(void* data, uint32_t count)
@@ -22,7 +22,7 @@ namespace Renderer
 			GraphicsResourceManager::GetInstance()->GetGeometryManager().RemoveGeometry(m_GeometryId);
 		}
 		m_RealGeometry.UpdateGeometry(data, count, GraphicsCore::GeometryGPUType::V3BT2B);
-		m_GeometryId = GraphicsResourceManager::GetInstance()->GetGeometryManager().AddGeometry(&m_RealGeometry);
+		m_GeometryId = GraphicsResourceManager::GetInstance()->GetGeometryManager().AddMesh(&m_RealGeometry);
 	}
 
 	void MinecraftChunkMesh::Reset()
