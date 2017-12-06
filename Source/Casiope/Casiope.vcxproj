@@ -29,7 +29,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BF7230BA-922E-48A0-B7E5-1921366249AA}</ProjectGuid>
     <RootNamespace>Casiope</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -138,6 +138,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\Extern\SDL\lib\x64\;$(OutputPath);$(SolutionDir)..\Extern\glew\lib\x64\;$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\projects\x64\Debug;$(SolutionDir)..\Extern\apr\LibD;$(SolutionDir)..\Extern\apr-util\LibD;$(SolutionDir)..\Extern\apr-util\xml\expat\lib\LibD</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'">
     <ClCompile>
@@ -152,6 +156,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\Extern\SDL\lib\x64\;$(OutputPath);$(SolutionDir)..\Extern\glew\lib\x64\;</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -185,6 +193,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\Extern\SDL\lib\x64\;$(OutputPath);$(SolutionDir)..\Extern\glew\lib\x64\;$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\projects\x64\Release;$(SolutionDir)..\Extern\apr\LibR;$(SolutionDir)..\Extern\apr-util\LibR;$(SolutionDir)..\Extern\apr-util\xml\expat\lib\LibR;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Casiope.cpp" />

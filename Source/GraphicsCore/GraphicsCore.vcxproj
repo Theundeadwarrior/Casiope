@@ -50,7 +50,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07C2C4AB-A1D6-4CB6-9B60-ED7082F31314}</ProjectGuid>
     <RootNamespace>Core</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>GraphicsCore</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
