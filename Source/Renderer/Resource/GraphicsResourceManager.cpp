@@ -39,7 +39,7 @@ namespace Renderer
 		return meshId;
 	}
 
-	void MeshManager::RemoveGeometry(MeshId geometryId)
+	void MeshManager::RemoveMesh(MeshId geometryId)
 	{
 		auto it = m_MeshBank.find(geometryId);
 		if (it != m_MeshBank.end()) //id exists!
@@ -49,7 +49,7 @@ namespace Renderer
 		}
 	}
 
-	GraphicsCore::Mesh* MeshManager::GetModel(MeshId geometryId)
+	GraphicsCore::Mesh* MeshManager::GetMesh(MeshId geometryId)
 	{
 		return m_MeshBank[geometryId];
 	}

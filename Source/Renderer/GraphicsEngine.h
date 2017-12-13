@@ -8,6 +8,8 @@ namespace Engine { class World; }
 
 namespace Renderer
 {
+	class Model;
+
 	class GraphicsEngine
 	{
 	public:
@@ -32,6 +34,9 @@ namespace Renderer
 		int InitializeOpenGL();
 
 		void DrawOpaqueObjects(Engine::World* world);
+		
+		// todo: revisit this and maybe move it??
+		void DrawModel(const Model* model);
 
 		log4cxx::LoggerPtr m_Logger;
 

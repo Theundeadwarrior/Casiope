@@ -57,7 +57,6 @@ namespace Engine
 		{
 			Byte5Data vertices[WORLD_CHUNK_HEIGHT * WORLD_CHUNK_WIDTH * WORLD_CHUNK_LENGHT * 6 * 6];
 			uint32_t currentVertex = 0;
-			m_Model.Reset();
 			for (uint32_t i = 0; i < WORLD_CHUNK_WIDTH; ++i)
 			{
 				for (uint32_t j = 0; j < WORLD_CHUNK_LENGHT; ++j)
@@ -111,7 +110,7 @@ namespace Engine
 					}
 				}
 			}
-			m_Model.Update(vertices, currentVertex * 5);
+			m_Mesh.Update(vertices, currentVertex * 5);
 		}
 	}
 

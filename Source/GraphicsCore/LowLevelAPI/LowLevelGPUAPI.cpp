@@ -4,7 +4,7 @@
 
 namespace GraphicsCore
 {
-	void GPUAPI::DrawCall(const Mesh * const geometry, ShaderProgramId shaderProgramId)
+	void GPUAPI::DrawCall(const Mesh* const geometry, ShaderProgramId shaderProgramId)
 	{
 		glUseProgram(shaderProgramId);
 		glBindVertexArray(geometry->m_GPUParams.m_Vbr.VAO);

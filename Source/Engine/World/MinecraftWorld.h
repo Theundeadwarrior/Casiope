@@ -3,6 +3,7 @@
 #include <list>
 #include "Core/Math/Vector.h"
 #include "Renderer/Model/MinecraftWorldMesh.h"
+#include "Renderer/Model/Model.h"
 
 #define WORLD_CHUNK_WIDTH		10
 #define WORLD_CHUNK_LENGHT		10
@@ -32,7 +33,7 @@ namespace Engine
 
 		void SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type);
 
-		Renderer::MinecraftChunkMesh m_Model;
+		Renderer::MinecraftChunkMesh m_Mesh;
 		MinecraftBlockType m_Blocks[WORLD_CHUNK_WIDTH][WORLD_CHUNK_LENGHT][WORLD_CHUNK_HEIGHT];
 		Core::Vector3 m_Position = { 0, 0, 0 };
 		bool m_NeedsUpdate = false;
@@ -48,12 +49,11 @@ namespace Engine
 
 		void InitTestWorld();
 
-		// todo lcharbonneau: Replace that so it gathers all the meshes
-		Renderer::Model* GetModel() { return &m_CurrentChunk->m_Model; }
+		Renderer::Model* GetModel() { return &m_Model; }
 
 	private:
 		std::list<MinecraftWorldChunk*> m_LoadedChunks;
 		MinecraftWorldChunk* m_CurrentChunk; // player is currently in that chunk
+		Renderer::Model m_Model;
 	};
-
 }

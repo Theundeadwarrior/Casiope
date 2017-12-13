@@ -23,9 +23,9 @@ namespace Renderer
 	public:
 		~MeshManager();
 		MeshId AddMesh(GraphicsCore::Mesh* const geometry);
-		void RemoveGeometry(MeshId geometryId);
+		void RemoveMesh(MeshId geometryId);
 
-		GraphicsCore::Mesh* GetModel(MeshId geometryId);
+		GraphicsCore::Mesh* GetMesh(MeshId geometryId);
 
 	private:
 		MeshBank m_MeshBank;

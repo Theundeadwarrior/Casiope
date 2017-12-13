@@ -22,8 +22,6 @@ Mesh* mesh; // mesh is serialized as an ObjectId in the XML.
 
 
 
-
-
 Geometry -> Mesh
 class MinecraftWorldMesh should derive from the new Mesh class.
 
@@ -33,3 +31,5 @@ MaterialManager? Not sure maybe we just want to override a base class Material a
 
 How do we deal with the MeshManager? Do we want to reference Meshes by name for now and later change that to Ids?
 Same for textures and Shaders
+
+A model might have multiple meshes and textures.

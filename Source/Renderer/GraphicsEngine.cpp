@@ -195,9 +195,13 @@ namespace Renderer
 
 		glm::mat4 modelMatrix;
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-		Model* model = world->GetModel();
-		GraphicsCore::Mesh* worldMesh = GraphicsResourceManager::GetInstance()->GetGeometryManager().GetModel(model->m_GeometryId);
-		GraphicsCore::GPUAPI::DrawCall(worldMesh, g_ShaderProgramId);
+
+		DrawModel(world->GetModel());
+	}
+
+	void GraphicsEngine::DrawModel(const Model * model)
+	{
+		GraphicsCore::GPUAPI::DrawCall(model->m_Mesh, g_ShaderProgramId);
 	}
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
