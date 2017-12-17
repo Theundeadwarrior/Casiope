@@ -29,9 +29,6 @@
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\PerspectiveCamera.cpp" />
-    <ClCompile Include="Component\Component.cpp" />
-    <ClCompile Include="Component\StaticMeshComponent.cpp" />
-    <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="World\MinecraftWorld.cpp" />
@@ -40,9 +37,6 @@
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\PerspectiveCamera.h" />
-    <ClInclude Include="Component\Component.h" />
-    <ClInclude Include="Component\StaticMeshComponent.h" />
-    <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="World\MinecraftWorld.h" />

@@ -14,15 +14,6 @@
     <ClInclude Include="Object\Object.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\Entity.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Component.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\StaticMeshComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="World\MinecraftWorld.h">
       <Filter>World</Filter>
     </ClInclude>
@@ -41,15 +32,6 @@
     <ClCompile Include="Object\Object.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\Entity.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Component.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\StaticMeshComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="World\MinecraftWorld.cpp">
       <Filter>World</Filter>
     </ClCompile>
@@ -63,15 +45,6 @@
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{166ffa74-5ac6-4d25-9ee4-0ca53eb9025a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{c337aec5-14aa-41c6-9e48-9fd70e9a58d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entity">
-      <UniqueIdentifier>{0da504ce-488c-4946-a0e4-82057702965b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component">
-      <UniqueIdentifier>{9ebf1586-fc0a-4cef-adad-eb703f2a65ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

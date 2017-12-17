@@ -6,8 +6,6 @@
 
 #include "GraphicsCore/Mesh/Mesh.h"
 
-#include "Engine/Component/StaticMeshComponent.h"
-#include "Engine/Entity/Entity.h"
 #include "Engine/GameEngine.h"
 #include "Engine/Camera/PerspectiveCamera.h"
 #include "Game/World/GameWorld.h"
@@ -38,14 +36,8 @@ namespace Casiope
 		//glm::mat4x4* projectionMatrix = (dynamic_cast<SceneManager::PerspectiveCamera*>(camera))->GetPerspectiveMat();
 		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::PROJECTIONMATRIX, projectionMatrix, SHADER_MATRIX44);
 
-		Engine::Entity cubes;
-		auto* m_VisComp = new Engine::StaticModelComponent();
-
 		GraphicsCore::Mesh cubesGeometry;
 
-		cubes.AddComponent((Engine::Component*)m_VisComp);
-
-		// Do some shit with the visual component... need to fill in the Mesh and geometry.
 
 		Engine::WorldManager& worldManager = gameEngine.GetWorldManager();
 
