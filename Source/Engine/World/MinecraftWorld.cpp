@@ -26,6 +26,9 @@ namespace Engine
 
 		testChunk->UpdateWorldChunkMesh();
 		m_CurrentChunk = testChunk;
+
+		// todo revisit this
+		m_Model.m_Mesh = &m_CurrentChunk->m_Mesh;
 	}
 
 	MinecraftWorld::MinecraftWorld()
