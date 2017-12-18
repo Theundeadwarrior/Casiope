@@ -30,7 +30,7 @@ namespace Core
 	public:
 		bool Read(uint8* buffer, uint64 maxReadSize);
 		//std::string ReadAll();
-		bool Write(uint8* source, uint64 writeSize);
+		bool Write(const uint8* source, uint64 writeSize);
 
 		bool Seek(uint64 pos);
 		uint64 Tell() const;

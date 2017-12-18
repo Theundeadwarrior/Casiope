@@ -16,14 +16,7 @@ namespace Core
 		assert(IsValid() && IsReadMode());
 
 		uint32 bytesRead = 0;
-		bool succeed = ReadFile(m_FileHandle, buffer, maxReadSize - 1, &bytesRead, nullptr);
-
-		if (succeed && bytesRead > 0)
-		{
-			buffer[bytesRead] = '\0';
-		}
-
-		return succeed;
+		return ReadFile(m_FileHandle, buffer, maxReadSize, &bytesRead, nullptr);
 	}
 
 	//std::string File::ReadAll()
@@ -31,7 +24,7 @@ namespace Core
 	//	return "";
 	//}
 
-	bool File::Write(uint8* source, uint64 size)
+	bool File::Write(const uint8* source, uint64 size)
 	{
 		assert(IsValid() && IsWriteMode());
 		uint32 bytesWritten = 0;

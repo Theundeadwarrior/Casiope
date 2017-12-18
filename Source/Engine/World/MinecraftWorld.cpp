@@ -1,8 +1,11 @@
 #include "MinecraftWorld.h"
 
-#include "Core\Math\Vector.h"
+#include "Core/File/FileSystem.h"
+#include "Core/Math/Vector.h"
 
 #include <vector>
+
+#define CHUNK_VERSION 1
 
 namespace Engine
 {
@@ -31,9 +34,53 @@ namespace Engine
 		m_Model.m_Mesh = &m_CurrentChunk->m_Mesh;
 	}
 
+	void MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)
+	{
+		char filename[256];
+		sprintf_s(filename, "chunks/%08x_%08x_%08x.chunk", x, y, z);
+
+		auto* fs = Core::FileSystem::GetInstance();
+		auto* file = fs->OpenRead(filename);
+
+		// MAGIC: 0x7700AABB
+		uint32_t magic = 0x7700AABB;
+		file->Read(reinterpret_cast<uint8_t*>(&magic), sizeof(magic));
+		assert(magic == 0x7700AABB);
+
+		// Version: 0xFFFF
+
+
+		// Coordinates for sanity: 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF
+
+
+	}
+
+	// todo: fix this to save a chunk and not the current one all the time...
+	void MinecraftWorld::SaveChunk(const MinecraftWorldChunk& chunk)
+	{
+		char filename[256];
+		sprintf_s(filename, "chunks/%08x_%08x_%08x.chunk", chunk.m_Position.x, chunk.m_Position.y, chunk.m_Position.z);
+
+		auto* fs = Core::FileSystem::GetInstance();
+		auto* file = fs->OpenWrite(filename);
+
+		uint16_t version = CHUNK_VERSION;
+		file->Write(reinterpret_cast<uint8_t*>(&version), sizeof(version));
+
+		uint32_t magic = 0x7700AABB;
+		file->Write(reinterpret_cast<uint8_t*>(&magic), sizeof(magic));
+
+		file->Write(reinterpret_cast<const uint8_t*>(&chunk.m_Position), sizeof(chunk.m_Position));
+
+		fs->CloseFile(file);
+
+	}
+
 	MinecraftWorld::MinecraftWorld()
 	{
 		InitTestWorld();
+		//LoadChunk(0, 0, 0);
+		SaveChunk(*m_CurrentChunk);
 	}
 
 	MinecraftWorld::~MinecraftWorld()

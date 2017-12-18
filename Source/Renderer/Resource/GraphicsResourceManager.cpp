@@ -109,12 +109,14 @@ namespace Renderer
 		size_t vsBufferSize = vsFile->GetSize() + 1;
 		char* vsCode = static_cast<char*>(malloc(vsBufferSize));
 		vsFile->Read(reinterpret_cast<uint8*>(vsCode), vsBufferSize);
+		vsCode[vsBufferSize - 1] = '\0';
 		fsInstance->CloseFile(vsFile);
 
 		auto* psFile = fsInstance->OpenRead(psFileName);
 		size_t psBufferSize = psFile->GetSize() + 1;
 		char* psCode = static_cast<char*>(malloc(psBufferSize));
 		psFile->Read(reinterpret_cast<uint8*>(psCode), psBufferSize);
+		psCode[psBufferSize - 1] = '\0';
 		fsInstance->CloseFile(psFile);
 
 		auto* shaderProgram = new GraphicsCore::ShaderProgram(vsCode, psCode, "");

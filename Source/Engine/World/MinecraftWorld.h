@@ -35,7 +35,7 @@ namespace Engine
 
 		Renderer::MinecraftChunkMesh m_Mesh;
 		MinecraftBlockType m_Blocks[WORLD_CHUNK_WIDTH][WORLD_CHUNK_LENGHT][WORLD_CHUNK_HEIGHT];
-		Core::Vector3 m_Position = { 0, 0, 0 };
+		glm::ivec3 m_Position = { 0, 0, 0 };
 		bool m_NeedsUpdate = false;
 	};
 
@@ -47,9 +47,13 @@ namespace Engine
 		MinecraftWorld();
 		~MinecraftWorld();
 
+	public:
 		void InitTestWorld();
-
 		Renderer::Model* GetModel() { return &m_Model; }
+
+	private:
+		void LoadChunk(int32_t x, int32_t y, int32_t z);
+		void SaveChunk(const MinecraftWorldChunk& chunk);
 
 	private:
 		std::list<MinecraftWorldChunk*> m_LoadedChunks;
