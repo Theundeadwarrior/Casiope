@@ -24,6 +24,8 @@ namespace Game
 	{
 		Engine::GameEngine::GetInstance()->GetInputManager().UnregisterMouseListener(this);
 		Engine::GameEngine::GetInstance()->GetInputManager().UnregisterKeyboardListener(this);
+
+		delete m_FPCamera;
 	}
 
 	Engine::Camera * Player::GetCamera()

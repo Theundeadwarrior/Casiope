@@ -23,17 +23,17 @@ namespace Engine
 	};
 
 	// CPU Resource
-	class MinecraftWorldChunk
+	class MinecraftWorldChunk : public Renderer::Model
 	{
 	public:
 		MinecraftWorldChunk() = default;
+		virtual ~MinecraftWorldChunk() override;
 		void UpdateWorldChunkMesh();
 
 		MinecraftBlockType GetBlock(uint32_t x, uint32_t y, uint32_t z);
 
 		void SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type);
 
-		Renderer::MinecraftChunkMesh m_Mesh;
 		MinecraftBlockType m_Blocks[WORLD_CHUNK_WIDTH][WORLD_CHUNK_LENGHT][WORLD_CHUNK_HEIGHT];
 		glm::ivec3 m_Position = { 0, 0, 0 };
 		bool m_NeedsUpdate = false;
@@ -49,15 +49,14 @@ namespace Engine
 
 	public:
 		void InitTestWorld();
-		Renderer::Model* GetModel() { return &m_Model; }
+		Renderer::Model* GetModel() { return m_CurrentChunk; }
 
 	private:
-		void LoadChunk(int32_t x, int32_t y, int32_t z);
+		MinecraftWorldChunk* LoadChunk(int32_t x, int32_t y, int32_t z);
 		void SaveChunk(const MinecraftWorldChunk& chunk);
 
 	private:
 		std::list<MinecraftWorldChunk*> m_LoadedChunks;
 		MinecraftWorldChunk* m_CurrentChunk; // player is currently in that chunk
-		Renderer::Model m_Model;
 	};
 }

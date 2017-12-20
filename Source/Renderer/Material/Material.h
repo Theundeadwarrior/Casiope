@@ -16,6 +16,11 @@ namespace Renderer
 		glm::vec4 m_DiffuseColor;
 		glm::vec4 m_SpecularColor;
 	};
+
+	class TextureMaterial : public IMaterial
+	{
+
+	};
 }
 
 

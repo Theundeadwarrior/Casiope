@@ -5,18 +5,9 @@
 
 namespace Renderer
 {
-	Model::Model()
-	{
-
-	}
-
-	Model::Model(const GraphicsCore::Mesh* mesh, const IMaterial* material)
+	Model::Model(GraphicsCore::Mesh* mesh, IMaterial* material)
 	{
 		m_Mesh = mesh;
-	}
-
-	Model::~Model()
-	{
-
+		m_Material = material;
 	}
 }

@@ -27,6 +27,7 @@ namespace GraphicsCore
 	class Mesh : public StaticMesh
 	{
 	public:
+		virtual ~Mesh() {};
 		void UpdateGeometry(void* data, uint32_t count, GeometryGPUType type)
 		{
 			m_GPUParams.m_Vbr.InitBuffer(type, data, count);

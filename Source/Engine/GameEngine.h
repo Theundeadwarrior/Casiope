@@ -36,5 +36,7 @@ namespace Engine
 		WorldManager m_WorldManager;
 
 		SDL_Event m_CurrentEvent;
+
+		bool m_RequestedQuit;
 	};
 }

@@ -42,7 +42,7 @@ namespace Casiope
 		Engine::WorldManager& worldManager = gameEngine.GetWorldManager();
 
 		Game::GameWorld* world = new Game::GameWorld();
-		world->SetCurrentPlayer(new Game::Player());
+		world->SetCurrentPlayer(new Game::Player()); // we're leaking this!!
 		worldManager.SetCurrentWorld(world);
 		gameEngine.GetGraphicsEngine().InitTestGraphics();
 	}

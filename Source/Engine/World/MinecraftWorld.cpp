@@ -11,48 +11,45 @@ namespace Engine
 {
 	void MinecraftWorld::InitTestWorld()
 	{
-		// Faking some data just to make it work.
-		MinecraftWorldChunk* testChunk = new MinecraftWorldChunk();
+		auto* testChunk = LoadChunk(0, 0, 0);
 
-		for (uint32_t i = 0; i < WORLD_CHUNK_WIDTH; ++i)
-		{
-			for (uint32_t j = 0; j < WORLD_CHUNK_LENGHT; ++j)
-			{
-					if ((i + j) % 2 == 0)
-					{
-						testChunk->m_Blocks[i][j][1] = MinecraftBlockType::Grass;
-					}
-			}
-		}
-		m_LoadedChunks.push_back(testChunk);
 		testChunk->m_NeedsUpdate = true;
-
 		testChunk->UpdateWorldChunkMesh();
-		m_CurrentChunk = testChunk;
 
-		// todo revisit this
-		m_Model.m_Mesh = &m_CurrentChunk->m_Mesh;
+		m_LoadedChunks.push_back(testChunk);
+		m_CurrentChunk = testChunk;
 	}
 
-	void MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)
+	MinecraftWorldChunk* MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)
 	{
+		MinecraftWorldChunk* loadedChunk = new MinecraftWorldChunk();
+		loadedChunk->m_Mesh = new Renderer::MinecraftChunkMesh();
+
 		char filename[256];
 		sprintf_s(filename, "chunks/%08x_%08x_%08x.chunk", x, y, z);
 
 		auto* fs = Core::FileSystem::GetInstance();
 		auto* file = fs->OpenRead(filename);
 
+		// Version: 0xFFFF
+		uint16_t version;
+		file->Read(reinterpret_cast<uint8_t*>(&version), sizeof(version));
+		assert(version == CHUNK_VERSION);
+
 		// MAGIC: 0x7700AABB
-		uint32_t magic = 0x7700AABB;
+		uint32_t magic;
 		file->Read(reinterpret_cast<uint8_t*>(&magic), sizeof(magic));
 		assert(magic == 0x7700AABB);
 
-		// Version: 0xFFFF
-
-
 		// Coordinates for sanity: 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF
+		file->Read(reinterpret_cast<uint8_t*>(&loadedChunk->m_Position), sizeof(loadedChunk->m_Position));
+		assert(loadedChunk->m_Position.x == x && loadedChunk->m_Position.y == y && loadedChunk->m_Position.z == z);
 
+		file->Read(reinterpret_cast<uint8_t*>(&loadedChunk->m_Blocks), sizeof(loadedChunk->m_Blocks));
 
+		fs->CloseFile(file);
+
+		return loadedChunk;
 	}
 
 	// todo: fix this to save a chunk and not the current one all the time...
@@ -72,19 +69,28 @@ namespace Engine
 
 		file->Write(reinterpret_cast<const uint8_t*>(&chunk.m_Position), sizeof(chunk.m_Position));
 
-		fs->CloseFile(file);
+		file->Write(reinterpret_cast<const uint8_t*>(&chunk.m_Blocks), sizeof(chunk.m_Blocks));
 
+		fs->CloseFile(file);
 	}
 
 	MinecraftWorld::MinecraftWorld()
 	{
 		InitTestWorld();
-		//LoadChunk(0, 0, 0);
 		SaveChunk(*m_CurrentChunk);
 	}
 
 	MinecraftWorld::~MinecraftWorld()
 	{
+		for(auto* chunk : m_LoadedChunks)
+		{
+			delete chunk;
+		}
+	}
+
+	MinecraftWorldChunk::~MinecraftWorldChunk()
+	{
+		delete m_Mesh;
 	}
 
 	void MinecraftWorldChunk::UpdateWorldChunkMesh()
@@ -160,7 +166,7 @@ namespace Engine
 					}
 				}
 			}
-			m_Mesh.Update(vertices, currentVertex * 5);
+			m_Mesh->UpdateGeometry(vertices, currentVertex * 5, GraphicsCore::GeometryGPUType::V3BT2B);
 		}
 	}
 

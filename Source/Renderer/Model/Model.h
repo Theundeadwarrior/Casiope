@@ -12,13 +12,13 @@ namespace Renderer
 	class Model
 	{
 	public:
-		Model();
-		Model(const GraphicsCore::Mesh* mesh, const IMaterial* material);
-		~Model();
+		Model() = default;
+		Model(GraphicsCore::Mesh* mesh, IMaterial* material);
+		virtual ~Model() = default;
 
 	public: // todo lcharbonneau: move that back to protected
-		const IMaterial* m_Material;
-		const GraphicsCore::Mesh* m_Mesh;
+		IMaterial* m_Material;
+		GraphicsCore::Mesh* m_Mesh;
 	};
 }
 

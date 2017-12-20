@@ -9,6 +9,7 @@
 namespace Engine
 {
 	GameEngine::GameEngine()
+		: m_RequestedQuit(false)
 	{
 	}
 
@@ -61,8 +62,7 @@ namespace Engine
 			}
 			else if (m_CurrentEvent.type == SDL_QUIT)
 			{
-				exit(0);
-				return;
+				m_RequestedQuit = true;
 			}
 		}
 	}
@@ -70,7 +70,7 @@ namespace Engine
 	int GameEngine::Loop()
 	{
 		// Loop
-		while (true)
+		while (!m_RequestedQuit)
 		{
 			HandleEvents();
 			m_InputManager.Update();
