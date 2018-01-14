@@ -2,7 +2,16 @@ Look into SceneGraph and why they are bad!!
 http://gamedev.stackexchange.com/questions/8278/what-should-be-contained-in-a-game-scene-graph/8281#8281
 
 
+// Look into the CompileShader we had on our project... it might have some good things to learn from.
 
+That's where we generate the shader variations:
+	https://github.com/Theundeadwarrior/LudumDare29/blob/master/source/GameEngine/TestSceneLoader.cpp
+
+That's where the call to bind the local params is done:
+	https://github.com/Theundeadwarrior/LudumDare29/blob/master/source/LowLevelGraphics/LowLevelAPI/GPUAPI/LowLevelGPUAPI.cpp
+
+That's where we actually bind the parameters
+	https://github.com/Theundeadwarrior/LudumDare29/blob/master/source/SceneManager/Material/Material.cpp
 
 
 // ResourceManager:

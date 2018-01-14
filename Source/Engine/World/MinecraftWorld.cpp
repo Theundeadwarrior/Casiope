@@ -3,6 +3,9 @@
 #include "Core/File/FileSystem.h"
 #include "Core/Math/Vector.h"
 
+#include "Renderer/Material/Material.h"
+#include "Renderer/Resource/GraphicsResourceManager.h"
+
 #include <vector>
 
 #define CHUNK_VERSION 1
@@ -18,6 +21,12 @@ namespace Engine
 
 		m_LoadedChunks.push_back(testChunk);
 		m_CurrentChunk = testChunk;
+
+		// Bind the world material to it.
+		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
+		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/floor/gravel1.bmp", GraphicsCore::e_TexFormatRGB);
+		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().LinkShadersIntoProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
+		testChunk->m_Material = worldMaterial;
 	}
 
 	MinecraftWorldChunk* MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)

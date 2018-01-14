@@ -16,7 +16,6 @@ namespace GraphicsCore
 		e_TexFormatRGBA = GL_RGBA
 	};
 
-
 	class Texture
 	{
 	public:

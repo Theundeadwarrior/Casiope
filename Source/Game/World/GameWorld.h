@@ -16,11 +16,8 @@ namespace Game
 	{
 	public:
 		void SetCurrentPlayer(Player* player);
-
 		virtual void Update() override;
-
 		virtual Renderer::Model* GetModel() override { return m_MinecraftWorld.GetModel(); };
-
 
 	private:
 		Player* m_CurrentPlayer;

@@ -16,9 +16,6 @@ namespace Renderer
 		GraphicsEngine();
 		~GraphicsEngine();
 
-		// todo: remove this
-		void InitTestGraphics();
-
 		int Initialize();
 		int Shutdown();
 

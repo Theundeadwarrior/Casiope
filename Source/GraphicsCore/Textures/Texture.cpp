@@ -7,8 +7,16 @@
 
 namespace GraphicsCore
 {
-	Texture::Texture(const Core::Image<unsigned char>& /*imageParameters*/, TextureFormat /*format*/)
+	Texture::Texture(const Core::Image<unsigned char>& imageParameters, TextureFormat /*format*/)
 	{
+		glGenTextures(1, &m_id);
+		glBindTexture(GL_TEXTURE_2D, m_id);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageParameters.width, imageParameters.width, 0, GL_RGB, GL_UNSIGNED_BYTE, imageParameters.imageData.data());
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//LowLevelAPI::GenerateTexture(m_id, imageParameters, format);
 		//m_path = imageParameters.path;
 	}
@@ -38,8 +46,8 @@ namespace GraphicsCore
 			assert(!glGetError(), "Failed to load texture");
 		}
 
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
 		return textureId;

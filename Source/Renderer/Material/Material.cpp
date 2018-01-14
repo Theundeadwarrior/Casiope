@@ -2,6 +2,14 @@
 
 namespace Renderer
 {
+	void PhongMaterial::BindShaderParameters()
+	{
 
+	}
 
+	void TextureMaterial::BindShaderParameters()
+	{
+		PhongMaterial::BindShaderParameters();
+
+	}
 }

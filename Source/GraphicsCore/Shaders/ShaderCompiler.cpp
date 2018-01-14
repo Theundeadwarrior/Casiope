@@ -7,6 +7,7 @@
 #include "Core/Logging/Logger.h"
 #include "GraphicsCore/Shaders/Shader.h"
 
+#include <iostream>
 
 namespace GraphicsCore
 {
@@ -31,6 +32,7 @@ namespace GraphicsCore
 		// todo: have better logging when shader compilation fails.
 		if (compilationStatus != GL_TRUE)
 		{
+			std::cout << ShaderLog(shaderIdOut) << std::endl;
 			return false;
 		}
 
@@ -43,11 +45,6 @@ namespace GraphicsCore
 		ShaderProgramId programId = glCreateProgram();
 		glAttachShader(programId, vertexShader.GetId());
 		glAttachShader(programId, fragmentShader.GetId());
-
-		// todo lcharbonneau: Reactivate later
-		//glBindAttribLocation(programId, 0, "position");
-		//glBindAttribLocation(programId, 1, "normal");
-		//glBindAttribLocation(programId, 2, "texCoords");
 
 		//Link the shader program
 		glLinkProgram(programId);

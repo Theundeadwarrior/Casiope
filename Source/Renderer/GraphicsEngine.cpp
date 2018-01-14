@@ -18,6 +18,7 @@
 
 #include "Renderer/Resource/GraphicsResourceManager.h"
 #include "Renderer/Model/Model.h"
+#include "Renderer/Material/Material.h"
 
 namespace Renderer
 {
@@ -82,11 +83,6 @@ namespace Renderer
 		return result;
 	}
 
-
-	GraphicsCore::Mesh g_Mesh;
-	ShaderProgramId g_ShaderProgramId;
-
-
 	int GraphicsEngine::Shutdown()
 	{
 		int result = 0;
@@ -96,66 +92,6 @@ namespace Renderer
 
 		return result;
 	}
-
-
-
-	void GraphicsEngine::InitTestGraphics()
-	{
-		GLfloat vertices[] = {
-			// Back face
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // Bottom-left
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right      
-			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, // bottom-right    
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // bottom-left    
-
-			// Front face
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-right        
-			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
-			0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right
-			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, // top-left        
-
-			// Left face
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-right
-			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-left       
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-right
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-right
-
-			// Right face
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-right          
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right      
-			 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-right
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left
-
-			// Bottom face          
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // top-right
-			 0.5f, -0.5f, -0.5f,  1.0f, 1.0f, // top-left        
-			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-left
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // top-right
-			0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-left
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-right
-
-			// Top face
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
-			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right                 
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right
-			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, // bottom-left  
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f  // top-left    
-		};
-
-		g_Mesh.UpdateGeometry(vertices, sizeof(vertices), GraphicsCore::GeometryGPUType::V3FT2F);
-
-		g_ShaderProgramId = GraphicsResourceManager::GetInstance()->GetShaderManager().LinkShadersIntoProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
-	}
-
 	glm::vec3 cubePositions[] = {
 		glm::vec3(5.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 5.0f, 0.0f),
@@ -171,9 +107,11 @@ namespace Renderer
 
 	void GraphicsEngine::DrawOpaqueObjects(Engine::World* world)
 	{
-		GLint modelLoc = glGetUniformLocation(g_ShaderProgramId, "model");
-		GLint viewLoc = glGetUniformLocation(g_ShaderProgramId, "view");
-		GLint projLoc = glGetUniformLocation(g_ShaderProgramId, "projection");
+		auto shaderProgramId = world->GetModel()->m_Material->m_ShaderProgram;
+
+		GLint modelLoc = glGetUniformLocation(shaderProgramId, "model");
+		GLint viewLoc = glGetUniformLocation(shaderProgramId, "view");
+		GLint projLoc = glGetUniformLocation(shaderProgramId, "projection");
 
 		glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
@@ -181,17 +119,6 @@ namespace Renderer
 		glm::mat4 projMatrix;
 		((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
-
-
-		for (GLuint i = 0; i < 10; i++)
-		{
-			// Calculate the model matrix for each object and pass it to shader before drawing
-			glm::mat4 modelMatrix;
-			modelMatrix = glm::translate(modelMatrix, cubePositions[i]);
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-
-			GraphicsCore::GPUAPI::DrawCall(&g_Mesh, g_ShaderProgramId);
-		}
 
 		glm::mat4 modelMatrix;
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
@@ -201,7 +128,12 @@ namespace Renderer
 
 	void GraphicsEngine::DrawModel(const Model * model)
 	{
-		GraphicsCore::GPUAPI::DrawCall(model->m_Mesh, g_ShaderProgramId);
+		glActiveTexture(GL_TEXTURE0);
+		// todo: Move that to the bind 
+		TextureMaterial* texMat = dynamic_cast<TextureMaterial*>(model->m_Material);
+		glBindTexture(GL_TEXTURE_2D, texMat->m_Texture);
+		GraphicsCore::GPUAPI::DrawCall(model->m_Mesh, model->m_Material->m_ShaderProgram);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
