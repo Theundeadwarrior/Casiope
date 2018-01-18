@@ -1,6 +1,4 @@
 #include "GraphicsEngine.h"
-#include <iostream>
-#include <SDL.h>
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
@@ -117,8 +115,6 @@ namespace Renderer
 
 			DrawModel(model);
 		}
-
-
 	}
 
 	void GraphicsEngine::DrawModel(const Model * model)
@@ -185,6 +181,6 @@ namespace Renderer
 
 	void GraphicsEngine::EndRendering()
 	{
-		SDL_GL_SwapWindow(m_WindowManager.GetCurrentWindow());
+		m_WindowManager.SwapCurrentWindow();
 	}
 }

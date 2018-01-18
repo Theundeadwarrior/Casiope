@@ -16,6 +16,8 @@ namespace GraphicsCore
 		int InitWindow();
 		int ShutdownWindow();
 
+		void SwapCurrentWindow();
+
 		SDL_Window* GetCurrentWindow()
 		{
 			return m_Window;

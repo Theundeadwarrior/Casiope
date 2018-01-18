@@ -62,6 +62,11 @@ namespace GraphicsCore
 		return 0;
 	}
 
+	void WindowManager::SwapCurrentWindow()
+	{
+		SDL_GL_SwapWindow(GetCurrentWindow());
+	}
+
 	void WindowManager::GetCurrentWindowSize(unsigned int& o_x, unsigned int& o_y) const
 	{
 		GLint m_viewport[4];
