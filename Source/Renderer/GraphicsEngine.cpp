@@ -120,9 +120,7 @@ namespace Renderer
 	void GraphicsEngine::DrawModel(const Model * model)
 	{
 		glActiveTexture(GL_TEXTURE0);
-		// todo: Move that to the bind 
-		TextureMaterial* texMat = dynamic_cast<TextureMaterial*>(model->m_Material);
-		glBindTexture(GL_TEXTURE_2D, texMat->m_Texture);
+		model->m_Material->BindShaderParameters();
 		GraphicsCore::GPUAPI::DrawCall(model->m_Mesh, model->m_Material->m_ShaderProgram);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
