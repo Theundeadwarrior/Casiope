@@ -25,6 +25,9 @@
     <Filter Include="Math">
       <UniqueIdentifier>{4f243cdc-2776-497f-8f81-c0c4ad53c80f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Transform">
+      <UniqueIdentifier>{464706b8-7759-4734-8e2e-2c7e845f7b71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
@@ -54,6 +57,9 @@
     </ClCompile>
     <ClCompile Include="File\FileSystem.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform\Transform.cpp">
+      <Filter>Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="File\File.h">
       <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform\Transform.h">
+      <Filter>Transform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

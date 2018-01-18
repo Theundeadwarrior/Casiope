@@ -227,6 +227,7 @@
     <ClCompile Include="Logging\Logger.cpp" />
     <ClCompile Include="Memory\DebugAllocator.cpp" />
     <ClCompile Include="Singleton\Singleton.cpp" />
+    <ClCompile Include="Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Containers\SmallVector.h" />
@@ -243,6 +244,7 @@
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Memory\DebugAllocator.h" />
     <ClInclude Include="Singleton\Singleton.h" />
+    <ClInclude Include="Transform\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

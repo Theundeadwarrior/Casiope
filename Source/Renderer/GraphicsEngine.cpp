@@ -92,38 +92,33 @@ namespace Renderer
 
 		return result;
 	}
-	glm::vec3 cubePositions[] = {
-		glm::vec3(5.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 5.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 5.0f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 0.0f)
-	};
 
 	void GraphicsEngine::DrawOpaqueObjects(Engine::World* world)
 	{
-		auto shaderProgramId = world->GetModel()->m_Material->m_ShaderProgram;
+		auto models = world->GetModels();
+		for (auto* model : *models)
+		{
+			auto shaderProgramId = model->m_Material->m_ShaderProgram;
 
-		GLint modelLoc = glGetUniformLocation(shaderProgramId, "model");
-		GLint viewLoc = glGetUniformLocation(shaderProgramId, "view");
-		GLint projLoc = glGetUniformLocation(shaderProgramId, "projection");
+			GLint modelLoc = glGetUniformLocation(shaderProgramId, "model");
+			GLint viewLoc = glGetUniformLocation(shaderProgramId, "view");
+			GLint projLoc = glGetUniformLocation(shaderProgramId, "projection");
 
-		glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+			glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
-		glm::mat4 projMatrix;
-		((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
+			glm::mat4 projMatrix;
+			((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
 
-		glm::mat4 modelMatrix;
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+			glm::mat4 modelMatrix;
+			modelMatrix = glm::translate(modelMatrix, model->m_Transform.GetPosition());
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-		DrawModel(world->GetModel());
+			DrawModel(model);
+		}
+
+
 	}
 
 	void GraphicsEngine::DrawModel(const Model * model)

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <list>
+
 namespace Renderer { class Model; }
 
 namespace Engine
@@ -15,7 +17,7 @@ namespace Engine
 		virtual void Update();
 
 		// Getters for renderer. Probably should create a RendererWorld class and move that there...
-		virtual Renderer::Model* GetModel() { return nullptr; }
+		virtual std::list<Renderer::Model*>* GetModels() { return nullptr; }
 
 		Camera* GetCamera() const { return m_Camera; }
 

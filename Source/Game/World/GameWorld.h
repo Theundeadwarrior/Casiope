@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "Renderer/SkyBox/SkyBox.h"
 
 #include "Engine/World/MinecraftWorld.h"
@@ -17,7 +15,7 @@ namespace Game
 	public:
 		void SetCurrentPlayer(Player* player);
 		virtual void Update() override;
-		virtual Renderer::Model* GetModel() override { return m_MinecraftWorld.GetModel(); };
+		virtual std::list<Renderer::Model*>* GetModels() override { return m_MinecraftWorld.GetModels(); };
 
 	private:
 		Player* m_CurrentPlayer;

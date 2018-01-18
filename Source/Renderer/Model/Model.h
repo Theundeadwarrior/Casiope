@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Core/Transform/Transform.h"
+
 namespace GraphicsCore
 {
 	class Mesh;
@@ -19,6 +21,8 @@ namespace Renderer
 	public: // todo lcharbonneau: move that back to protected
 		IMaterial* m_Material;
 		GraphicsCore::Mesh* m_Mesh;
+
+		Core::Transform m_Transform;
 	};
 }
 

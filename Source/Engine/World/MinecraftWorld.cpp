@@ -27,6 +27,14 @@ namespace Engine
 		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/floor/gravel1.bmp", GraphicsCore::e_TexFormatRGB);
 		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().LinkShadersIntoProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
 		testChunk->m_Material = worldMaterial;
+
+		// chunk2 for fun
+		auto* testChunk2 = LoadChunk(1, 0, 0);
+		testChunk2->m_NeedsUpdate = true;
+		testChunk2->UpdateWorldChunkMesh();
+		m_LoadedChunks.push_back(testChunk2);
+		testChunk2->m_Material = worldMaterial;
+
 	}
 
 	MinecraftWorldChunk* MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)
@@ -57,6 +65,8 @@ namespace Engine
 		file->Read(reinterpret_cast<uint8_t*>(&loadedChunk->m_Blocks), sizeof(loadedChunk->m_Blocks));
 
 		fs->CloseFile(file);
+
+		loadedChunk->m_Transform.SetTranslate(glm::vec3(loadedChunk->m_Position.x * WORLD_CHUNK_WIDTH, loadedChunk->m_Position.y * WORLD_CHUNK_LENGHT, loadedChunk->m_Position.z * WORLD_CHUNK_HEIGHT));
 
 		return loadedChunk;
 	}

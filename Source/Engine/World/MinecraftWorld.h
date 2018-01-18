@@ -49,14 +49,14 @@ namespace Engine
 
 	public:
 		void InitTestWorld();
-		Renderer::Model* GetModel() { return m_CurrentChunk; }
+		std::list<Renderer::Model*>* GetModels() { return &m_LoadedChunks; }
 
 	private:
 		MinecraftWorldChunk* LoadChunk(int32_t x, int32_t y, int32_t z);
 		void SaveChunk(const MinecraftWorldChunk& chunk);
 
 	private:
-		std::list<MinecraftWorldChunk*> m_LoadedChunks;
+		std::list<Renderer::Model*> m_LoadedChunks;
 		MinecraftWorldChunk* m_CurrentChunk; // player is currently in that chunk
 	};
 }
