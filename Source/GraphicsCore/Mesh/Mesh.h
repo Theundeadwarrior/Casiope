@@ -30,7 +30,7 @@ namespace GraphicsCore
 		virtual ~Mesh() {};
 		void UpdateGeometry(void* data, uint32_t count, GeometryGPUType type)
 		{
-			m_GPUParams.m_Vbr.InitBuffer(type, data, count);
+			m_GPUParams.m_Vbr.Init(type, data, count);
 			m_GPUParams.m_VertexCount = count;
 		}
 	};

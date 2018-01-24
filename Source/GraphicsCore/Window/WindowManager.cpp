@@ -15,7 +15,7 @@ namespace GraphicsCore
 	{
 	}
 
-	int WindowManager::InitWindow()
+	int WindowManager::InitWindow(uint32_t sizeX, uint32_t sizeY)
 	{
 		// Initialisation de la SDL
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)

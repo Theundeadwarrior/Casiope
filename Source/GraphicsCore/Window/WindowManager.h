@@ -13,7 +13,7 @@ namespace GraphicsCore
 		WindowManager();
 		~WindowManager();
 
-		int InitWindow();
+		int InitWindow(uint32_t sizeX, uint32_t sizeY);
 		int ShutdownWindow();
 
 		void SwapCurrentWindow();

@@ -18,6 +18,9 @@
 #include "Renderer/Model/Model.h"
 #include "Renderer/Material/Material.h"
 
+#define SCREEN_SIZE_X 1280
+#define SCREEN_SIZE_Y 720
+
 namespace Renderer
 {
 	GraphicsEngine::GraphicsEngine()
@@ -37,7 +40,6 @@ namespace Renderer
 
 		if (glewInitialization != GLEW_OK)
 		{
-			// On affiche l'erreur grâce à la fonction : glewGetErrorString(GLenum code)
 			LOG4CXX_ERROR(m_Logger, "Could no initialize GLEW: " << glewGetErrorString(glewInitialization));
 
 			// On quitte la SDL
@@ -71,12 +73,11 @@ namespace Renderer
 
 		GraphicsResourceManager::CreateInstance();
 
-		int result = m_WindowManager.InitWindow();
+		int result = m_WindowManager.InitWindow(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 		if (result != -1)
 			result = InitializeGlew();
 		if (result != -1)
 			result = InitializeOpenGL();
-
 
 		return result;
 	}

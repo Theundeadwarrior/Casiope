@@ -18,12 +18,26 @@ namespace GraphicsCore
 		VertexBufferResource();
 		~VertexBufferResource();
 
+		void Init(GeometryGPUType type, void* buffer, uint32_t count);
+		void Release();
 
-		void InitBuffer(GeometryGPUType type, void* buffer, uint32_t count);
-		void ReleaseBuffer();
 		BufferId VAO;
 		BufferId VBO;
 		bool m_IsInitialized;
 	};
+
+	struct FrameBufferResource
+	{
+		FrameBufferResource();
+		~FrameBufferResource();
+
+		void Init(uint32_t sizeX, uint32_t sizeY);
+		void Release();
+
+		TextureId texId;
+		BufferId FBO;
+		bool m_IsInitialized;
+	};
+
 }
 
