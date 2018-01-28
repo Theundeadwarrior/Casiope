@@ -19,31 +19,18 @@ namespace GraphicsCore
 		glDeleteShader(m_ShaderId);
 	}
 
-	ShaderResource::ShaderResource()
-	{
-	}
-
-	ShaderResource::~ShaderResource()
-	{
-	}
-
 	// todo: Move the shadercompile call to the constructor of the shader.
-	ShaderProgram::ShaderProgram(const char* vertexShaderCode, const char* fragmentShaderCode, const std::string& args)
-		: m_VertexShader(nullptr)
-		, m_FragmentShader(nullptr)
+	VertexFragmentShaderProgram::VertexFragmentShaderProgram(const char* vertexShaderCode, const char* fragmentShaderCode, const std::string& args)
+		: m_VertexShader(ShaderType::e_VertexShader, vertexShaderCode, args)
+		, m_FragmentShader(ShaderType::e_FragmentShader, fragmentShaderCode, args)
 	{
-		m_VertexShader = new Shader(ShaderType::e_VertexShader, vertexShaderCode, args);
-		m_FragmentShader = new Shader(ShaderType::e_FragmentShader, fragmentShaderCode, args);
-
-		m_ShaderProgramId = ShaderCompiler::LinkShadersIntoProgram(*m_VertexShader, *m_FragmentShader);
+		m_ShaderProgramId = ShaderCompiler::LinkShadersIntoProgram(std::vector<Shader> { m_VertexShader, m_FragmentShader });
 	}
 
-	ShaderProgram::~ShaderProgram()
+	ComputeShaderProgram::ComputeShaderProgram(const char* computeShaderCode, const std::string& args)
+		: m_ComputeShader(ShaderType::e_ComputeShader, computeShaderCode, args)
 	{
-		if (m_FragmentShader)
-			delete m_FragmentShader;
-		if (m_VertexShader)
-			delete m_VertexShader;
+		m_ShaderProgramId = ShaderCompiler::LinkShadersIntoProgram(std::vector<Shader>{ m_ComputeShader });
 	}
 
 }

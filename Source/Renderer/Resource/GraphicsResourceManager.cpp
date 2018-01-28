@@ -102,7 +102,24 @@ namespace Renderer
 		m_ShaderBank.clear();
 	}
 
-	ShaderId ShaderManager::LinkShadersIntoProgram(const char * vsFileName, const char * psFileName)
+	ShaderProgramId ShaderManager::CreateComputeShaderProgram(const char* csFileName)
+	{
+		auto* fsInstance = Core::FileSystem::GetInstance();
+		auto* csFile = fsInstance->OpenRead(csFileName);
+		size_t csBufferSize = csFile->GetSize() + 1;
+		char* csCode = static_cast<char*>(malloc(csBufferSize));
+		csFile->Read(reinterpret_cast<uint8*>(csCode), csBufferSize);
+		csCode[csBufferSize - 1] = '\0';
+		fsInstance->CloseFile(csFile);
+
+		auto* shaderProgram = new GraphicsCore::ComputeShaderProgram(csCode, "");
+		auto shaderId = shaderProgram->GetProgramId();
+		m_ShaderBank[shaderId] = shaderProgram;
+
+		return 0;
+	}
+
+	ShaderProgramId ShaderManager::CreateVertexFragmentShaderProgram(const char * vsFileName, const char * psFileName)
 	{
 		auto* fsInstance = Core::FileSystem::GetInstance();
 		auto* vsFile = fsInstance->OpenRead(vsFileName);
@@ -119,7 +136,7 @@ namespace Renderer
 		psCode[psBufferSize - 1] = '\0';
 		fsInstance->CloseFile(psFile);
 
-		auto* shaderProgram = new GraphicsCore::ShaderProgram(vsCode, psCode, "");
+		auto* shaderProgram = new GraphicsCore::VertexFragmentShaderProgram(vsCode, psCode, "");
 		auto shaderId = shaderProgram->GetProgramId();
 		m_ShaderBank[shaderId] = shaderProgram;
 

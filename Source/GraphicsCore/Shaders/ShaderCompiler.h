@@ -3,6 +3,7 @@
 #include "GraphicsCore/GraphicsType.h"
 
 #include <string>
+#include <vector>
 #include <GL/glew.h>
 
 
@@ -15,13 +16,14 @@ namespace GraphicsCore
 	{
 		e_VertexShader = GL_VERTEX_SHADER,
 		e_FragmentShader = GL_FRAGMENT_SHADER,
+		e_ComputeShader = GL_COMPUTE_SHADER,
 	};
 
 	class ShaderCompiler
 	{
 	public:
 		static bool CompileShader(ShaderId& shaderIdOut, ShaderType type, const std::string& code, const std::string& args);
-		static ShaderProgramId LinkShadersIntoProgram(const Shader& vertexShader, const Shader& fragmentShader);
+		static ShaderProgramId ShaderCompiler::LinkShadersIntoProgram(const std::vector<Shader>& shaders);
 		static std::string ShaderLog(ShaderId shaderId);
 	};
 }

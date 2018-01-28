@@ -39,14 +39,14 @@ namespace GraphicsCore
 		return true;
 	}
 
-	ShaderProgramId ShaderCompiler::LinkShadersIntoProgram(const Shader& vertexShader, const Shader& fragmentShader)
+	ShaderProgramId ShaderCompiler::LinkShadersIntoProgram(const std::vector<Shader>& shaders)
 	{
-		//Create the shader program and attach the two shaders to it.
 		ShaderProgramId programId = glCreateProgram();
-		glAttachShader(programId, vertexShader.GetId());
-		glAttachShader(programId, fragmentShader.GetId());
+		for (auto& shader : shaders)
+		{
+			glAttachShader(programId, shader.GetId());
+		}
 
-		//Link the shader program
 		glLinkProgram(programId);
 
 		int linkStatus = 0;

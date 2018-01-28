@@ -25,22 +25,32 @@ namespace GraphicsCore
 	class ShaderProgram
 	{
 	public:
-		ShaderProgram(const char* vertexShaderCode, const char* fragmentShaderCode, const std::string& args);
-		~ShaderProgram();
-
+		virtual ~ShaderProgram() {};
 		ShaderProgramId GetProgramId() const { return m_ShaderProgramId; }
 
-	private:
-		Shader* m_VertexShader;
-		Shader* m_FragmentShader;
+	protected:
 		ShaderProgramId m_ShaderProgramId;
 	};
 
-	class ShaderResource
+	class VertexFragmentShaderProgram : public ShaderProgram
 	{
 	public:
-		ShaderResource();
-		~ShaderResource();
+		VertexFragmentShaderProgram(const char* vertexShaderCode, const char* fragmentShaderCode, const std::string& args);
+		virtual ~VertexFragmentShaderProgram() override {};
+
+
+	private:
+		Shader m_VertexShader;
+		Shader m_FragmentShader;
+	};
+
+	class ComputeShaderProgram : public ShaderProgram
+	{
+	public:
+		ComputeShaderProgram(const char* computeShaderCode, const std::string& args);
+		virtual ~ComputeShaderProgram() override {};
+
+	private:
+		Shader m_ComputeShader;
 	};
 }
-
