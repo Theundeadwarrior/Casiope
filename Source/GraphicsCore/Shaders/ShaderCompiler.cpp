@@ -11,9 +11,26 @@
 
 namespace GraphicsCore
 {
-	void CheckShaderCompilationStatus(ShaderId shaderId)
+	std::string ShaderLog(ShaderId shaderId)
 	{
+		char log[1024];
 
+		glGetShaderInfoLog(shaderId, sizeof(log), NULL, log);
+
+		std::string RetStr(log);
+
+		return RetStr;
+	}
+
+	std::string ProgramLog(ShaderProgramId programId)
+	{
+		char log[1024];
+
+		glGetProgramInfoLog(programId, sizeof(log), NULL, log);
+
+		std::string RetStr(log);
+
+		return RetStr;
 	}
 
 	bool ShaderCompiler::CompileShader(ShaderId& shaderIdOut, ShaderType type, const std::string & code, const std::string & args)
@@ -32,45 +49,33 @@ namespace GraphicsCore
 		// todo: have better logging when shader compilation fails.
 		if (compilationStatus != GL_TRUE)
 		{
-			std::cout << ShaderLog(shaderIdOut) << std::endl;
+			std::cout << "Shader compilation failed: " << ShaderLog(shaderIdOut) << std::endl;
 			return false;
 		}
 
 		return true;
 	}
 
-	ShaderProgramId ShaderCompiler::LinkShadersIntoProgram(const std::vector<Shader>& shaders)
+	bool ShaderCompiler::LinkShadersIntoProgram(ShaderProgramId& shaderProgramIdOut, const std::vector<Shader>& shaders)
 	{
-		ShaderProgramId programId = glCreateProgram();
+		shaderProgramIdOut = glCreateProgram();
 		for (auto& shader : shaders)
 		{
-			glAttachShader(programId, shader.GetId());
+			glAttachShader(shaderProgramIdOut, shader.GetId());
 		}
 
-		glLinkProgram(programId);
+		glLinkProgram(shaderProgramIdOut);
 
 		int linkStatus = 0;
-		glGetProgramiv(programId, GL_LINK_STATUS, &linkStatus);
-		assert(linkStatus, "Shaders couldn't be linked to the program");
+		glGetProgramiv(shaderProgramIdOut, GL_LINK_STATUS, &linkStatus);
 
-		return programId;
+		if (linkStatus != GL_TRUE)
+		{
+			std::cout << "Shader program linking failed: " << ProgramLog(shaderProgramIdOut) << std::endl;
+			return false;
+		}
+
+		return true;
 	}
-
-	inline std::string ShaderCompiler::ShaderLog(ShaderId shaderId)
-	{
-		int logLength = 0;
-		glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &logLength);
-
-		char *log = new char[logLength];
-
-		int returnedLength = 0;
-		glGetShaderInfoLog(shaderId, logLength, &returnedLength, log);
-
-		std::string RetStr(log);
-		delete[] log;
-
-		return RetStr;
-	}
-
 }
 

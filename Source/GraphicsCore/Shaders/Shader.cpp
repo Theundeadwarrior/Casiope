@@ -24,13 +24,13 @@ namespace GraphicsCore
 		: m_VertexShader(ShaderType::e_VertexShader, vertexShaderCode, args)
 		, m_FragmentShader(ShaderType::e_FragmentShader, fragmentShaderCode, args)
 	{
-		m_ShaderProgramId = ShaderCompiler::LinkShadersIntoProgram(std::vector<Shader> { m_VertexShader, m_FragmentShader });
+		ShaderCompiler::LinkShadersIntoProgram(m_ShaderProgramId, std::vector<Shader> { m_VertexShader, m_FragmentShader });
 	}
 
 	ComputeShaderProgram::ComputeShaderProgram(const char* computeShaderCode, const std::string& args)
 		: m_ComputeShader(ShaderType::e_ComputeShader, computeShaderCode, args)
 	{
-		m_ShaderProgramId = ShaderCompiler::LinkShadersIntoProgram(std::vector<Shader>{ m_ComputeShader });
+		ShaderCompiler::LinkShadersIntoProgram(m_ShaderProgramId, std::vector<Shader>{ m_ComputeShader });
 	}
 
 }

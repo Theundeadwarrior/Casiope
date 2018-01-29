@@ -20,9 +20,13 @@
 
 #define SCREEN_SIZE_X 1280
 #define SCREEN_SIZE_Y 720
+#define GRID_SIZE 16
 
 namespace Renderer
 {
+	ShaderProgramId g_LightCullingProgram;
+	GraphicsCore::ShaderStorageBufferResource g_SSBO;
+
 	GraphicsEngine::GraphicsEngine()
 	{
 	}
@@ -66,6 +70,18 @@ namespace Renderer
 		return 0;
 	}
 
+	int InitializeLightGridCompute()
+	{
+		int workGroupsX = (SCREEN_SIZE_X + (SCREEN_SIZE_X % GRID_SIZE)) / GRID_SIZE;
+		int workGroupsY = (SCREEN_SIZE_Y + (SCREEN_SIZE_Y % GRID_SIZE)) / GRID_SIZE;
+		size_t numberOfTiles = workGroupsX * workGroupsY;
+
+		g_LightCullingProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateComputeShaderProgram("shaders/frustum_grid.comp.glsl");
+		g_SSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr);
+
+		return 0;
+	}
+
 	int GraphicsEngine::Initialize()
 	{
 		// First, logger
@@ -78,6 +94,8 @@ namespace Renderer
 			result = InitializeGlew();
 		if (result != -1)
 			result = InitializeOpenGL();
+		if (result != -1)
+			result = InitializeLightGridCompute();
 
 		return result;
 	}

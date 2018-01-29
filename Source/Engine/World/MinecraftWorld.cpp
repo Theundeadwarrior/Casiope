@@ -185,7 +185,7 @@ namespace Engine
 					}
 				}
 			}
-			m_Mesh->UpdateGeometry(vertices, currentVertex * 5, GraphicsCore::GeometryGPUType::V3BT2B);
+			m_Mesh->UpdateGeometry(vertices, currentVertex * 5, GraphicsCore::VertexBufferType::V3BT2B);
 		}
 	}
 

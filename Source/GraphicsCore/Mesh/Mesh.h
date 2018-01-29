@@ -28,7 +28,7 @@ namespace GraphicsCore
 	{
 	public:
 		virtual ~Mesh() {};
-		void UpdateGeometry(void* data, uint32_t count, GeometryGPUType type)
+		void UpdateGeometry(void* data, uint32_t count, VertexBufferType type)
 		{
 			m_GPUParams.m_Vbr.Init(type, data, count);
 			m_GPUParams.m_VertexCount = count;

@@ -13,14 +13,14 @@ namespace GraphicsCore
 		Release();
 	}
 
-	void VertexBufferResource::Init(GeometryGPUType type, void * buffer, uint32_t count)
+	void VertexBufferResource::Init(VertexBufferType type, void * buffer, uint32_t count)
 	{
 		Release();
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
 		glBindVertexArray(VAO);
 
-		if (type == GeometryGPUType::V3FT2F)
+		if (type == VertexBufferType::V3FT2F)
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
@@ -32,7 +32,7 @@ namespace GraphicsCore
 			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 			glEnableVertexAttribArray(2);
 		}
-		else if (type == GeometryGPUType::V3BT2B)
+		else if (type == VertexBufferType::V3BT2B)
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
@@ -44,7 +44,7 @@ namespace GraphicsCore
 			glVertexAttribPointer(2, 2, GL_BYTE, GL_FALSE, 5 * sizeof(GLbyte), (GLvoid*)(3 * sizeof(GLbyte)));
 			glEnableVertexAttribArray(2);
 		}
-		else if (type == GeometryGPUType::V4B)
+		else if (type == VertexBufferType::V4B)
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
@@ -80,6 +80,8 @@ namespace GraphicsCore
 
 	void FrameBufferResource::Init(uint32_t sizeX, uint32_t sizeY)
 	{
+		Release();
+
 		glGenFramebuffers(1, &FBO);
 
 		glGenTextures(1, &texId);
@@ -108,4 +110,40 @@ namespace GraphicsCore
 		}
 	}
 
+	ShaderStorageBufferResource::ShaderStorageBufferResource()
+		: m_IsInitialized(false)
+	{
+	}
+
+	ShaderStorageBufferResource::~ShaderStorageBufferResource()
+	{
+		Release();
+	}
+
+	void ShaderStorageBufferResource::Init(size_t bufferSize, BufferUsage usage, void* buffer = nullptr)
+	{
+		Release();
+
+		glGenBuffers(1, &SSBO);
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO);
+	
+		if (buffer == nullptr)
+		{
+			glBufferData(GL_SHADER_STORAGE_BUFFER, bufferSize, 0, (GLenum)usage);
+		}
+		else
+		{
+			glBufferData(GL_SHADER_STORAGE_BUFFER, bufferSize, buffer, (GLenum)usage);
+		}
+
+		m_IsInitialized = true;
+	}
+
+	void ShaderStorageBufferResource::Release()
+	{
+		if (m_IsInitialized)
+		{
+			glDeleteBuffers(1, &SSBO);
+		}
+	}
 }
