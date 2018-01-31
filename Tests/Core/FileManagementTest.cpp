@@ -64,7 +64,11 @@ TEST_CASE("ReadFileAndVerifyBufferTermination")
 	auto* fileSystem = Core::FileSystem::CreateInstance();
 	Core::File* file1 = fileSystem->OpenRead("test2.txt");
 
-	void* buffer = malloc(file1->GetSize() + 1);
+	size_t fileSize = file1->GetSize();
+	
+
+	void* buffer = malloc(fileSize + 1);
+	static_cast<uint8*>(buffer)[fileSize] = '\0';
 	file1->Read(static_cast<uint8*>(buffer), file1->GetSize());
 
 	REQUIRE(strlen(static_cast<char*>(buffer)) == 16);
