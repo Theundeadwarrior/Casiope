@@ -143,11 +143,13 @@ namespace Renderer
 
 	void GraphicsEngine::DrawModel(const Model * model)
 	{
+		// Bind the model matrix
 		GLint modelLoc = glGetUniformLocation(model->m_Material->m_ShaderProgram, "model");
 		glm::mat4 modelMatrix;
 		modelMatrix = glm::translate(modelMatrix, model->m_Transform.GetPosition());
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
+		// Bind the Shader Params
 		model->m_Material->BindShaderParameters();
 		GraphicsCore::GPUAPI::DrawCall(model->m_Mesh);
 		model->m_Material->UnBindShaderParameters();
@@ -192,13 +194,16 @@ namespace Renderer
 		//	//Opaque objects
 			GraphicsCore::RenderState::EnableDepthWrite();
 
-			// New renderer:
-			// Step 1: Depth pre-pass:
-			DepthPrePass(world);
+
 
 		//	{
 				GraphicsCore::RenderState::EnableBackFaceCulling();
 		//		{
+					// New renderer:
+					// Step 1: Depth pre-pass.
+					DepthPrePass(world);
+
+					// Step 2: Render the scene.
 					DrawOpaqueObjects(world);
 		//		}
 				GraphicsCore::RenderState::DisableBackFaceCulling();
