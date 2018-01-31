@@ -27,6 +27,9 @@ namespace Renderer
 	ShaderProgramId g_LightCullingProgram;
 	GraphicsCore::ShaderStorageBufferResource g_SSBO;
 
+	ShaderProgramId g_DepthPrePassProgram;
+	GraphicsCore::FrameBufferResource g_FBO;
+
 	GraphicsEngine::GraphicsEngine()
 	{
 	}
@@ -70,14 +73,17 @@ namespace Renderer
 		return 0;
 	}
 
-	int InitializeLightGridCompute()
+	int GraphicsEngine::InitializeLightGridCompute()
 	{
 		int workGroupsX = (SCREEN_SIZE_X + (SCREEN_SIZE_X % GRID_SIZE)) / GRID_SIZE;
 		int workGroupsY = (SCREEN_SIZE_Y + (SCREEN_SIZE_Y % GRID_SIZE)) / GRID_SIZE;
 		size_t numberOfTiles = workGroupsX * workGroupsY;
 
 		g_LightCullingProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateComputeShaderProgram("shaders/frustum_grid.comp.glsl");
-		g_SSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr);
+		g_SSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr); // Frustrum are 4 planes of 4 floats
+		
+		g_DepthPrePassProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/depth.vert.glsl", "shaders/depth.frag.glsl");
+		g_FBO.Init(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 
 		return 0;
 	}
@@ -117,35 +123,65 @@ namespace Renderer
 		{
 			auto shaderProgramId = model->m_Material->m_ShaderProgram;
 
-			GLint modelLoc = glGetUniformLocation(shaderProgramId, "model");
-			GLint viewLoc = glGetUniformLocation(shaderProgramId, "view");
-			GLint projLoc = glGetUniformLocation(shaderProgramId, "projection");
-
-			glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-
-			glm::mat4 projMatrix;
-			((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
-
-			glm::mat4 modelMatrix;
-			modelMatrix = glm::translate(modelMatrix, model->m_Transform.GetPosition());
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-
+			GraphicsCore::GPUAPI::UseShader(shaderProgramId);
+			BindViewProjMatrices(shaderProgramId, world);
 			DrawModel(model);
 		}
 	}
 
+	void GraphicsEngine::BindViewProjMatrices(ShaderProgramId shaderProgramId, Engine::World * world)
+	{
+		GLint viewLoc = glGetUniformLocation(shaderProgramId, "view");
+		glm::mat4 viewMatrix = world->GetCamera()->GetViewMatrix();
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+		GLint projLoc = glGetUniformLocation(shaderProgramId, "projection");
+		glm::mat4 projMatrix;
+		((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
+	}
+
 	void GraphicsEngine::DrawModel(const Model * model)
 	{
-		glActiveTexture(GL_TEXTURE0);
+		GLint modelLoc = glGetUniformLocation(model->m_Material->m_ShaderProgram, "model");
+		glm::mat4 modelMatrix;
+		modelMatrix = glm::translate(modelMatrix, model->m_Transform.GetPosition());
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
 		model->m_Material->BindShaderParameters();
-		GraphicsCore::GPUAPI::DrawCall(model->m_Mesh, model->m_Material->m_ShaderProgram);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		GraphicsCore::GPUAPI::DrawCall(model->m_Mesh);
+		model->m_Material->UnBindShaderParameters();
+	}
+
+	void GraphicsEngine::DepthPrePass(Engine::World* world) 
+	{
+		GraphicsCore::GPUAPI::UseShader(g_DepthPrePassProgram);
+
+		BindViewProjMatrices(g_DepthPrePassProgram, world);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, g_FBO.FBO);
+		glClear(GL_DEPTH_BUFFER_BIT);
+
+		auto models = world->GetModels();
+		for (auto* model : *models)
+		{
+			GLint modelLoc = glGetUniformLocation(g_DepthPrePassProgram, "model");
+			glm::mat4 modelMatrix;
+			modelMatrix = glm::translate(modelMatrix, model->m_Transform.GetPosition());
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+			GraphicsCore::GPUAPI::DrawCall(model->m_Mesh);
+		}
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
 	{
+
+
+
+
 		////todo : add visibility system outside and iterate on visible objects only
 
 		//// Skybox
@@ -155,8 +191,13 @@ namespace Renderer
 		//{
 		//	//Opaque objects
 			GraphicsCore::RenderState::EnableDepthWrite();
+
+			// New renderer:
+			// Step 1: Depth pre-pass:
+			DepthPrePass(world);
+
 		//	{
-				GraphicsCore::RenderState::EnableBackFaceCulling(); // todo lcharbonneau: move that to the mesh property.
+				GraphicsCore::RenderState::EnableBackFaceCulling();
 		//		{
 					DrawOpaqueObjects(world);
 		//		}

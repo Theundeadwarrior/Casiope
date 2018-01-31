@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GraphicsCore/GraphicsType.h"
 #include "GraphicsCore/Window/WindowManager.h"
 
 #include <Core/Logging/Logger.h>
@@ -29,8 +30,11 @@ namespace Renderer
 	private:
 		int InitializeGlew();
 		int InitializeOpenGL();
+		int InitializeLightGridCompute();
 
 		void DrawOpaqueObjects(Engine::World* world);
+		void BindViewProjMatrices(ShaderProgramId shaderProgramId, Engine::World * world);
+		void DepthPrePass(Engine::World* world);
 		
 		// todo: revisit this and maybe move it??
 		void DrawModel(const Model* model);

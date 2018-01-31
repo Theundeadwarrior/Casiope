@@ -15,6 +15,7 @@ namespace Renderer
 	{
 	public:
 		virtual void BindShaderParameters() = 0;
+		virtual void UnBindShaderParameters() = 0;
 		ShaderProgramId m_ShaderProgram;
 	};
 
@@ -22,6 +23,8 @@ namespace Renderer
 	{
 	public:
 		void BindShaderParameters() override;
+		void UnBindShaderParameters() override;
+
 		glm::vec4 m_AmbientColor;
 		glm::vec4 m_DiffuseColor;
 		glm::vec4 m_SpecularColor;
@@ -32,6 +35,7 @@ namespace Renderer
 	{
 	public:
 		void BindShaderParameters() override;
+		void UnBindShaderParameters() override;
 		TextureId m_Texture;
 	};
 }
