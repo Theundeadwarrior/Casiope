@@ -1,9 +1,10 @@
 #pragma once
 
+#include "Core/Logging/Logger.h"
 #include "GraphicsCore/GraphicsType.h"
 #include "GraphicsCore/Window/WindowManager.h"
 
-#include <Core/Logging/Logger.h>
+#include "glm/detail/type_mat.hpp"
 
 namespace Engine { class World; }
 
@@ -35,6 +36,8 @@ namespace Renderer
 		void DrawOpaqueObjects(Engine::World* world);
 		void BindViewProjMatrices(ShaderProgramId shaderProgramId, Engine::World * world);
 		void DepthPrePass(Engine::World* world);
+		void GridComputeShadingPass(const glm::mat4& x);
+
 		
 		// todo: revisit this and maybe move it??
 		void DrawModel(const Model* model);

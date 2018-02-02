@@ -28,7 +28,7 @@ namespace Game
 		delete m_FPCamera;
 	}
 
-	Engine::Camera * Player::GetCamera()
+	Engine::PerspectiveCamera * Player::GetCamera()
 	{
 		return m_FPCamera;
 	}

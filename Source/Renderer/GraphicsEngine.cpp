@@ -24,8 +24,9 @@
 
 namespace Renderer
 {
-	ShaderProgramId g_LightCullingProgram;
-	GraphicsCore::ShaderStorageBufferResource g_SSBO;
+	bool g_IsGridComputeSetup = false;
+	ShaderProgramId g_GridComputeProgram;
+	GraphicsCore::ShaderStorageBufferResource g_FrustrumSSBO;
 
 	ShaderProgramId g_DepthPrePassProgram;
 	GraphicsCore::FrameBufferResource g_FBO;
@@ -79,8 +80,8 @@ namespace Renderer
 		int workGroupsY = (SCREEN_SIZE_Y + (SCREEN_SIZE_Y % GRID_SIZE)) / GRID_SIZE;
 		size_t numberOfTiles = workGroupsX * workGroupsY;
 
-		g_LightCullingProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateComputeShaderProgram("shaders/frustum_grid.comp.glsl");
-		g_SSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr); // Frustrum are 4 planes of 4 floats
+		g_GridComputeProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateComputeShaderProgram("shaders/frustum_grid.comp.glsl");
+		g_FrustrumSSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr); // Frustrum are 4 planes of 4 floats
 		
 		g_DepthPrePassProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/depth.vert.glsl", "shaders/depth.frag.glsl");
 		g_FBO.Init(SCREEN_SIZE_X, SCREEN_SIZE_Y);
@@ -116,6 +117,23 @@ namespace Renderer
 		return result;
 	}
 
+	void GraphicsEngine::GridComputeShadingPass(const glm::mat4& projMatrix)
+	{
+		int workGroupsX = (SCREEN_SIZE_X + (SCREEN_SIZE_X % GRID_SIZE)) / GRID_SIZE;
+		int workGroupsY = (SCREEN_SIZE_Y + (SCREEN_SIZE_Y % GRID_SIZE)) / GRID_SIZE;
+
+		GraphicsCore::GPUAPI::UseShader(g_GridComputeProgram);
+
+		// Setup inverse projection Matrix.
+		glm::mat4 projInv = glm::inverse(projMatrix);
+		glUniformMatrix4fv(glGetUniformLocation(g_GridComputeProgram, "inverseProj"), 1, GL_FALSE, glm::value_ptr(projInv));
+
+		glUniform2f(glGetUniformLocation(g_GridComputeProgram, "screenDimensions"), SCREEN_SIZE_X, SCREEN_SIZE_Y);
+
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, g_FrustrumSSBO.SSBO);
+		glDispatchCompute(workGroupsX, workGroupsY, 1);
+	}
+
 	void GraphicsEngine::DrawOpaqueObjects(Engine::World* world)
 	{
 		auto models = world->GetModels();
@@ -137,7 +155,7 @@ namespace Renderer
 
 		GLint projLoc = glGetUniformLocation(shaderProgramId, "projection");
 		glm::mat4 projMatrix;
-		((Engine::PerspectiveCamera*)(world->GetCamera()))->GetPerspectiveMat(projMatrix);
+		world->GetCamera()->GetPerspectiveMat(projMatrix);
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
 	}
 
@@ -180,12 +198,16 @@ namespace Renderer
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
 	{
+		if (!g_IsGridComputeSetup)
+		{
+			glm::mat4 projMatrix;
+			world->GetCamera()->GetPerspectiveMat(projMatrix);
+			GridComputeShadingPass(projMatrix);
 
-
-
+			g_IsGridComputeSetup = true;
+		}
 
 		////todo : add visibility system outside and iterate on visible objects only
-
 		//// Skybox
 		//DrawSkyBox(world);
 

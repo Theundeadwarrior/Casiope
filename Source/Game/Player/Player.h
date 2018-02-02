@@ -7,7 +7,7 @@
 
 namespace Engine
 {
-	class Camera;
+	class PerspectiveCamera;
 }
 
 namespace Game
@@ -18,7 +18,7 @@ namespace Game
 		Player();
 		~Player();
 		
-		Engine::Camera* GetCamera();
+		Engine::PerspectiveCamera* GetCamera();
 
 		void Update();
 
@@ -28,7 +28,7 @@ namespace Game
 
 
 	private:
-		Engine::Camera* m_FPCamera;
+		Engine::PerspectiveCamera* m_FPCamera;
 
 		int m_MouseX, m_MouseY;
 		std::map<char, bool> m_IsKeyPressed;

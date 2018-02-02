@@ -22,23 +22,6 @@ Maybe we can have a BaseObject that has an Id and a TypeId.
 We can have a file that describes the dependencies in between objects so we know in advance what dependencies we have before loading the objects.
 We can load all the objects needed in an area and patch the pointers using that table.
 
-
-class Model
-{
-Mesh* mesh; // mesh is serialized as an ObjectId in the XML.
-};
-
-
-
-
-Geometry -> Mesh
-class MinecraftWorldMesh should derive from the new Mesh class.
-
-MaterialParams should have a reference to the shader as well as textures used to render the Mesh.
-
-MaterialManager? Not sure maybe we just want to override a base class Material and have MaterialParams.
-
-How do we deal with the MeshManager? Do we want to reference Meshes by name for now and later change that to Ids?
-Same for textures and Shaders
-
 A model might have multiple meshes and textures.
+
+**Investigate if we want to do Render Passes where the depth prepass would be one of them as well as the light accumulation and the grid comp.

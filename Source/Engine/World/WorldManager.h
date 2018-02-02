@@ -6,7 +6,7 @@ namespace Renderer { class Model; }
 
 namespace Engine
 {
-	class Camera;
+	class PerspectiveCamera;
 
 	class World
 	{
@@ -16,13 +16,11 @@ namespace Engine
 
 		virtual void Update();
 
-		// Getters for renderer. Probably should create a RendererWorld class and move that there...
 		virtual std::list<Renderer::Model*>* GetModels() { return nullptr; }
-
-		Camera* GetCamera() const { return m_Camera; }
+		PerspectiveCamera* GetCamera() const { return m_Camera; }
 
 	protected:
-		Camera* m_Camera; // todo: Move this to a player class!! We could have multiple players!
+		PerspectiveCamera* m_Camera; // todo: Move this to a player class!! We could have multiple players!
 	};
 
 
