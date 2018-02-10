@@ -14,16 +14,13 @@ namespace Casiope
 {
 	void InitializeTestScene(Engine::GameEngine& gameEngine, const char* imagePath)
 	{
-		Engine::PerspectiveCameraParams params(45, 1024 / 768.0f, 0.1f, 1000.0f);
-//		Engine::Camera* camera = new Engine::PerspectiveCamera(params, glm::vec3(0, 5, 5), glm::vec3(0, 0, -1), glm::vec3(0, 5, -5));
-
-		Core::Image<unsigned char> skyBoxImages[6];
-		Core::LoadImageFromFile(skyBoxImages[0], imagePath);
-		Core::LoadImageFromFile(skyBoxImages[1], imagePath);
-		Core::LoadImageFromFile(skyBoxImages[2], imagePath);
-		Core::LoadImageFromFile(skyBoxImages[3], imagePath);
-		Core::LoadImageFromFile(skyBoxImages[4], imagePath);
-		Core::LoadImageFromFile(skyBoxImages[5], imagePath);
+		//Core::Image<unsigned char> skyBoxImages[6];
+		//Core::LoadImageFromFile(skyBoxImages[0], imagePath);
+		//Core::LoadImageFromFile(skyBoxImages[1], imagePath);
+		//Core::LoadImageFromFile(skyBoxImages[2], imagePath);
+		//Core::LoadImageFromFile(skyBoxImages[3], imagePath);
+		//Core::LoadImageFromFile(skyBoxImages[4], imagePath);
+		//Core::LoadImageFromFile(skyBoxImages[5], imagePath);
 
 		//for(auto skyBoxImg : skyBoxImages)
 		//{
@@ -36,7 +33,7 @@ namespace Casiope
 		//glm::mat4x4* projectionMatrix = (dynamic_cast<SceneManager::PerspectiveCamera*>(camera))->GetPerspectiveMat();
 		//LowLevelGraphics::ShaderProgram::UpdateGlobalShaderParameter(LowLevelGraphics::PROJECTIONMATRIX, projectionMatrix, SHADER_MATRIX44);
 
-		GraphicsCore::Mesh cubesGeometry;
+		//GraphicsCore::Mesh cubesGeometry;
 
 
 		Engine::WorldManager& worldManager = gameEngine.GetWorldManager();

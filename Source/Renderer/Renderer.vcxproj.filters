@@ -16,6 +16,9 @@
     <Filter Include="Model">
       <UniqueIdentifier>{5ba85ba1-7701-4ae0-b9e6-f13235dd8e6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{7994e415-ccde-4528-a07c-4eb89ba43282}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsEngine.h" />
@@ -37,6 +40,9 @@
     <ClInclude Include="Model\MinecraftWorldMesh.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="Light\Light.h">
+      <Filter>Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine.cpp" />
@@ -57,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="Model\MinecraftWorldMesh.cpp">
       <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Light\Light.cpp">
+      <Filter>Light</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,8 +1,13 @@
 #pragma once
 
 #include <list>
+#include <vector>
 
-namespace Renderer { class Model; }
+namespace Renderer 
+{ 
+	class Model; 
+	class Light;
+}
 
 namespace Engine
 {
@@ -17,6 +22,7 @@ namespace Engine
 		virtual void Update();
 
 		virtual std::list<Renderer::Model*>* GetModels() { return nullptr; }
+		virtual std::vector<Renderer::Light>* GetLights() { return nullptr; }
 		PerspectiveCamera* GetCamera() const { return m_Camera; }
 
 	protected:

@@ -16,6 +16,7 @@
 
 #include "Renderer/Resource/GraphicsResourceManager.h"
 #include "Renderer/Model/Model.h"
+#include "Renderer/Light/Light.h"
 #include "Renderer/Material/Material.h"
 
 #define SCREEN_SIZE_X 1280
@@ -27,9 +28,29 @@ namespace Renderer
 	bool g_IsGridComputeSetup = false;
 	ShaderProgramId g_GridComputeProgram;
 	GraphicsCore::ShaderStorageBufferResource g_FrustrumSSBO;
+	GraphicsCore::ShaderStorageBufferResource g_LightBufferSSBO;
+	GraphicsCore::ShaderStorageBufferResource g_OpaqueLightGridSSBO;
+	GraphicsCore::ShaderStorageBufferResource g_TransparentLightGridSSBO;
+	GraphicsCore::ShaderStorageBufferResource g_OpaqueLightIndexListSSBO;
+	GraphicsCore::ShaderStorageBufferResource g_TransparentLightIndexListSSBO;
+	GraphicsCore::ShaderStorageBufferResource g_OpaqueLightIndexCounterSSBO;
+	GraphicsCore::ShaderStorageBufferResource g_TransparentLightIndexCounterSSBO;
+
+	// DEBUGGING
+	struct Float4Data {
+		Float4Data(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
+		float x, y, z, w;
+	};
+	Float4Data* debugLightVertexBuffer = nullptr;
+
+	GraphicsCore::Mesh lightMesh;
+	ShaderProgramId g_LightDebugProgram;
+	// END OF DEBUGGING
 
 	ShaderProgramId g_DepthPrePassProgram;
-	GraphicsCore::FrameBufferResource g_FBO;
+	GraphicsCore::FrameBufferResource g_DepthPrePassFBO;
+
+	ShaderProgramId g_LightCullingProgram;
 
 	GraphicsEngine::GraphicsEngine()
 	{
@@ -81,10 +102,21 @@ namespace Renderer
 		size_t numberOfTiles = workGroupsX * workGroupsY;
 
 		g_GridComputeProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateComputeShaderProgram("shaders/frustum_grid.comp.glsl");
-		g_FrustrumSSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr); // Frustrum are 4 planes of 4 floats
-		
 		g_DepthPrePassProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/depth.vert.glsl", "shaders/depth.frag.glsl");
-		g_FBO.Init(SCREEN_SIZE_X, SCREEN_SIZE_Y);
+		g_LightCullingProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateComputeShaderProgram("shaders/light_culling.comp.glsl");
+
+		g_DepthPrePassFBO.Init(SCREEN_SIZE_X, SCREEN_SIZE_Y);
+		g_FrustrumSSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr);
+		g_LightBufferSSBO.Init(1024 * sizeof(Renderer::Light), GraphicsCore::BufferUsage::DynamicDraw, nullptr);
+		g_OpaqueLightGridSSBO.Init(numberOfTiles * 2 * sizeof(uint32_t), GraphicsCore::BufferUsage::StaticCopy, nullptr);
+		g_TransparentLightGridSSBO.Init(numberOfTiles * 2 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, nullptr);
+		g_OpaqueLightIndexListSSBO.Init(512 * 1024 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, nullptr);
+		g_TransparentLightIndexListSSBO.Init(512 * 1024 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, nullptr);
+		g_OpaqueLightIndexCounterSSBO.Init(1 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, nullptr);
+		g_TransparentLightIndexCounterSSBO.Init(1 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, nullptr);
+
+		// DEBUGGING!!! TO REMOVE!!!
+		g_LightDebugProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/light_debug.vert.glsl", "shaders/light_debug.frag.glsl");
 
 		return 0;
 	}
@@ -117,7 +149,7 @@ namespace Renderer
 		return result;
 	}
 
-	void GraphicsEngine::GridComputeShadingPass(const glm::mat4& projMatrix)
+	void GraphicsEngine::GridComputePass(const glm::mat4& projMatrix)
 	{
 		int workGroupsX = (SCREEN_SIZE_X + (SCREEN_SIZE_X % GRID_SIZE)) / GRID_SIZE;
 		int workGroupsY = (SCREEN_SIZE_Y + (SCREEN_SIZE_Y % GRID_SIZE)) / GRID_SIZE;
@@ -130,8 +162,46 @@ namespace Renderer
 
 		glUniform2f(glGetUniformLocation(g_GridComputeProgram, "screenDimensions"), SCREEN_SIZE_X, SCREEN_SIZE_Y);
 
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, g_FrustrumSSBO.SSBO);
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_FrustrumSSBO.SSBO);
 		glDispatchCompute(workGroupsX, workGroupsY, 1);
+	}
+
+	void GraphicsEngine::LightCullingPass(Engine::World * world)
+	{
+		int workGroupsX = (SCREEN_SIZE_X + (SCREEN_SIZE_X % GRID_SIZE)) / GRID_SIZE;
+		int workGroupsY = (SCREEN_SIZE_Y + (SCREEN_SIZE_Y % GRID_SIZE)) / GRID_SIZE;
+
+		GraphicsCore::GPUAPI::UseShader(g_LightCullingProgram);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, g_DepthPrePassFBO.texId);
+
+		glm::mat4 projInv = glm::inverse(*(world->GetCamera()->GetPerspectiveMat()));
+		glUniformMatrix4fv(glGetUniformLocation(g_LightCullingProgram, "inverseProj"), 1, GL_FALSE, glm::value_ptr(projInv));
+
+		auto* lights = world->GetLights();
+		glUniform1ui(glGetUniformLocation(g_LightCullingProgram, "numLights"), static_cast<uint32_t>(lights->size()));
+
+		for(uint32_t i = 0; i < world->GetLights()->size(); ++i)
+		{
+			(*lights)[i].UpdateViewSpaceCoord(world->GetCamera()->GetViewMatrix());
+		}
+
+		g_LightBufferSSBO.Init(world->GetLights()->size() * sizeof(Renderer::Light), GraphicsCore::BufferUsage::DynamicDraw, static_cast<void*>(world->GetLights()->data()));
+
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, g_LightBufferSSBO.SSBO);
+
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_FrustrumSSBO.SSBO);
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_OpaqueLightGridSSBO.SSBO);
+
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, g_TransparentLightGridSSBO.SSBO);
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, g_OpaqueLightIndexListSSBO.SSBO);
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 5, g_TransparentLightIndexListSSBO.SSBO);
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 6, g_OpaqueLightIndexCounterSSBO.SSBO);
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 7, g_TransparentLightIndexCounterSSBO.SSBO);
+
+		glDispatchCompute(workGroupsX, workGroupsY, 1);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void GraphicsEngine::DrawOpaqueObjects(Engine::World* world)
@@ -143,8 +213,76 @@ namespace Renderer
 
 			GraphicsCore::GPUAPI::UseShader(shaderProgramId);
 			BindViewProjMatrices(shaderProgramId, world);
+
+			// testing
+			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_FrustrumSSBO.SSBO);
+			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_OpaqueLightGridSSBO.SSBO);
+			int workGroupsX = (SCREEN_SIZE_X + (SCREEN_SIZE_X % GRID_SIZE)) / GRID_SIZE;
+			glUniform1i(glGetUniformLocation(shaderProgramId, "workGroupsX"), workGroupsX);
+
+
+
 			DrawModel(model);
 		}
+
+		// DEBUGGING LIGHTS
+		if (debugLightVertexBuffer == nullptr)
+		{
+			std::vector<Renderer::Light>* lights = world->GetLights();
+			debugLightVertexBuffer = static_cast<Float4Data*>(malloc(world->GetLights()->size() * 6 * 6 * sizeof(Float4Data)));
+			uint32_t currentVertex = 0;
+			for (int i = 0; i < world->GetLights()->size(); ++i)
+			{
+				Renderer::Light& light = (*lights)[i];
+				glm::vec4 pos = light.GetWorldSpacePosition();
+
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y + 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y - 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y + 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z + 0.05f, 1);
+
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y - 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y - 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y - 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y - 0.05f, pos.z + 0.05f, 1);
+
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y + 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z - 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x + 0.05f, pos.y + 0.05f, pos.z + 0.05f, 1);
+				debugLightVertexBuffer[currentVertex++] = Float4Data(pos.x - 0.05f, pos.y + 0.05f, pos.z - 0.05f, 1);
+			}
+			lightMesh.UpdateGeometry(static_cast<void*>(debugLightVertexBuffer), currentVertex * 4 * sizeof(float), GraphicsCore::VertexBufferType::V4F);
+		}
+		GraphicsCore::GPUAPI::UseShader(g_LightDebugProgram);
+		BindViewProjMatrices(g_LightDebugProgram, world);
+		GraphicsCore::GPUAPI::DrawCall(&lightMesh);
 	}
 
 	void GraphicsEngine::BindViewProjMatrices(ShaderProgramId shaderProgramId, Engine::World * world)
@@ -179,7 +317,7 @@ namespace Renderer
 
 		BindViewProjMatrices(g_DepthPrePassProgram, world);
 
-		glBindFramebuffer(GL_FRAMEBUFFER, g_FBO.FBO);
+		glBindFramebuffer(GL_FRAMEBUFFER, g_DepthPrePassFBO.FBO);
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		auto models = world->GetModels();
@@ -198,11 +336,11 @@ namespace Renderer
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
 	{
-		if (!g_IsGridComputeSetup)
+		//if (!g_IsGridComputeSetup)
 		{
 			glm::mat4 projMatrix;
 			world->GetCamera()->GetPerspectiveMat(projMatrix);
-			GridComputeShadingPass(projMatrix);
+			GridComputePass(projMatrix);
 
 			g_IsGridComputeSetup = true;
 		}
@@ -215,15 +353,15 @@ namespace Renderer
 		//{
 		//	//Opaque objects
 			GraphicsCore::RenderState::EnableDepthWrite();
-
-
-
 		//	{
 				GraphicsCore::RenderState::EnableBackFaceCulling();
 		//		{
 					// New renderer:
 					// Step 1: Depth pre-pass.
 					DepthPrePass(world);
+
+					// Step 2: Light Culling.
+					LightCullingPass(world);
 
 					// Step 2: Render the scene.
 					DrawOpaqueObjects(world);

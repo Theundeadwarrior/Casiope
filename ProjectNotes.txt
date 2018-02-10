@@ -25,3 +25,5 @@ We can load all the objects needed in an area and patch the pointers using that 
 A model might have multiple meshes and textures.
 
 **Investigate if we want to do Render Passes where the depth prepass would be one of them as well as the light accumulation and the grid comp.
+
+******* We need to update the Light.ViewCoordPosition before submitting the buffer to the shader...

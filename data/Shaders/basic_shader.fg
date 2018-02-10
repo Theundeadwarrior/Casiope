@@ -1,11 +1,42 @@
-#version 400
+#version 450
 
+uniform int workGroupsX;
+uniform sampler2D texture1;
 in vec4 color;
 in vec2 texCoord;
 out vec4 frag_colour;
 
-uniform sampler2D texture1;
 
+// todo: to remove
+layout(binding = 2) readonly buffer OpaqueLightGrid {
+	uvec2 data[];
+} o_LightGrid;
+
+struct Plane {
+	vec3 N; // Normal
+	float d; // Distance to origin
+};
+
+struct Frustum {
+	Plane planes[4];	
+};
+
+layout(binding = 1) buffer FrustumBuffer {
+	Frustum data[];
+} in_Frustums;
+// end of to remove
+
+#define TILE_SIZE 16
 void main () {
-	frag_colour = mix(color, texture(texture1, texCoord), 0.5);
+
+	ivec2 location = ivec2(gl_FragCoord.xy);
+	ivec2 tileID = location / ivec2(TILE_SIZE, TILE_SIZE);
+	uint index = tileID.y * workGroupsX + tileID.x;
+
+	float ratio = float(o_LightGrid.data[index].y) / float(200);
+	frag_colour = vec4(vec3(ratio, ratio, ratio), 1.0);
+
+	//uvec2 tileIndex = uvec2( floor(gl_FragCoord.xy / TILE_SIZE) );
+	//float count = o_LightGrid.data[tileIndex.x + tileIndex.y * TILE_SIZE].y / 10.0f;
+	//frag_colour = mix(vec4(count,0,0,0), texture(texture1, texCoord), 0.5);
 }

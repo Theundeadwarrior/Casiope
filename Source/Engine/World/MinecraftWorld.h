@@ -1,9 +1,14 @@
 #pragma once
 
 #include <list>
-#include "Core/Math/Vector.h"
+//#include "Core/Math/Vector.h"
 #include "Renderer/Model/MinecraftWorldMesh.h"
 #include "Renderer/Model/Model.h"
+
+namespace Renderer
+{
+	class Light;
+}
 
 #define WORLD_CHUNK_WIDTH		10
 #define WORLD_CHUNK_LENGHT		10
@@ -50,6 +55,7 @@ namespace Engine
 	public:
 		void InitTestWorld();
 		std::list<Renderer::Model*>* GetModels() { return &m_LoadedChunks; }
+		std::vector<Renderer::Light>* GetLights() { return &m_Lights; } // todo: whenever we update the chunks, we need to update the list of lights.
 
 	private:
 		MinecraftWorldChunk* LoadChunk(int32_t x, int32_t y, int32_t z);
@@ -57,6 +63,7 @@ namespace Engine
 
 	private:
 		std::list<Renderer::Model*> m_LoadedChunks;
+		std::vector<Renderer::Light> m_Lights;
 		MinecraftWorldChunk* m_CurrentChunk; // player is currently in that chunk
 	};
 }

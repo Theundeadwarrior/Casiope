@@ -4,6 +4,7 @@
 #include "Core/File/FileSystem.h"
 
 #include <iostream>
+#include <time.h>
 #include <SDL.h>
 
 namespace Engine
@@ -25,6 +26,8 @@ namespace Engine
 		m_InputManager.SetResetMouseBehavior(true); // todo: this needs to be handled in the StateManager
 		m_InputManager.SetResetMouseValues(400, 200); // todo: this needs to be handled in the StateManager
 		m_InputManager.ResetMouseToCenter();
+
+		srand(time(NULL));
 	}
 
 	void GameEngine::Shutdown()

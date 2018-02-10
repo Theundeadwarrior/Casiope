@@ -2,6 +2,8 @@
 
 #include "Core\Core.h"
 
+#include <cstdint>
+
 #if USING( PLATFORM_WINDOWS )
 #define INVALID_FILE_HANDLE (void*)(-1)
 #endif // #if USING( PLATFORM_WINDOWS )
@@ -28,9 +30,9 @@ namespace Core
 	class File
 	{
 	public:
-		bool Read(uint8* buffer, uint64 maxReadSize);
+		bool Read(uint8* buffer, uint32_t maxReadSize);
 		//std::string ReadAll();
-		bool Write(const uint8* source, uint64 writeSize);
+		bool Write(const uint8* source, uint32_t writeSize);
 
 		bool Seek(uint64 pos);
 		uint64 Tell() const;

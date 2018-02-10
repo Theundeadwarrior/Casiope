@@ -3,6 +3,7 @@
 #include "Core/File/FileSystem.h"
 #include "Core/Math/Vector.h"
 
+#include "Renderer/Light/Light.h"
 #include "Renderer/Material/Material.h"
 #include "Renderer/Resource/GraphicsResourceManager.h"
 
@@ -35,6 +36,23 @@ namespace Engine
 		m_LoadedChunks.push_back(testChunk2);
 		testChunk2->m_Material = worldMaterial;
 
+		// DEBUGGING!!!
+		// TESTING SOME LIGHT!!
+		Renderer::DirectionalLight directionLight(glm::vec3(0, 1, 0), glm::vec4(1, 1, 1, 0), 45);
+		for (uint32_t i = 3; i < 17; ++i)
+		{
+			for (uint32_t j = 2; j < 8; ++j)
+			{
+				for (uint32_t k = 3; k < 7; ++k)
+				{
+					if (rand() % 5 == 0)
+					{
+						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(1, 0.5f, 0, 0), 15, 123));
+					}
+				}
+			}
+		}
+		// END OF DEBUGGING!!
 	}
 
 	MinecraftWorldChunk* MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)

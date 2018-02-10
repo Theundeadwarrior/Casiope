@@ -16,6 +16,7 @@ namespace Game
 		void SetCurrentPlayer(Player* player);
 		virtual void Update() override;
 		virtual std::list<Renderer::Model*>* GetModels() override { return m_MinecraftWorld.GetModels(); };
+		virtual std::vector<Renderer::Light>* GetLights() override { return m_MinecraftWorld.GetLights(); };
 
 	private:
 		Player* m_CurrentPlayer;

@@ -53,6 +53,15 @@ namespace GraphicsCore
 			glVertexAttribPointer(0, 4, GL_UNSIGNED_BYTE, GL_FALSE, 4 * sizeof(GL_UNSIGNED_BYTE), (GLvoid*)0);
 			glEnableVertexAttribArray(0);
 		}
+		else if (type == VertexBufferType::V4F)
+		{
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
+
+			// Position attribute
+			glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GL_FLOAT), (GLvoid*)0);
+			glEnableVertexAttribArray(0);
+		}
 
 		glBindVertexArray(0); // Unbind VAO
 		m_IsInitialized = true;

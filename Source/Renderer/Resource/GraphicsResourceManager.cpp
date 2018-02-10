@@ -116,7 +116,7 @@ namespace Renderer
 		auto shaderId = shaderProgram->GetProgramId();
 		m_ShaderBank[shaderId] = shaderProgram;
 
-		return 0;
+		return shaderId;
 	}
 
 	ShaderProgramId ShaderManager::CreateVertexFragmentShaderProgram(const char * vsFileName, const char * psFileName)

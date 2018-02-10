@@ -36,7 +36,8 @@ namespace Renderer
 		void DrawOpaqueObjects(Engine::World* world);
 		void BindViewProjMatrices(ShaderProgramId shaderProgramId, Engine::World * world);
 		void DepthPrePass(Engine::World* world);
-		void GridComputeShadingPass(const glm::mat4& x);
+		void GridComputePass(const glm::mat4& x);
+		void LightCullingPass(Engine::World* world);
 
 		
 		// todo: revisit this and maybe move it??

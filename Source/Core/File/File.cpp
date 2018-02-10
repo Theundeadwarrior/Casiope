@@ -11,7 +11,7 @@
 
 namespace Core
 {
-	bool File::Read(uint8* buffer, uint64 maxReadSize)
+	bool File::Read(uint8* buffer, uint32_t maxReadSize)
 	{
 		assert(IsValid() && IsReadMode());
 
@@ -24,7 +24,7 @@ namespace Core
 	//	return "";
 	//}
 
-	bool File::Write(const uint8* source, uint64 size)
+	bool File::Write(const uint8* source, uint32_t size)
 	{
 		assert(IsValid() && IsWriteMode());
 		uint32 bytesWritten = 0;

@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="Geometry\GeometryInstance.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Material\Material.h" />
     <ClInclude Include="Model\MinecraftWorldMesh.h" />
     <ClInclude Include="Model\Model.h" />
@@ -38,6 +39,7 @@
   <ItemGroup>
     <ClCompile Include="Geometry\GeometryInstance.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
+    <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Material\Material.cpp" />
     <ClCompile Include="Model\MinecraftWorldMesh.cpp" />
     <ClCompile Include="Model\Model.cpp" />
