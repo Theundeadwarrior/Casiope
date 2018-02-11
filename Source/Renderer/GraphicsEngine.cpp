@@ -181,6 +181,22 @@ namespace Renderer
 
 		auto* lights = world->GetLights();
 		glUniform1ui(glGetUniformLocation(g_LightCullingProgram, "numLights"), static_cast<uint32_t>(lights->size()));
+	
+		// DEBUGGING STUFF TO REMOVE!!!!
+		for (int i = 0; i < lights->size(); i++) {
+			Light& light = (*lights)[i];
+			float min = 0;
+			float max = 20;
+			glm::vec4 pos = light.GetWorldSpacePosition();
+
+			int test = rand() % 3;
+
+			light.SetWorldSpacePosition(glm::vec4(fmod((pos.x + (-4.5f * test * 0.02f) - min + max), max) + min, fmod((pos.y + (-4.5f * 0.02f) - min + max), max) + min, pos.z, 1.0f));
+		}
+
+		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+		// END OF DEBUGGING STUFF!!!
+
 
 		for(uint32_t i = 0; i < world->GetLights()->size(); ++i)
 		{
@@ -226,10 +242,13 @@ namespace Renderer
 		}
 
 		// DEBUGGING LIGHTS
+
 		if (debugLightVertexBuffer == nullptr)
 		{
-			std::vector<Renderer::Light>* lights = world->GetLights();
 			debugLightVertexBuffer = static_cast<Float4Data*>(malloc(world->GetLights()->size() * 6 * 6 * sizeof(Float4Data)));
+		}
+		{
+			std::vector<Renderer::Light>* lights = world->GetLights();
 			uint32_t currentVertex = 0;
 			for (int i = 0; i < world->GetLights()->size(); ++i)
 			{
@@ -283,6 +302,7 @@ namespace Renderer
 		GraphicsCore::GPUAPI::UseShader(g_LightDebugProgram);
 		BindViewProjMatrices(g_LightDebugProgram, world);
 		GraphicsCore::GPUAPI::DrawCall(&lightMesh);
+		// END OF DEBUGGING LIGHTS
 	}
 
 	void GraphicsEngine::BindViewProjMatrices(ShaderProgramId shaderProgramId, Engine::World * world)

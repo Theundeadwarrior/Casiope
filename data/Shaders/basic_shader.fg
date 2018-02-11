@@ -18,7 +18,7 @@ void main () {
 	ivec2 tileID = location / ivec2(TILE_SIZE, TILE_SIZE);
 	uint index = tileID.y * workGroupsX + tileID.x;
 
-	float ratio = float(o_LightGrid.data[index].y) / float(200);
+	float ratio = float(o_LightGrid.data[index].y) / float(256);
 	frag_colour = vec4(vec3(ratio, ratio, ratio), 1.0);
 
 	//uvec2 tileIndex = uvec2( floor(gl_FragCoord.xy / TILE_SIZE) );

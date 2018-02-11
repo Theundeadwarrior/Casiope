@@ -39,8 +39,14 @@ namespace Renderer
 
 		void UpdateViewSpaceCoord(const glm::mat4& view);
 
-		glm::vec4 GetWorldSpacePosition() {
+		glm::vec4 GetWorldSpacePosition() const 
+		{
 			return m_Params.PositionWS;
+		}
+
+		void SetWorldSpacePosition(const glm::vec4& pos)
+		{
+			m_Params.PositionWS = pos;
 		}
 
 		~Light() = default;

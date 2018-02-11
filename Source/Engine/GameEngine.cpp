@@ -27,7 +27,7 @@ namespace Engine
 		m_InputManager.SetResetMouseValues(400, 200); // todo: this needs to be handled in the StateManager
 		m_InputManager.ResetMouseToCenter();
 
-		srand(time(NULL));
+		srand(0);
 	}
 
 	void GameEngine::Shutdown()
