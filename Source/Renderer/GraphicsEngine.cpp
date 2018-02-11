@@ -336,7 +336,7 @@ namespace Renderer
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
 	{
-		//if (!g_IsGridComputeSetup)
+		if (!g_IsGridComputeSetup)
 		{
 			glm::mat4 projMatrix;
 			world->GetCamera()->GetPerspectiveMat(projMatrix);
