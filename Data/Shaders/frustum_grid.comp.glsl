@@ -30,19 +30,12 @@ Plane ComputePlane(vec3 p0, vec3 p1, vec3 p2) {
 	return plane;
 }
 
-//struct ComputeShaderInput {
-//	uvec3 groupId; // gl_WorkGroupID
-//	uvec3 groupThreadId; // gl_LocalInvocationID
-//	uvec3 dispatchThreadId; // gl_GlobalInvocationID
-//	uint groupIndex; // gl_LocalInvocationIndex
-//};
-
 vec4 ClipToView( vec4 clip )
 {
     // View space position.
     vec4 view = inverseProj * clip;
     // Perspective projection.
-    view = view / view.w;
+    view = view / -view.w;
  
     return view;
 }

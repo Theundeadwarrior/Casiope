@@ -39,15 +39,16 @@ namespace Engine
 		// DEBUGGING!!!
 		// TESTING SOME LIGHT!!
 		Renderer::DirectionalLight directionLight(glm::vec3(0, 1, 0), glm::vec4(1, 1, 1, 0), 45);
-		for (uint32_t i = 3; i < 17; ++i)
+		for (uint32_t i = 8; i < 14; ++i)
 		{
-			for (uint32_t j = 2; j < 8; ++j)
+			for (uint32_t j = 3; j < 7; ++j)
 			{
-				for (uint32_t k = 3; k < 7; ++k)
+				for (uint32_t k = 2; k < 7; ++k)
 				{
-					if (rand() % 5 == 0)
+					if (rand() % 2 == 0)
 					{
-						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(1, 0.5f, 0, 0), 15, 123));
+						int radius = rand() % 6;
+						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(1, 0.5f, 0, 0), radius, 123));
 					}
 				}
 			}

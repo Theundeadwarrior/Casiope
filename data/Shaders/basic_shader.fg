@@ -2,29 +2,14 @@
 
 uniform int workGroupsX;
 uniform sampler2D texture1;
-in vec4 color;
 in vec2 texCoord;
 out vec4 frag_colour;
 
 
-// todo: to remove
 layout(binding = 2) readonly buffer OpaqueLightGrid {
 	uvec2 data[];
 } o_LightGrid;
 
-struct Plane {
-	vec3 N; // Normal
-	float d; // Distance to origin
-};
-
-struct Frustum {
-	Plane planes[4];	
-};
-
-layout(binding = 1) buffer FrustumBuffer {
-	Frustum data[];
-} in_Frustums;
-// end of to remove
 
 #define TILE_SIZE 16
 void main () {
