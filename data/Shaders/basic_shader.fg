@@ -6,7 +6,7 @@ in vec2 texCoord;
 out vec4 frag_colour;
 
 
-layout(binding = 2) readonly buffer OpaqueLightGrid {
+layout(binding = 0) readonly buffer OpaqueLightGrid {
 	uvec2 data[];
 } o_LightGrid;
 

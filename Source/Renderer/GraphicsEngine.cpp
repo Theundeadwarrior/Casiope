@@ -231,8 +231,7 @@ namespace Renderer
 			BindViewProjMatrices(shaderProgramId, world);
 
 			// testing
-			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_FrustrumSSBO.SSBO);
-			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_OpaqueLightGridSSBO.SSBO);
+			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, g_OpaqueLightGridSSBO.SSBO);
 			int workGroupsX = (SCREEN_SIZE_X + (SCREEN_SIZE_X % GRID_SIZE)) / GRID_SIZE;
 			glUniform1i(glGetUniformLocation(shaderProgramId, "workGroupsX"), workGroupsX);
 
@@ -242,7 +241,11 @@ namespace Renderer
 		}
 
 		// DEBUGGING LIGHTS
+		DrawDebugLights(world);
+	}
 
+	void GraphicsEngine::DrawDebugLights(Engine::World * world)
+	{
 		if (debugLightVertexBuffer == nullptr)
 		{
 			debugLightVertexBuffer = static_cast<Float4Data*>(malloc(world->GetLights()->size() * 6 * 6 * sizeof(Float4Data)));

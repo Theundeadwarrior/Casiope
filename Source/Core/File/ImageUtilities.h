@@ -35,11 +35,14 @@ namespace Core
 	};
 
 	template <class T>
-	inline void LoadImageFromFile(Image<T>& outputImage, const char* tpath)
+	void LoadPNGImageFromFile(Image<T>& outputImage, const char* path);
+
+	template <class T>
+	inline void LoadImageFromFile(Image<T>& outputImage, const char* path)
 	{
 		//Do format conversion?
-		outputImage.path = tpath;
-		cimg_library::CImg<T> imageFile(tpath);
+		outputImage.path = path;
+		cimg_library::CImg<T> imageFile(path);
 		outputImage.m_Spectrum = imageFile.spectrum();
 		imageFile.mirror('y');
 		T** content = new T*[outputImage.m_Spectrum];
@@ -80,11 +83,6 @@ namespace Core
 		cimg_library::CImg<T> screenshotImage(data, inputParams.width, inputParams.height, 1, inputParams.m_Spectrum, true);
 		screenshotImage.mirror('y');
 		screenshotImage.save(tpath);
-	}
-
-	inline cimg_library::CImg<float> LoadImageFromFile(const char* path)
-	{
-		return cimg_library::CImg<float>(path);
 	}
 
 	inline void SaveImageToFile(const cimg_library::CImg<float>& img, const char* path)

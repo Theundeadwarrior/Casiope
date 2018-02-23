@@ -25,7 +25,7 @@ namespace Engine
 
 		// Bind the world material to it.
 		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
-		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/floor/gravel1.bmp", GraphicsCore::e_TexFormatRGB);
+		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
 		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
 		testChunk->m_Material = worldMaterial;
 
@@ -48,7 +48,7 @@ namespace Engine
 					if (rand() % 2 == 0)
 					{
 						int radius = rand() % 6;
-						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(1, 0.5f, 0, 0), radius, 123));
+						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(1, 0.5f, 0, 0), static_cast<float>(radius), 123.f));
 					}
 				}
 			}

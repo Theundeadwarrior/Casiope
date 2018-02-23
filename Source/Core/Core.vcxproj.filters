@@ -28,6 +28,9 @@
     <Filter Include="Transform">
       <UniqueIdentifier>{464706b8-7759-4734-8e2e-2c7e845f7b71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{43511772-d749-4a9c-ac42-eebc063625ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
@@ -60,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="Transform\Transform.cpp">
       <Filter>Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="File\ImageUtilities.cpp">
+      <Filter>File</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="Transform\Transform.h">
       <Filter>Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="String\StringUtils.h">
+      <Filter>String</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

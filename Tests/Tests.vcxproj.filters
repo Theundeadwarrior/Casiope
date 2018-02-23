@@ -22,5 +22,8 @@
     <ClCompile Include="Core\FileManagementTest.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Core\StringUtilsTest.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

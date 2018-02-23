@@ -34,6 +34,7 @@ namespace Renderer
 		int InitializeLightGridCompute();
 
 		void DrawOpaqueObjects(Engine::World* world);
+		void DrawDebugLights(Engine::World * world);
 		void BindViewProjMatrices(ShaderProgramId shaderProgramId, Engine::World * world);
 		void DepthPrePass(Engine::World* world);
 		void GridComputePass(const glm::mat4& x);

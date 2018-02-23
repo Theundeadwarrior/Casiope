@@ -2,6 +2,7 @@
 
 #include "Core/File/ImageUtilities.h"
 #include "Core/File/FileSystem.h"
+#include "Core/String/StringUtils.h"
 
 #include <malloc.h>
 
@@ -79,7 +80,15 @@ namespace Renderer
 	TextureId TextureManager::CreateTextureFromFile(const char * pathToFile, GraphicsCore::TextureFormat format)
 	{
 		Core::Image<unsigned char> img;
-		Core::LoadImageFromFile(img, pathToFile);
+		// todo: remove the if/else and make sure we just use 1 single LoadImageFromFile.
+		if (strcmp(Core::GetFileExtension(pathToFile), "png") == 0)
+		{
+			Core::LoadPNGImageFromFile(img, pathToFile);
+		}
+		else
+		{
+			Core::LoadImageFromFile(img, pathToFile);
+		}
 		return CreateTextureFromImage(img, format);
 	}
 
