@@ -25,6 +25,7 @@ namespace Engine
 
 		// Bind the world material to it.
 		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
+		//worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/floor/gravel1.bmp", GraphicsCore::e_TexFormatRGB);
 		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
 		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
 		testChunk->m_Material = worldMaterial;

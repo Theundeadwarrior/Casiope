@@ -7,11 +7,11 @@
 
 namespace GraphicsCore
 {
-	Texture::Texture(const Core::Image<unsigned char>& imageParameters, TextureFormat /*format*/)
+	Texture::Texture(const Core::Image<unsigned char>& imageParameters, TextureFormat format)
 	{
 		glGenTextures(1, &m_id);
 		glBindTexture(GL_TEXTURE_2D, m_id);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageParameters.width, imageParameters.width, 0, GL_RGB, GL_UNSIGNED_BYTE, imageParameters.imageData.data());
+		glTexImage2D(GL_TEXTURE_2D, 0, format, imageParameters.m_Width, imageParameters.m_Height, 0, format, GL_UNSIGNED_BYTE, imageParameters.imageData.data());
 		glGenerateMipmap(GL_TEXTURE_2D);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -42,7 +42,7 @@ namespace GraphicsCore
 		{
 			assert(!imageParameters[cubeSide].imageData.empty(), "Texture data must not be null");
 
-			glTexImage2D(targets[cubeSide], 0, format, imageParameters[cubeSide].width, imageParameters[cubeSide].height, 0, format, GL_UNSIGNED_BYTE, &imageParameters[cubeSide].imageData[0]);
+			glTexImage2D(targets[cubeSide], 0, format, imageParameters[cubeSide].m_Width, imageParameters[cubeSide].m_Height, 0, format, GL_UNSIGNED_BYTE, &imageParameters[cubeSide].imageData[0]);
 			assert(!glGetError(), "Failed to load texture");
 		}
 

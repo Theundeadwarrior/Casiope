@@ -21,16 +21,16 @@ namespace Core
 	{
 	public:
 		Image<T>()
-			: width(0)
-			, height(0)
+			: m_Width(0)
+			, m_Height(0)
 			, m_Spectrum(0)
 		{
 			imageData.clear();
 		}
 		std::string path;
 		std::vector<T> imageData;
-		unsigned int width;
-		unsigned int height;
+		unsigned int m_Width;
+		unsigned int m_Height;
 		unsigned int m_Spectrum;
 	};
 
@@ -54,11 +54,11 @@ namespace Core
 
 		outputImage.imageData.clear();
 
-		outputImage.width = imageFile.width();
-		outputImage.height = imageFile.height();
+		outputImage.m_Width = imageFile.width();
+		outputImage.m_Height = imageFile.height();
 
-		unsigned int size = outputImage.width*outputImage.height;
-		outputImage.imageData.reserve(size*outputImage.m_Spectrum);
+		unsigned int size = outputImage.m_Width * outputImage.m_Height;
+		outputImage.imageData.reserve(size * outputImage.m_Spectrum);
 
 		for (unsigned int i = 0; i < size; ++i)
 		{
@@ -80,7 +80,7 @@ namespace Core
 			data[j] = inputParams.imageData[(j*inputParams.m_Spectrum) % (inputParams.imageData.size() - 1)];
 		}
 
-		cimg_library::CImg<T> screenshotImage(data, inputParams.width, inputParams.height, 1, inputParams.m_Spectrum, true);
+		cimg_library::CImg<T> screenshotImage(data, inputParams.m_Width, inputParams.m_Height, 1, inputParams.m_Spectrum, true);
 		screenshotImage.mirror('y');
 		screenshotImage.save(tpath);
 	}

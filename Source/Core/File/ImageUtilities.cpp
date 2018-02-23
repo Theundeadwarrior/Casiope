@@ -4,7 +4,6 @@
 
 namespace Core
 {
-	int width, height;
 	png_byte color_type;
 	png_byte bit_depth;
 	png_bytep *row_pointers;
@@ -27,8 +26,8 @@ namespace Core
 
 		png_read_info(png, info);
 
-		width = png_get_image_width(png, info);
-		height = png_get_image_height(png, info);
+		outputImage.m_Width = png_get_image_width(png, info);
+		outputImage.m_Height = png_get_image_height(png, info);
 		color_type = png_get_color_type(png, info);
 		bit_depth = png_get_bit_depth(png, info);
 
@@ -59,13 +58,34 @@ namespace Core
 			png_set_gray_to_rgb(png);
 
 		png_read_update_info(png, info);
+		outputImage.m_Spectrum = png_get_channels(png, info);
 
-		row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * height);
-		for (int y = 0; y < height; y++) {
+		// TEMP TO DELETE!!!
+		row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * outputImage.m_Height);
+		for (int y = 0; y < outputImage.m_Height; y++) {
 			row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png, info));
 		}
-
 		png_read_image(png, row_pointers);
+
+
+		outputImage.imageData.reserve(outputImage.m_Height * outputImage.m_Width * outputImage.m_Spectrum);
+		for (int y = outputImage.m_Height - 1; y >= 0; --y)
+		{
+			for (int x = 0; x < outputImage.m_Width; ++x)
+			{
+				for (int z = 0; z < outputImage.m_Spectrum; ++z)
+				{
+					outputImage.imageData.push_back(row_pointers[y][x * outputImage.m_Spectrum + z]);
+				}
+			}
+		}
+		// END OF TO DELETE
+
+
+
+		png_destroy_read_struct(&png, &info, nullptr);
+		png = nullptr;
+		info = nullptr;
 
 		fclose(fp);
 	}
