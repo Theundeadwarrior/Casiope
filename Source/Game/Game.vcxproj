@@ -41,11 +41,13 @@
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="World\GameWorld.cpp" />
     <ClCompile Include="World\MinecraftWorld.cpp" />
+    <ClCompile Include="World\MinecraftWorldChunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="World\GameWorld.h" />
     <ClInclude Include="World\MinecraftWorld.h" />
+    <ClInclude Include="World\MinecraftWorldChunk.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EEC865EA-73BD-42B7-A4B1-51BB52FDA976}</ProjectGuid>

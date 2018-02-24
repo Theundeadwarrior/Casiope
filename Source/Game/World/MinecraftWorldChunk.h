@@ -1,0 +1,39 @@
+#pragma once
+
+#include "Renderer/Model/Model.h"
+
+#define WORLD_CHUNK_WIDTH		10
+#define WORLD_CHUNK_LENGHT		10
+#define WORLD_CHUNK_HEIGHT		10
+#define WORLD_BLOCK_COUNT		WORLD_CHUNK_HEIGHT * WORLD_CHUNK_LENGHT * WORLD_CHUNK_WIDTH
+
+namespace Game
+{
+	enum class MinecraftBlockType : uint8_t
+	{
+		Grass = 1,
+		Dirt,
+		Stone,
+		Water,
+
+		Air = 0
+	};
+
+	// CPU Resource
+	class MinecraftWorldChunk : public Renderer::Model
+	{
+	public:
+		MinecraftWorldChunk() = default;
+		virtual ~MinecraftWorldChunk() override;
+		void UpdateWorldChunkMesh();
+
+		MinecraftBlockType GetBlock(uint32_t x, uint32_t y, uint32_t z);
+
+		void SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type);
+
+		MinecraftBlockType m_Blocks[WORLD_CHUNK_WIDTH][WORLD_CHUNK_LENGHT][WORLD_CHUNK_HEIGHT];
+		glm::ivec3 m_Position = { 0, 0, 0 };
+		bool m_NeedsUpdate = false;
+	};
+
+}
