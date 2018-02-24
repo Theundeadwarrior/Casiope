@@ -4,13 +4,13 @@
 
 namespace Core
 {
-	png_byte color_type;
-	png_byte bit_depth;
-	png_bytep *row_pointers;
+
 
 	template<typename T>
 	void LoadPNGImageFromFile(Image<T>& outputImage, const char* path)
 	{
+		png_byte color_type;
+		png_byte bit_depth;
 		FILE* fp;
 		errno_t err = fopen_s(&fp, path, "rb");
 
@@ -60,29 +60,20 @@ namespace Core
 		png_read_update_info(png, info);
 		outputImage.m_Spectrum = png_get_channels(png, info);
 
-		// TEMP TO DELETE!!!
-		row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * outputImage.m_Height);
-		for (int y = 0; y < outputImage.m_Height; y++) {
-			row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png, info));
-		}
-		png_read_image(png, row_pointers);
-
-
 		outputImage.imageData.reserve(outputImage.m_Height * outputImage.m_Width * outputImage.m_Spectrum);
-		for (int y = outputImage.m_Height - 1; y >= 0; --y)
+		unsigned char** dataPtr = static_cast<unsigned char**>(malloc(outputImage.m_Height * sizeof(char*)));
+
+		for(uint32_t i = 0; i < outputImage.m_Height; ++i)
 		{
-			for (int x = 0; x < outputImage.m_Width; ++x)
-			{
-				for (int z = 0; z < outputImage.m_Spectrum; ++z)
-				{
-					outputImage.imageData.push_back(row_pointers[y][x * outputImage.m_Spectrum + z]);
-				}
-			}
+			dataPtr[i] = static_cast<unsigned char*>(outputImage.imageData.data()) + outputImage.m_Width * outputImage.m_Spectrum * (outputImage.m_Height - i - 1);
 		}
-		// END OF TO DELETE
 
+		// Read the image
+		png_read_image(png, dataPtr);
+		png_read_end(png, nullptr);
 
-
+		// Free the data structs
+		free(dataPtr);
 		png_destroy_read_struct(&png, &info, nullptr);
 		png = nullptr;
 		info = nullptr;
