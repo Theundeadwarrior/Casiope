@@ -89,23 +89,6 @@ namespace Core
 	{
 		img.save(path);
 	}
-
-	inline float CalculateImageDifference(const cimg_library::CImg<unsigned char>& img, const cimg_library::CImg<unsigned char>& refImg, cimg_library::CImg<unsigned char>& o_diffImg)
-	{
-		o_diffImg = (refImg - img).abs();
-		// percentage diff = abs(ref - actual) / actual * 100
-		float sumOfDifference = 0;
-		for (int i = 0; i < img.width(); i++)
-		{
-			for (int j = 0; j < img.height(); j++)
-			{
-				if (refImg(i, j) > 0.01)
-					sumOfDifference += o_diffImg(i, j) / refImg(i, j);
-			}
-		}
-
-		return sumOfDifference * 100.0f;
-	}
 }
 
 

@@ -160,12 +160,12 @@ namespace Engine
 					{
 						if (m_Blocks[i][k][j] != MinecraftBlockType::Air)
 						{
-							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 0);
+							vertices[currentVertex++] = Byte5Data(i, j, k, 1, 0);
+							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 0, 1);
+							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 0, 0);
+							vertices[currentVertex++] = Byte5Data(i, j + 1, k, 1, 1);
+							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 0, 1);
+							vertices[currentVertex++] = Byte5Data(i, j, k, 1, 0);
 
 							vertices[currentVertex++] = Byte5Data(i, j, k + 1, 0, 0);
 							vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 1, 0);
@@ -174,20 +174,21 @@ namespace Engine
 							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 1);
 							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 0, 1);
 
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i, j, k + 1, 0, 0);
+							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 1, 1);
+							vertices[currentVertex++] = Byte5Data(i, j + 1, k, 0, 1);
+							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 0);
+							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 1, 1);
+							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 0);
+							vertices[currentVertex++] = Byte5Data(i, j, k + 1, 1, 0);
 
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 0, 1);
+							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 0, 1);
+							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 0);
 							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 1, 1);
 							vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 0);
+							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 0);
+							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 0, 1);
 
+							// Last 2 are bottom and top!!
 							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 1);
 							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 1);
 							vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 1, 0);
