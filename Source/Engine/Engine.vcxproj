@@ -30,14 +30,12 @@
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="GameEngine.cpp" />
-    <ClCompile Include="World\MinecraftWorld.cpp" />
     <ClCompile Include="World\WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\PerspectiveCamera.h" />
     <ClInclude Include="GameEngine.h" />
-    <ClInclude Include="World\MinecraftWorld.h" />
     <ClInclude Include="World\WorldManager.h" />
   </ItemGroup>
   <ItemGroup>

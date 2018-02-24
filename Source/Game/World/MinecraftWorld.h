@@ -1,7 +1,6 @@
 #pragma once
 
 #include <list>
-//#include "Core/Math/Vector.h"
 #include "Renderer/Model/MinecraftWorldMesh.h"
 #include "Renderer/Model/Model.h"
 
@@ -15,7 +14,7 @@ namespace Renderer
 #define WORLD_CHUNK_HEIGHT		10
 #define WORLD_BLOCK_COUNT		WORLD_CHUNK_HEIGHT * WORLD_CHUNK_LENGHT * WORLD_CHUNK_WIDTH
 
-namespace Engine
+namespace Game
 {
 	enum class MinecraftBlockType : uint8_t
 	{

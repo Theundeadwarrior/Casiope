@@ -11,7 +11,7 @@
 
 #define CHUNK_VERSION 1
 
-namespace Engine
+namespace Game
 {
 	void MinecraftWorld::InitTestWorld()
 	{

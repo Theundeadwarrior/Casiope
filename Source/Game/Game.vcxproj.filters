@@ -15,12 +15,18 @@
     <ClCompile Include="World\GameWorld.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="World\MinecraftWorld.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\Player.h">
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="World\GameWorld.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="World\MinecraftWorld.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>

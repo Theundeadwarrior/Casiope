@@ -1,12 +1,9 @@
 #pragma once
 
 #include "Renderer/SkyBox/SkyBox.h"
-
-#include "Engine/World/MinecraftWorld.h"
 #include "Engine/World/WorldManager.h"
-
 #include "Game/Player/Player.h"
-
+#include "Game/World/MinecraftWorld.h"
 
 namespace Game
 {
@@ -20,7 +17,7 @@ namespace Game
 
 	private:
 		Player* m_CurrentPlayer;
-		Engine::MinecraftWorld m_MinecraftWorld;
+		MinecraftWorld m_MinecraftWorld;
 		Renderer::SkyBox m_SkyBox;
 	};
 }
