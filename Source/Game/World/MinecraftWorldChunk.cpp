@@ -27,58 +27,77 @@ namespace Game
 
 		if (m_NeedsUpdate)
 		{
-			Byte5Data vertices[WORLD_CHUNK_HEIGHT * WORLD_CHUNK_WIDTH * WORLD_CHUNK_LENGHT * 6 * 6];
+			Byte5Data vertices[WORLD_CHUNK_HEIGHT * WORLD_CHUNK_WIDTH * WORLD_CHUNK_LENGHT * 6 * 6 / 2];
 			uint32_t currentVertex = 0;
 			for (uint32_t i = 0; i < WORLD_CHUNK_WIDTH; ++i)
 			{
-				for (uint32_t j = 0; j < WORLD_CHUNK_LENGHT; ++j)
+				for (uint32_t j = 0; j < WORLD_CHUNK_HEIGHT; ++j)
 				{
-					for (uint32_t k = 0; k < WORLD_CHUNK_HEIGHT; ++k)
+					for (uint32_t k = 0; k < WORLD_CHUNK_LENGHT; ++k)
 					{
 						if (m_Blocks[i][k][j] != MinecraftBlockType::Air)
 						{
-							vertices[currentVertex++] = Byte5Data(i, j, k, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i, j, k, 1, 0);
+							if (k == 0 || m_Blocks[i][k - 1][j] == MinecraftBlockType::Air)
+							{
+								vertices[currentVertex++] = Byte5Data(i, j, k, 1, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 0, 1);
+								vertices[currentVertex++] = Byte5Data(i + 1, j, k, 0, 0);
+								vertices[currentVertex++] = Byte5Data(i, j + 1, k, 1, 1);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 0, 1);
+								vertices[currentVertex++] = Byte5Data(i, j, k, 1, 0);
+							}
 
-							vertices[currentVertex++] = Byte5Data(i, j, k + 1, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i, j, k + 1, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 0, 1);
+							if (k == WORLD_CHUNK_LENGHT - 1 || m_Blocks[i][k + 1][j] == MinecraftBlockType::Air)
+							{
+								vertices[currentVertex++] = Byte5Data(i, j, k + 1, 0, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 1, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 1);
+								vertices[currentVertex++] = Byte5Data(i, j, k + 1, 0, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 1);
+								vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 0, 1);
+							}
 
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i, j, k + 1, 1, 0);
+							if (i == 0 || m_Blocks[i - 1][k][j] == MinecraftBlockType::Air)
+							{
+								vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 1, 1);
+								vertices[currentVertex++] = Byte5Data(i, j + 1, k, 0, 1);
+								vertices[currentVertex++] = Byte5Data(i, j, k, 0, 0);
+								vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 1, 1);
+								vertices[currentVertex++] = Byte5Data(i, j, k, 0, 0);
+								vertices[currentVertex++] = Byte5Data(i, j, k + 1, 1, 0);
+							}
 
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 0, 1);
+							if (i == WORLD_CHUNK_WIDTH - 1 || m_Blocks[i + 1][k][j] == MinecraftBlockType::Air)
+							{
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 0, 1);
+								vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 1, 1);
+								vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 0, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 0, 1);
+							}
 
-							// Last 2 are bottom and top!!
-							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i, j, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i, j, k + 1, 0, 0);
+							// Bottom
+							if (j == 0 || m_Blocks[i][k][j - 1] == MinecraftBlockType::Air)
+							{
+								vertices[currentVertex++] = Byte5Data(i, j, k, 0, 1);
+								vertices[currentVertex++] = Byte5Data(i + 1, j, k, 1, 1);
+								vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 1, 0);
+								vertices[currentVertex++] = Byte5Data(i, j, k, 0, 1);
+								vertices[currentVertex++] = Byte5Data(i + 1, j, k + 1, 1, 0);
+								vertices[currentVertex++] = Byte5Data(i, j, k + 1, 0, 0);
+							}
 
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k, 0, 1);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 1, 1);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 0, 0);
-							vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 0);
-							vertices[currentVertex++] = Byte5Data(i, j + 1, k, 0, 1);
+							// Top
+							if (j == WORLD_CHUNK_HEIGHT - 1 || m_Blocks[i][k][j + 1] == MinecraftBlockType::Air)
+							{
+								vertices[currentVertex++] = Byte5Data(i, j + 1, k, 0, 1);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k, 1, 1);
+								vertices[currentVertex++] = Byte5Data(i, j + 1, k + 1, 0, 0);
+								vertices[currentVertex++] = Byte5Data(i + 1, j + 1, k + 1, 1, 0);
+								vertices[currentVertex++] = Byte5Data(i, j + 1, k, 0, 1);
+							}
 						}
 					}
 				}
@@ -87,12 +106,12 @@ namespace Game
 		}
 	}
 
-	inline MinecraftBlockType MinecraftWorldChunk::GetBlock(uint32_t x, uint32_t y, uint32_t z)
+	MinecraftBlockType MinecraftWorldChunk::GetBlock(uint32_t x, uint32_t y, uint32_t z) const
 	{
 		return m_Blocks[x][y][z];
 	}
 
-	inline void MinecraftWorldChunk::SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type)
+	void MinecraftWorldChunk::SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type)
 	{
 		if (GetBlock(x, y, z) != type)
 		{

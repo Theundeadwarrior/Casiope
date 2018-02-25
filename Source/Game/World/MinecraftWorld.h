@@ -23,8 +23,8 @@ namespace Game
 		MinecraftWorld();
 		~MinecraftWorld();
 
-	public:
 		void InitTestWorld();
+		void Update();
 		std::list<Renderer::Model*>* GetModels() { return &m_LoadedChunks; }
 		std::vector<Renderer::Light>* GetLights() { return &m_Lights; } // todo: whenever we update the chunks, we need to update the list of lights.
 

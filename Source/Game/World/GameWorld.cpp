@@ -13,5 +13,6 @@ namespace Game
 	void GameWorld::Update()
 	{
 		m_CurrentPlayer->Update();
+		m_MinecraftWorld.Update();
 	}
 }

@@ -126,4 +126,14 @@ namespace Game
 			delete chunk;
 		}
 	}
+
+	void MinecraftWorld::Update()
+	{
+		for(auto* model: m_LoadedChunks)
+		{
+			auto* chunk = static_cast<MinecraftWorldChunk*>(model);
+			if (chunk->NeedsUpdate())
+				chunk->UpdateWorldChunkMesh();
+		}
+	}
 }

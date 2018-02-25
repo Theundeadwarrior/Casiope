@@ -25,11 +25,12 @@ namespace Game
 	public:
 		MinecraftWorldChunk() = default;
 		virtual ~MinecraftWorldChunk() override;
+
 		void UpdateWorldChunkMesh();
 
-		MinecraftBlockType GetBlock(uint32_t x, uint32_t y, uint32_t z);
-
+		MinecraftBlockType GetBlock(uint32_t x, uint32_t y, uint32_t z) const;
 		void SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type);
+		bool NeedsUpdate() const { return m_NeedsUpdate; }
 
 		MinecraftBlockType m_Blocks[WORLD_CHUNK_WIDTH][WORLD_CHUNK_LENGHT][WORLD_CHUNK_HEIGHT];
 		glm::ivec3 m_Position = { 0, 0, 0 };

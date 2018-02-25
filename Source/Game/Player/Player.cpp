@@ -2,6 +2,8 @@
 
 #include "Engine/Camera/PerspectiveCamera.h"
 #include "Engine/GameEngine.h"
+#include "Game/World/MinecraftWorldChunk.h"
+
 
 #include "glm/glm.hpp"
 
@@ -58,6 +60,17 @@ namespace Game
 		{
 			glm::vec3 offset = movementSpeed * m_FPCamera->GetRight();
 			m_FPCamera->m_Position += offset;
+		}
+
+		// todo: change this so that we can place a block with the mouse button and also where we are aiming.
+		if (m_IsKeyPressed['1'])
+		{
+			auto* models = Engine::GameEngine::GetInstance()->GetWorldManager().GetCurrentWorld()->GetModels();
+			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 3, 3, Game::MinecraftBlockType::Stone);
+			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 2, 3, Game::MinecraftBlockType::Stone);
+			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 1, 3, Game::MinecraftBlockType::Stone);
+			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 0, 3, Game::MinecraftBlockType::Stone);
+			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 4, 3, Game::MinecraftBlockType::Stone);
 		}
 
 		if (m_MouseX != 0 || m_MouseY != 0)
