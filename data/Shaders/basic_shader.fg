@@ -10,6 +10,8 @@ layout(binding = 0) readonly buffer OpaqueLightGrid {
 	uvec2 data[];
 } o_LightGrid;
 
+#define BLOCK_PIXEL_SIZE 32
+#define TEXTURE_SIZE 1024
 
 #define TILE_SIZE 16
 void main () {
@@ -19,7 +21,8 @@ void main () {
 	uint index = tileID.y * workGroupsX + tileID.x;
 
 	float ratio = float(o_LightGrid.data[index].y) / float(256);
-	frag_colour = mix(vec4(vec3(ratio, ratio, ratio), 1.0), texture(texture1, texCoord), 0.5f);
+	vec2 realTexCoord = texCoord * BLOCK_PIXEL_SIZE / TEXTURE_SIZE;
+	frag_colour = mix(vec4(vec3(ratio, ratio, ratio), 1.0), texture(texture1, realTexCoord), 0.5f);
 
 	//uvec2 tileIndex = uvec2( floor(gl_FragCoord.xy / TILE_SIZE) );
 	//float count = o_LightGrid.data[tileIndex.x + tileIndex.y * TILE_SIZE].y / 10.0f;

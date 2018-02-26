@@ -15,6 +15,8 @@ namespace Game
 {
 	void MinecraftWorld::InitTestWorld()
 	{
+		m_BlockDataBase.LoadBlockDataBase("blocks.data");
+
 		auto* testChunk = LoadChunk(0, 0, 0);
 
 		testChunk->m_NeedsUpdate = true;
@@ -46,7 +48,7 @@ namespace Game
 			{
 				for (uint32_t k = 2; k < 20; ++k)
 				{
-					if (rand() % 2 == 0)
+					if (rand() % 5 == 0)
 					{
 						int radius = rand() % 6;
 						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(1, 0.5f, 0, 0), static_cast<float>(radius), 123.f));
@@ -59,7 +61,7 @@ namespace Game
 
 	MinecraftWorldChunk* MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)
 	{
-		MinecraftWorldChunk* loadedChunk = new MinecraftWorldChunk();
+		MinecraftWorldChunk* loadedChunk = new MinecraftWorldChunk(m_BlockDataBase);
 		loadedChunk->m_Mesh = new Renderer::MinecraftChunkMesh();
 
 		char filename[256];
@@ -116,7 +118,7 @@ namespace Game
 	MinecraftWorld::MinecraftWorld()
 	{
 		InitTestWorld();
-		SaveChunk(*m_CurrentChunk);
+		//SaveChunk(*m_CurrentChunk);
 	}
 
 	MinecraftWorld::~MinecraftWorld()

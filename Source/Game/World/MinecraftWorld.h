@@ -36,5 +36,6 @@ namespace Game
 		std::list<Renderer::Model*> m_LoadedChunks;
 		std::vector<Renderer::Light> m_Lights;
 		MinecraftWorldChunk* m_CurrentChunk; // player is currently in that chunk
+		MinecraftBlockDataBase m_BlockDataBase;
 	};
 }
