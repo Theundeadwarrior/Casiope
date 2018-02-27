@@ -42,16 +42,16 @@ namespace Game
 		// DEBUGGING!!!
 		// TESTING SOME LIGHT!!
 		Renderer::DirectionalLight directionLight(glm::vec3(0, 1, 0), glm::vec4(1, 1, 1, 0), 45);
-		for (uint32_t i = 2; i < 18; ++i)
+		for (uint32_t i = 0; i < 20; ++i)
 		{
 			for (uint32_t j = 0; j < 10; ++j)
 			{
-				for (uint32_t k = 2; k < 20; ++k)
+				for (uint32_t k = 3; k < 10; ++k)
 				{
-					if (rand() % 5 == 0)
+					if (rand() % 4 == 0)
 					{
-						int radius = rand() % 6;
-						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(1, 0.5f, 0, 0), static_cast<float>(radius), 123.f));
+						int radius = rand() % 3 + 1;
+						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(rand()%80 / 100.0f + 0.2f, rand() % 80 / 100.0f + 0.2f, rand() % 80 / 100.0f + 0.2f, 0), static_cast<float>(radius),0.8f));
 					}
 				}
 			}

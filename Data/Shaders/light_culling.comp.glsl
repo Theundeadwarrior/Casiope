@@ -57,11 +57,11 @@ layout(binding = 5) writeonly buffer TransparentLightIndexList {
 	uint data[];
 } t_LightIndexList;
 
-layout(binding = 6) writeonly buffer OpaqueLightIndexCounter {
+layout(binding = 6) buffer OpaqueLightIndexCounter {
 	uint data[];
 } o_LightIndexCounter;
 
-layout(binding = 7) writeonly buffer TransparentLightIndexCounter {
+layout(binding = 7) buffer TransparentLightIndexCounter {
 	uint data[];
 } t_LightIndexCounter;
 

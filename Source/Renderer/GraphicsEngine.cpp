@@ -106,8 +106,8 @@ namespace Renderer
 		g_LightCullingProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateComputeShaderProgram("shaders/light_culling.comp.glsl");
 
 		g_DepthPrePassFBO.Init(SCREEN_SIZE_X, SCREEN_SIZE_Y);
-		g_FrustrumSSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr);
 		g_LightBufferSSBO.Init(1024 * sizeof(Renderer::Light), GraphicsCore::BufferUsage::DynamicDraw, nullptr);
+		g_FrustrumSSBO.Init(16 * sizeof(float) * numberOfTiles, GraphicsCore::BufferUsage::StaticCopy, nullptr);
 		g_OpaqueLightGridSSBO.Init(numberOfTiles * 2 * sizeof(uint32_t), GraphicsCore::BufferUsage::StaticCopy, nullptr);
 		g_TransparentLightGridSSBO.Init(numberOfTiles * 2 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, nullptr);
 		g_OpaqueLightIndexListSSBO.Init(512 * 1024 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, nullptr);
@@ -189,9 +189,9 @@ namespace Renderer
 			float max = 20;
 			glm::vec4 pos = light.GetWorldSpacePosition();
 
-			int test = rand() % 3;
+			//int test = rand() % 3;
 
-			light.SetWorldSpacePosition(glm::vec4(fmod((pos.x + (-4.5f * test * 0.02f) - min + max), max) + min, fmod((pos.y + (-4.5f * 0.02f) - min + max), max) + min, pos.z, 1.0f));
+			light.SetWorldSpacePosition(glm::vec4(fmod((pos.x + (-4.5f * 0.01f) - min + max), max) + min, pos.y, fmod((pos.z + (-4.5f * 0.01f) - min + 10), 10) + min, 1.0f));
 		}
 
 		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
@@ -209,11 +209,16 @@ namespace Renderer
 
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_FrustrumSSBO.SSBO);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_OpaqueLightGridSSBO.SSBO);
-
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, g_TransparentLightGridSSBO.SSBO);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, g_OpaqueLightIndexListSSBO.SSBO);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 5, g_TransparentLightIndexListSSBO.SSBO);
+
+		uint32_t opaqueLightInitValue = 0;
+		g_OpaqueLightIndexCounterSSBO.Init(1 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, &opaqueLightInitValue);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 6, g_OpaqueLightIndexCounterSSBO.SSBO);
+
+		uint32_t transparentLightInitValue = 0;
+		g_TransparentLightIndexCounterSSBO.Init(1 * sizeof(uint32_t), GraphicsCore::BufferUsage::DynamicCopy, &opaqueLightInitValue);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 7, g_TransparentLightIndexCounterSSBO.SSBO);
 
 		glDispatchCompute(workGroupsX, workGroupsY, 1);
@@ -231,11 +236,12 @@ namespace Renderer
 			BindViewProjMatrices(shaderProgramId, world);
 
 			// testing
-			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, g_OpaqueLightGridSSBO.SSBO);
+			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, g_LightBufferSSBO.SSBO);
+			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_OpaqueLightGridSSBO.SSBO);
+			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_OpaqueLightIndexListSSBO.SSBO);
+
 			int workGroupsX = (SCREEN_SIZE_X + (SCREEN_SIZE_X % GRID_SIZE)) / GRID_SIZE;
 			glUniform1i(glGetUniformLocation(shaderProgramId, "workGroupsX"), workGroupsX);
-
-
 
 			DrawModel(model);
 		}
@@ -359,7 +365,7 @@ namespace Renderer
 
 	void GraphicsEngine::RenderWorld(Engine::World* world)
 	{
-		if (!g_IsGridComputeSetup)
+		//if (!g_IsGridComputeSetup)
 		{
 			glm::mat4 projMatrix;
 			world->GetCamera()->GetPerspectiveMat(projMatrix);
