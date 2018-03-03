@@ -15,3 +15,7 @@ A model might have multiple meshes and textures.
 
 - We can define all the materials in the data and when we load the world, we can load all the materials at the same time (build a buffer with all the material properties)
 - Don't need to change materials if we render an object with the same material.
+
+
+
+*** Should do block types in a xml or file outside the code.

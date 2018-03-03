@@ -12,7 +12,14 @@ namespace GraphicsCore
 	void GPUAPI::DrawCall(const Mesh* const geometry)
 	{
 		glBindVertexArray(geometry->m_GPUParams.m_Vbr.VAO);
-		glDrawArrays(GL_TRIANGLES, 0, geometry->m_GPUParams.m_VertexCount);
+		if (geometry->m_GPUParams.m_Vbr.IsUsingEBO())
+		{
+			glDrawElements(GL_TRIANGLES, geometry->m_GPUParams.m_IndexCount, GL_UNSIGNED_INT, nullptr);
+		}
+		else
+		{
+			glDrawArrays(GL_TRIANGLES, 0, geometry->m_GPUParams.m_VertexCount);
+		}
 		glBindVertexArray(0);
 	}
 }

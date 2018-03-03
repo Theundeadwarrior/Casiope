@@ -235,7 +235,6 @@ namespace Renderer
 			GraphicsCore::GPUAPI::UseShader(shaderProgramId);
 			BindViewProjMatrices(shaderProgramId, world);
 
-			// testing
 			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, g_LightBufferSSBO.SSBO);
 			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_OpaqueLightGridSSBO.SSBO);
 			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_OpaqueLightIndexListSSBO.SSBO);

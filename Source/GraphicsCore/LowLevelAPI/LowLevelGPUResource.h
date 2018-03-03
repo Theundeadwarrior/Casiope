@@ -32,14 +32,19 @@ namespace GraphicsCore
 		VertexBufferResource();
 		~VertexBufferResource();
 
-		void Init(VertexBufferType type, void* buffer, uint32_t count);
+		void Init(VertexBufferType type, void* vertices, uint32_t vertexCount, void* indices = nullptr, uint32_t indexCount = 0);
 		void Release();
+
+		bool IsInitialized() const { return m_IsInitialized; }
+		bool IsUsingEBO() const { return m_IsUsingEBO; }
 
 		BufferId VAO;
 		BufferId VBO;
+		BufferId EBO;
 	
 	private:
 		bool m_IsInitialized;
+		bool m_IsUsingEBO;
 	};
 
 	struct FrameBufferResource

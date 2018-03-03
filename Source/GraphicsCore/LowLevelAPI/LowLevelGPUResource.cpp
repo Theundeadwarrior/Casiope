@@ -5,6 +5,7 @@ namespace GraphicsCore
 {
 	VertexBufferResource::VertexBufferResource()
 		: m_IsInitialized(false)
+		, m_IsUsingEBO(false)
 	{
 	}
 
@@ -13,14 +14,25 @@ namespace GraphicsCore
 		Release();
 	}
 
-	void VertexBufferResource::Init(VertexBufferType type, void * buffer, uint32_t count)
+	void VertexBufferResource::Init(VertexBufferType type, void * buffer, uint32_t count, void* indices, uint32_t indexCount)
 	{
 		Release();
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
 		glBindVertexArray(VAO);
 
-		if (type == VertexBufferType::V3FT2F)
+		if (indices != nullptr)
+		{
+			glGenBuffers(1, &EBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(GLuint), indices, GL_STATIC_DRAW);
+
+			m_IsUsingEBO = true;
+		}
+
+		switch (type)
+		{
+		case VertexBufferType::V3FT2F:
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
@@ -32,7 +44,8 @@ namespace GraphicsCore
 			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 			glEnableVertexAttribArray(2);
 		}
-		else if (type == VertexBufferType::V3BT2B)
+		break;
+		case VertexBufferType::V3BT2B:
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
@@ -44,7 +57,8 @@ namespace GraphicsCore
 			glVertexAttribPointer(2, 2, GL_BYTE, GL_FALSE, 5 * sizeof(GLbyte), (GLvoid*)(3 * sizeof(GLbyte)));
 			glEnableVertexAttribArray(2);
 		}
-		else if (type == VertexBufferType::V4B)
+		break;
+		case VertexBufferType::V4B:
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
@@ -53,7 +67,8 @@ namespace GraphicsCore
 			glVertexAttribPointer(0, 4, GL_UNSIGNED_BYTE, GL_FALSE, 4 * sizeof(GL_UNSIGNED_BYTE), (GLvoid*)0);
 			glEnableVertexAttribArray(0);
 		}
-		else if (type == VertexBufferType::V4F)
+		break;
+		case VertexBufferType::V4F:
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
@@ -61,6 +76,8 @@ namespace GraphicsCore
 			// Position attribute
 			glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GL_FLOAT), (GLvoid*)0);
 			glEnableVertexAttribArray(0);
+		}
+		break;
 		}
 
 		glBindVertexArray(0); // Unbind VAO
@@ -71,8 +88,14 @@ namespace GraphicsCore
 	{
 		if (m_IsInitialized)
 		{
-			glDeleteVertexArrays(1, &VAO);
+			if (m_IsUsingEBO)
+			{
+				glDeleteBuffers(1, &EBO);
+				m_IsUsingEBO = false;
+			}
+
 			glDeleteBuffers(1, &VBO);
+			glDeleteVertexArrays(1, &VAO);
 		}
 		m_IsInitialized = false;
 	}

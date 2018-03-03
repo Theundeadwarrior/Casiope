@@ -14,7 +14,7 @@ namespace GraphicsCore
 	struct GeometryGPUParameters
 	{
 		uint32_t m_VertexCount;
-		uint32_t m_TexCoordCount;
+		uint32_t m_IndexCount;
 		VertexBufferResource m_Vbr;
 	};
 
@@ -32,6 +32,13 @@ namespace GraphicsCore
 		{
 			m_GPUParams.m_Vbr.Init(type, data, count);
 			m_GPUParams.m_VertexCount = count;
+		}
+
+		void UpdateGeometry(void* vertices, uint32_t vertexCount, void* indices, uint32_t indexCount, VertexBufferType type)
+		{
+			m_GPUParams.m_Vbr.Init(type, vertices, vertexCount, indices, indexCount);
+			m_GPUParams.m_VertexCount = vertexCount;
+			m_GPUParams.m_IndexCount = indexCount;
 		}
 	};
 }

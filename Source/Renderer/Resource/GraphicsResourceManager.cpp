@@ -117,7 +117,7 @@ namespace Renderer
 		auto* csFile = fsInstance->OpenRead(csFileName);
 		size_t csBufferSize = csFile->GetSize() + 1;
 		char* csCode = static_cast<char*>(malloc(csBufferSize));
-		csFile->Read(reinterpret_cast<uint8*>(csCode), csBufferSize);
+		csFile->Read(reinterpret_cast<uint8*>(csCode), static_cast<uint32_t>(csBufferSize));
 		csCode[csBufferSize - 1] = '\0';
 		fsInstance->CloseFile(csFile);
 
@@ -134,14 +134,14 @@ namespace Renderer
 		auto* vsFile = fsInstance->OpenRead(vsFileName);
 		size_t vsBufferSize = vsFile->GetSize() + 1;
 		char* vsCode = static_cast<char*>(malloc(vsBufferSize));
-		vsFile->Read(reinterpret_cast<uint8*>(vsCode), vsBufferSize);
+		vsFile->Read(reinterpret_cast<uint8*>(vsCode), static_cast<uint32_t>(vsBufferSize));
 		vsCode[vsBufferSize - 1] = '\0';
 		fsInstance->CloseFile(vsFile);
 
 		auto* psFile = fsInstance->OpenRead(psFileName);
 		size_t psBufferSize = psFile->GetSize() + 1;
 		char* psCode = static_cast<char*>(malloc(psBufferSize));
-		psFile->Read(reinterpret_cast<uint8*>(psCode), psBufferSize);
+		psFile->Read(reinterpret_cast<uint8*>(psCode), static_cast<uint32_t>(psBufferSize));
 		psCode[psBufferSize - 1] = '\0';
 		fsInstance->CloseFile(psFile);
 
