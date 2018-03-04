@@ -43,6 +43,7 @@
     <ClCompile Include="World\MinecraftBlockData.cpp" />
     <ClCompile Include="World\MinecraftWorld.cpp" />
     <ClCompile Include="World\MinecraftWorldChunk.cpp" />
+    <ClCompile Include="World\WorldGeneration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\Player.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="World\MinecraftBlockData.h" />
     <ClInclude Include="World\MinecraftWorld.h" />
     <ClInclude Include="World\MinecraftWorldChunk.h" />
+    <ClInclude Include="World\WorldGeneration.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EEC865EA-73BD-42B7-A4B1-51BB52FDA976}</ProjectGuid>

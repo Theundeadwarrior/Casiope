@@ -32,6 +32,24 @@ namespace GraphicsCore
 
 		switch (type)
 		{
+		case VertexBufferType::V3BN3BT2B:
+		{
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, count, buffer, GL_STATIC_DRAW);
+
+			// Position attribute
+			glVertexAttribPointer(0, 3, GL_BYTE, GL_FALSE, 8 * sizeof(GLbyte), (GLvoid*)0);
+			glEnableVertexAttribArray(0);
+
+			// Normal attribute
+			glVertexAttribPointer(1, 3, GL_BYTE, GL_FALSE, 8 * sizeof(GLbyte), (GLvoid*)(3 * sizeof(GLbyte)));
+			glEnableVertexAttribArray(1);
+
+			// TexCoord attribute
+			glVertexAttribPointer(2, 2, GL_BYTE, GL_FALSE, 8 * sizeof(GLbyte), (GLvoid*)(6 * sizeof(GLbyte)));
+			glEnableVertexAttribArray(2);
+		}
+		break;
 		case VertexBufferType::V3FT2F:
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -40,6 +58,7 @@ namespace GraphicsCore
 			// Position attribute
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 			glEnableVertexAttribArray(0);
+
 			// TexCoord attribute
 			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 			glEnableVertexAttribArray(2);

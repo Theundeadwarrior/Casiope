@@ -11,6 +11,7 @@ namespace GraphicsCore
 		V4B,
 		V4F,
 		V3BT2B,
+		V3BN3BT2B,
 		V3FT2F // V1, V2, V3, UV1, UV2
 	};
 

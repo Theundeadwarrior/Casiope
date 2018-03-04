@@ -6,8 +6,6 @@ uniform sampler2D texture1;
 in VertexShaderOutput{
 	vec3 positionVS;
 	vec2 texCoord;
-	vec3 tangentVS;
-	vec3 binormalVS;
 	vec3 normalVS;
 } fragment_in;
 
@@ -60,22 +58,30 @@ vec4 DoDiffuse(Light light, vec4 L, vec4 N)
 	return light.Color * NdotL;
 }
 
+vec4 DoSpecular(Light light, vec4 V, vec4 L, vec4 N)
+{
+	vec4 R = normalize(reflect(-L, N));
+	float RdotV = max(dot(R, V), 0);
+
+	return light.Color * pow(RdotV, 128);
+}
+
 float DoAttenuation( Light light, float d )
 {
     return 1.0f - smoothstep( light.Range * 0.75f, light.Range, d );
 }
 
-LightingResult DoPointLight(Light light, vec4 position)
+LightingResult DoPointLight(Light light, vec4 V, vec4 P, vec4 N)
 {
 	LightingResult result;
-	vec4 L = light.PositionVS - position;
+	vec4 L = light.PositionVS - P;
 	float distance = length(L);
 	L = L / distance;
 
 	float attenuation = DoAttenuation(light, distance);
-	result.Diffuse = DoDiffuse(light, L, normalize(vec4(0,1,0,1))) * light.Intensity * attenuation;
-	// todo specular.
+	result.Diffuse = DoDiffuse(light, L, N) * light.Intensity * attenuation;
 
+	result.Specular = DoSpecular(light, V, L, N) * light.Intensity * attenuation;
 	
 	return result;
 }
@@ -94,7 +100,12 @@ void main () {
 	uint startOffSet = lightGrid.data[index].x;
 	uint lightCount = lightGrid.data[index].y;
 
-	vec4 P = vec4( fragment_in.positionVS, 1 );
+	vec4 eyePos = vec4(0, 0, 0, 1);
+	vec4 P = vec4(fragment_in.positionVS, 1);
+	vec4 V = normalize(vec4(eyePos - P));
+
+	// NORMALS - TODO: ADD NORMALMAP
+	vec4 N = normalize(vec4(fragment_in.normalVS, 0));
 
 	LightingResult totalResult;
 	totalResult.Diffuse = vec4(0);
@@ -113,7 +124,7 @@ void main () {
         {
         	case POINT_LIGHT:
         	{
-        		result = DoPointLight(light, P);
+        		result = DoPointLight(light, V, P, N);
         	}
         	break;
         	// todo: do rest.
@@ -126,5 +137,5 @@ void main () {
 	//float ratio = float(lightCount) / float(256);
 	vec2 realTexCoord = fragment_in.texCoord * BLOCK_PIXEL_SIZE / TEXTURE_SIZE;
 	//frag_colour = mix(vec4(vec3(ratio), 1.0), texture(texture1, realTexCoord), 0.5f);
-	frag_colour = mix(vec4(vec3(totalResult.Diffuse.rgb), 1.0), texture(texture1, realTexCoord), 0.5f);
+	frag_colour = mix(vec4(vec3(totalResult.Diffuse.rgb) + vec3(totalResult.Specular.rgb), 1.0), texture(texture1, realTexCoord), 0.5f);
 }

@@ -1,5 +1,7 @@
 #include "MinecraftWorld.h"
 
+#include "Game/World/WorldGeneration.h"
+
 #include "Core/File/FileSystem.h"
 #include "Core/Math/Vector.h"
 
@@ -15,53 +17,46 @@ namespace Game
 {
 	void MinecraftWorld::InitTestWorld()
 	{
+		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
+		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
+		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
 		m_BlockDataBase.LoadBlockDataBase("blocks.data");
 
-		auto* testChunk = LoadChunk(0, 0, 0);
-
-		testChunk->m_NeedsUpdate = true;
-		testChunk->UpdateWorldChunkMesh();
+		auto* testChunk = WorldGeneration::CreateFlatChunk(0, 0, 0);//LoadChunk(0, 0, 0);
+		testChunk->m_BlockDataBase = &m_BlockDataBase;
+		SaveChunk(*testChunk);
+		testChunk->ForceUpdate();
+		testChunk->m_Material = worldMaterial;
 
 		m_LoadedChunks.push_back(testChunk);
 		m_CurrentChunk = testChunk;
 
-		// Bind the world material to it.
-		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
-		//worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/floor/gravel1.bmp", GraphicsCore::e_TexFormatRGB);
-		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
-		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
-		testChunk->m_Material = worldMaterial;
-
-		// chunk2 for fun
-		auto* testChunk2 = LoadChunk(1, 0, 0);
-		testChunk2->m_NeedsUpdate = true;
-		testChunk2->UpdateWorldChunkMesh();
-		m_LoadedChunks.push_back(testChunk2);
-		testChunk2->m_Material = worldMaterial;
-
 		// DEBUGGING!!!
 		// TESTING SOME LIGHT!!
-		Renderer::DirectionalLight directionLight(glm::vec3(0, 1, 0), glm::vec4(1, 1, 1, 0), 45);
-		for (uint32_t i = 0; i < 20; ++i)
+		//Renderer::DirectionalLight directionLight(glm::vec3(0, 1, 0), glm::vec4(1, 1, 1, 0), 45);
+		for (uint32_t i = 0; i < 16; ++i)
 		{
-			for (uint32_t j = 0; j < 10; ++j)
+			for (uint32_t j = 0; j < 16; ++j)
 			{
-				for (uint32_t k = 3; k < 10; ++k)
+				for (uint32_t k = 1; k < 5; ++k)
 				{
 					if (rand() % 4 == 0)
 					{
 						int radius = rand() % 3 + 1;
-						m_Lights.push_back(Renderer::PointLight(glm::vec3(i, k, j), glm::vec4(rand()%80 / 100.0f + 0.2f, rand() % 80 / 100.0f + 0.2f, rand() % 80 / 100.0f + 0.2f, 0), static_cast<float>(radius),0.8f));
+						m_Lights.push_back(Renderer::PointLight(glm::vec3(i + 0.2f, k + 0.2f, j + 0.2f), glm::vec4(rand()%80 / 100.0f + 0.2f, rand() % 80 / 100.0f + 0.2f, rand() % 80 / 100.0f + 0.2f, 0), static_cast<float>(radius), 0.3f));
 					}
 				}
 			}
 		}
+
+		//m_Lights.push_back(Renderer::PointLight(glm::vec3(4.5f, 4.2f, 4.3f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 6, 0.4f));
+
 		// END OF DEBUGGING!!
 	}
 
 	MinecraftWorldChunk* MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)
 	{
-		MinecraftWorldChunk* loadedChunk = new MinecraftWorldChunk(m_BlockDataBase);
+		MinecraftWorldChunk* loadedChunk = new MinecraftWorldChunk(&m_BlockDataBase);
 		loadedChunk->m_Mesh = new Renderer::MinecraftChunkMesh();
 
 		char filename[256];
@@ -135,7 +130,7 @@ namespace Game
 		{
 			auto* chunk = static_cast<MinecraftWorldChunk*>(model);
 			if (chunk->NeedsUpdate())
-				chunk->UpdateWorldChunkMesh();
+				chunk->Update();
 		}
 	}
 }

@@ -39,7 +39,9 @@ namespace Casiope
 		Engine::WorldManager& worldManager = gameEngine.GetWorldManager();
 
 		Game::GameWorld* world = new Game::GameWorld();
-		world->SetCurrentPlayer(new Game::Player()); // we're leaking this!!
+		Game::Player* player = new Game::Player();
+		player->GetCamera()->SetPosition(glm::vec3(5, 2, 5));
+		world->SetCurrentPlayer(player); // we're leaking this!!
 		worldManager.SetCurrentWorld(world);
 	}
 }

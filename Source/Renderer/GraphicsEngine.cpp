@@ -186,17 +186,14 @@ namespace Renderer
 		for (int i = 0; i < lights->size(); i++) {
 			Light& light = (*lights)[i];
 			float min = 0;
-			float max = 20;
+			float max = 16;
 			glm::vec4 pos = light.GetWorldSpacePosition();
 
 			//int test = rand() % 3;
 
-			light.SetWorldSpacePosition(glm::vec4(fmod((pos.x + (-4.5f * 0.01f) - min + max), max) + min, pos.y, fmod((pos.z + (-4.5f * 0.01f) - min + 10), 10) + min, 1.0f));
+			light.SetWorldSpacePosition(glm::vec4(fmod((pos.x + (-4.5f * 0.01f) - min + max), max) + min, pos.y, pos.z, 1.0f));
 		}
-
-		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 		// END OF DEBUGGING STUFF!!!
-
 
 		for(uint32_t i = 0; i < world->GetLights()->size(); ++i)
 		{
