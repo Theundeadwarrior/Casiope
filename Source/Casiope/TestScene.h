@@ -37,7 +37,6 @@ namespace Casiope
 
 
 		Engine::WorldManager& worldManager = gameEngine.GetWorldManager();
-
 		Game::GameWorld* world = new Game::GameWorld();
 		Game::Player* player = new Game::Player();
 		player->GetCamera()->SetPosition(glm::vec3(5, 2, 5));

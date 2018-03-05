@@ -80,7 +80,7 @@ namespace Engine
 			m_WorldManager.Update();
 
 			m_Renderer.StartRendering();
-			m_Renderer.RenderWorld(m_WorldManager.GetCurrentWorld()); // TODO lcharbonneau: We shouldn't the entire world!
+			m_Renderer.RenderWorld(m_WorldManager.GetCurrentWorld());
 			m_Renderer.EndRendering();
 		}
 		return 0;

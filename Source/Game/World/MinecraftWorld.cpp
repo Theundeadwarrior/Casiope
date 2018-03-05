@@ -20,7 +20,6 @@ namespace Game
 		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
 		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
 		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
-		m_BlockDataBase.LoadBlockDataBase("blocks.data");
 
 		auto* testChunk = WorldGeneration::CreateFlatChunk(0, 0, 0);//LoadChunk(0, 0, 0);
 		testChunk->m_BlockDataBase = &m_BlockDataBase;
@@ -88,7 +87,6 @@ namespace Game
 		return loadedChunk;
 	}
 
-	// todo: fix this to save a chunk and not the current one all the time...
 	void MinecraftWorld::SaveChunk(const MinecraftWorldChunk& chunk)
 	{
 		char filename[256];
@@ -112,8 +110,9 @@ namespace Game
 
 	MinecraftWorld::MinecraftWorld()
 	{
+		m_BlockDataBase.LoadBlockDataBase("blocks.data");
+
 		InitTestWorld();
-		//SaveChunk(*m_CurrentChunk);
 	}
 
 	MinecraftWorld::~MinecraftWorld()

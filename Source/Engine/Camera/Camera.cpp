@@ -7,7 +7,6 @@
 
 namespace Engine
 {
-	// TODO!!! FIX THE INIT OF POI AND UP!!!
 	Camera::Camera(const glm::vec3& position, const glm::vec3& POI, const glm::vec3& up)
 		: m_Position(position)
 		, m_Forward(POI)

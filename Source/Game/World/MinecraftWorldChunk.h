@@ -20,6 +20,7 @@ namespace Game
 		friend class WorldGeneration;
 
 	public:
+		// todo: fix the constructor to be more user friendly.
 		MinecraftWorldChunk(const MinecraftBlockDataBase* database) : m_BlockDataBase(database) {}
 		virtual ~MinecraftWorldChunk() override;
 

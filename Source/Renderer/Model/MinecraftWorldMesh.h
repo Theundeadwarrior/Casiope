@@ -5,7 +5,6 @@
 
 namespace Renderer
 {
-	// TODO: this should derive from Mesh instead.
 	// GPU resource wrapper. 
 	class MinecraftChunkMesh : public GraphicsCore::Mesh
 	{

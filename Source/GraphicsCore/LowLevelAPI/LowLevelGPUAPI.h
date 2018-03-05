@@ -12,8 +12,7 @@ namespace GraphicsCore
 	namespace GPUAPI
 	{
 		void UseShader(ShaderProgramId shaderProgram);
-		// todo P0: PASS IN A MESH INSTEAD OF A GEOM AND SHADERPROGRAM!!!
-		void DrawCall(const Mesh* const geometry);
+		void DrawCall(const Mesh* mesh);
 	}
 
 }

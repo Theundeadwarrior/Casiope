@@ -9,16 +9,16 @@ namespace GraphicsCore
 		glUseProgram(shaderProgram);
 	}
 
-	void GPUAPI::DrawCall(const Mesh* const geometry)
+	void GPUAPI::DrawCall(const Mesh* mesh)
 	{
-		glBindVertexArray(geometry->m_GPUParams.m_Vbr.VAO);
-		if (geometry->m_GPUParams.m_Vbr.IsUsingEBO())
+		glBindVertexArray(mesh->m_GPUParams.m_Vbr.VAO);
+		if (mesh->m_GPUParams.m_Vbr.IsUsingEBO())
 		{
-			glDrawElements(GL_TRIANGLES, geometry->m_GPUParams.m_IndexCount, GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, mesh->m_GPUParams.m_IndexCount, GL_UNSIGNED_INT, nullptr);
 		}
 		else
 		{
-			glDrawArrays(GL_TRIANGLES, 0, geometry->m_GPUParams.m_VertexCount);
+			glDrawArrays(GL_TRIANGLES, 0, mesh->m_GPUParams.m_VertexCount);
 		}
 		glBindVertexArray(0);
 	}

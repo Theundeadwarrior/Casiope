@@ -19,7 +19,6 @@ namespace GraphicsCore
 		glDeleteShader(m_ShaderId);
 	}
 
-	// todo: Move the shadercompile call to the constructor of the shader.
 	VertexFragmentShaderProgram::VertexFragmentShaderProgram(const char* vertexShaderCode, const char* fragmentShaderCode, const std::string& args)
 		: m_VertexShader(ShaderType::e_VertexShader, vertexShaderCode, args)
 		, m_FragmentShader(ShaderType::e_FragmentShader, fragmentShaderCode, args)

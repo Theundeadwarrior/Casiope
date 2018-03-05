@@ -102,7 +102,6 @@ namespace Game
 		if (k == 0 || m_Blocks[i][k - 1][j] == MinecraftBlockType::Air)
 		{
 			const uint8_t* texOffsets = GetTexOffsets(type, MinecraftBlockOrientation::West, orientation);
-			//glm::ivec2 texOffset = GetFrontTexOffset(GetBlock(i,j,k), MinecraftBlockOrientation::West, orientation);
 			vertices[currentVertex++] = Byte8Data(i, j, k, 0, 0, -1, texOffsets[0] + 1, texOffsets[1]);
 			vertices[currentVertex++] = Byte8Data(i + 1, j + 1, k, 0, 0, -1, texOffsets[0], texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i + 1, j, k, 0, 0, -1, texOffsets[0], texOffsets[1]);

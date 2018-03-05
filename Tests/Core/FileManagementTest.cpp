@@ -58,7 +58,6 @@ TEST_CASE("OpenFileForReadTwiceShouldWork")
 	Core::FileSystem::DestroyInstance();
 }
 
-// TODO: Add a '\0' at the end of the buffer...
 TEST_CASE("ReadFileAndVerifyBufferTermination")
 {
 	auto* fileSystem = Core::FileSystem::CreateInstance();
