@@ -9,6 +9,7 @@
 #include "Engine/GameEngine.h"
 #include "Engine/Camera/PerspectiveCamera.h"
 #include "Game/World/GameWorld.h"
+#include "Game/Player/Player.h"
 
 namespace Casiope
 {

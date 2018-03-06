@@ -27,11 +27,11 @@
     <ClCompile Include="Block\BlockData.cpp">
       <Filter>Block</Filter>
     </ClCompile>
-    <ClCompile Include="World\BlockyWorld.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="Chunk\WorldChunk.cpp">
       <Filter>Chunk</Filter>
+    </ClCompile>
+    <ClCompile Include="World\Planet.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,11 +47,11 @@
     <ClInclude Include="Block\BlockData.h">
       <Filter>Block</Filter>
     </ClInclude>
-    <ClInclude Include="World\BlockyWorld.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="Chunk\WorldChunk.h">
       <Filter>Chunk</Filter>
+    </ClInclude>
+    <ClInclude Include="World\Planet.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

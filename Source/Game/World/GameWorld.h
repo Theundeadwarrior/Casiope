@@ -1,23 +1,21 @@
 #pragma once
 
-#include "Renderer/SkyBox/SkyBox.h"
 #include "Engine/World/WorldManager.h"
-#include "Game/Player/Player.h"
-#include "Game/World/BlockyWorld.h"
+#include "Game/World/Planet.h"
 
 namespace Game
 {
+	class Player;
 	class GameWorld : public Engine::World
 	{
 	public:
 		void SetCurrentPlayer(Player* player);
 		virtual void Update() override;
-		virtual std::list<Renderer::Model*>* GetModels() override { return m_MinecraftWorld.GetModels(); };
-		virtual std::vector<Renderer::Light>* GetLights() override { return m_MinecraftWorld.GetLights(); };
+		virtual std::list<Renderer::Model*>* GetModels() override { return m_CurrentPlanet.GetModels(); };
+		virtual std::vector<Renderer::Light>* GetLights() override { return m_CurrentPlanet.GetLights(); };
 
 	private:
-		Player* m_CurrentPlayer;
-		BlockyWorld m_MinecraftWorld;
-		Renderer::SkyBox m_SkyBox;
+		Player* m_Player;
+		Planet m_CurrentPlanet;
 	};
 }

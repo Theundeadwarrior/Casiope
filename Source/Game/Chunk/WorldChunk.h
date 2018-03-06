@@ -16,7 +16,7 @@ namespace Game
 	// CPU Resource
 	class WorldChunk : public Renderer::Model
 	{
-		friend class BlockyWorld;
+		friend class Planet;
 		friend class WorldGeneration;
 
 	public:
