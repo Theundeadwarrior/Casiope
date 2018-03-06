@@ -6,11 +6,11 @@
 namespace Renderer
 {
 	// GPU resource wrapper. 
-	class MinecraftChunkMesh : public GraphicsCore::Mesh
+	class ChunkMesh : public GraphicsCore::Mesh
 	{
 	public:
-		MinecraftChunkMesh() = default;
-		~MinecraftChunkMesh() = default;
+		ChunkMesh() = default;
+		~ChunkMesh() = default;
 
 		void Update(void* data, uint32_t count);
 	};

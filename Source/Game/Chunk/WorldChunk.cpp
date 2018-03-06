@@ -1,4 +1,4 @@
-#include "Game/World/MinecraftWorldChunk.h"
+#include "Game/Chunk/WorldChunk.h"
 
 #include "GraphicsCore/Mesh/Mesh.h"
 
@@ -23,18 +23,18 @@ namespace Game
 	};
 
 
-	MinecraftWorldChunk::~MinecraftWorldChunk()
+	WorldChunk::~WorldChunk()
 	{
 		delete m_Mesh;
 	}
 
-	void MinecraftWorldChunk::ForceUpdate()
+	void WorldChunk::ForceUpdate()
 	{
 		m_NeedsUpdate = true;
 		Update();
 	}
 
-	void MinecraftWorldChunk::Update()
+	void WorldChunk::Update()
 	{
 		if (m_NeedsUpdate)
 		{
@@ -58,12 +58,12 @@ namespace Game
 		}
 	}
 
-	MinecraftBlockType MinecraftWorldChunk::GetBlock(uint32_t x, uint32_t y, uint32_t z) const
+	MinecraftBlockType WorldChunk::GetBlock(uint32_t x, uint32_t y, uint32_t z) const
 	{
 		return m_Blocks[x][y][z];
 	}
 
-	void MinecraftWorldChunk::SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type)
+	void WorldChunk::SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type)
 	{
 		if (GetBlock(x, y, z) != type)
 		{
@@ -72,7 +72,7 @@ namespace Game
 		}
 	}
 
-	const uint8_t* MinecraftWorldChunk::GetTexOffsets(MinecraftBlockType type, MinecraftBlockOrientation face, MinecraftBlockOrientation orientation)
+	const uint8_t* WorldChunk::GetTexOffsets(MinecraftBlockType type, MinecraftBlockOrientation face, MinecraftBlockOrientation orientation)
 	{
 		MinecraftBlockFace realFace;
 		if (face == MinecraftBlockOrientation::North)
@@ -91,7 +91,7 @@ namespace Game
 		return m_BlockDataBase->GetTextureOffsets(type, realFace);
 	}
 
-	uint32_t MinecraftWorldChunk::BuildBlockVertices(Byte8Data* vertices, uint32_t i, uint32_t j, uint32_t k)
+	uint32_t WorldChunk::BuildBlockVertices(Byte8Data* vertices, uint32_t i, uint32_t j, uint32_t k)
 	{
 		uint32_t currentVertex = 0;
 		MinecraftBlockType type = m_Blocks[i][k][j];

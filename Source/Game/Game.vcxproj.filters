@@ -7,6 +7,12 @@
     <Filter Include="World">
       <UniqueIdentifier>{6a02015f-1740-404c-a541-e471de42d8f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Block">
+      <UniqueIdentifier>{d7bbe40c-ed62-4ef1-a2ca-9c726978b0cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chunk">
+      <UniqueIdentifier>{c978da74-031c-4c31-b3a5-07b3a481b058}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player\Player.cpp">
@@ -15,17 +21,17 @@
     <ClCompile Include="World\GameWorld.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="World\MinecraftWorld.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="World\MinecraftWorldChunk.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="World\MinecraftBlockData.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="World\WorldGeneration.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Block\BlockData.cpp">
+      <Filter>Block</Filter>
+    </ClCompile>
+    <ClCompile Include="World\BlockyWorld.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk\WorldChunk.cpp">
+      <Filter>Chunk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,17 +41,17 @@
     <ClInclude Include="World\GameWorld.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="World\MinecraftWorld.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="World\MinecraftWorldChunk.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="World\MinecraftBlockData.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="World\WorldGeneration.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Block\BlockData.h">
+      <Filter>Block</Filter>
+    </ClInclude>
+    <ClInclude Include="World\BlockyWorld.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk\WorldChunk.h">
+      <Filter>Chunk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

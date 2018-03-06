@@ -38,19 +38,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Block\BlockData.cpp" />
+    <ClCompile Include="Chunk\WorldChunk.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="World\GameWorld.cpp" />
-    <ClCompile Include="World\MinecraftBlockData.cpp" />
-    <ClCompile Include="World\MinecraftWorld.cpp" />
-    <ClCompile Include="World\MinecraftWorldChunk.cpp" />
+    <ClCompile Include="World\BlockyWorld.cpp" />
     <ClCompile Include="World\WorldGeneration.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block\BlockData.h" />
+    <ClInclude Include="Chunk\WorldChunk.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="World\GameWorld.h" />
-    <ClInclude Include="World\MinecraftBlockData.h" />
-    <ClInclude Include="World\MinecraftWorld.h" />
-    <ClInclude Include="World\MinecraftWorldChunk.h" />
+    <ClInclude Include="World\BlockyWorld.h" />
     <ClInclude Include="World\WorldGeneration.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

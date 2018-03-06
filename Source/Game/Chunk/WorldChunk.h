@@ -1,28 +1,28 @@
 #pragma once
 
 #include "Renderer/Model/Model.h"
-#include "Game/World/MinecraftBlockData.h"
+#include "Game/Block/BlockData.h"
 
 #define WORLD_CHUNK_WIDTH		16
 #define WORLD_CHUNK_LENGHT		16
 #define WORLD_CHUNK_HEIGHT		16
 #define WORLD_BLOCK_COUNT		WORLD_CHUNK_HEIGHT * WORLD_CHUNK_LENGHT * WORLD_CHUNK_WIDTH
+#define CHUNK_VERSION 1
 
 namespace Game
 {
 	struct Byte8Data;
 
-
 	// CPU Resource
-	class MinecraftWorldChunk : public Renderer::Model
+	class WorldChunk : public Renderer::Model
 	{
-		friend class MinecraftWorld;
+		friend class BlockyWorld;
 		friend class WorldGeneration;
 
 	public:
 		// todo: fix the constructor to be more user friendly.
-		MinecraftWorldChunk(const MinecraftBlockDataBase* database) : m_BlockDataBase(database) {}
-		virtual ~MinecraftWorldChunk() override;
+		WorldChunk(const MinecraftBlockDataBase* database) : m_BlockDataBase(database) {}
+		virtual ~WorldChunk() override;
 
 		bool NeedsUpdate() const { return m_NeedsUpdate; }
 		void ForceUpdate();

@@ -1,4 +1,4 @@
-#include "Game/World/MinecraftBlockData.h"
+#include "Game/Block/BlockData.h"
 
 #include "Core/File/FileSystem.h"
 

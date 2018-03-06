@@ -2,7 +2,7 @@
 
 #include "Engine/Camera/PerspectiveCamera.h"
 #include "Engine/GameEngine.h"
-#include "Game/World/MinecraftWorldChunk.h"
+#include "Game/Chunk/WorldChunk.h"
 
 
 #include "glm/glm.hpp"
@@ -66,11 +66,11 @@ namespace Game
 		if (m_IsKeyPressed['1'])
 		{
 			auto* models = Engine::GameEngine::GetInstance()->GetWorldManager().GetCurrentWorld()->GetModels();
-			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 3, 3, Game::MinecraftBlockType::Stone);
-			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 2, 3, Game::MinecraftBlockType::Stone);
-			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 1, 3, Game::MinecraftBlockType::Stone);
-			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 0, 3, Game::MinecraftBlockType::Stone);
-			static_cast<MinecraftWorldChunk*>((*models).front())->SetBlock(3, 4, 3, Game::MinecraftBlockType::Stone);
+			static_cast<WorldChunk*>((*models).front())->SetBlock(3, 3, 3, Game::MinecraftBlockType::Stone);
+			static_cast<WorldChunk*>((*models).front())->SetBlock(3, 2, 3, Game::MinecraftBlockType::Stone);
+			static_cast<WorldChunk*>((*models).front())->SetBlock(3, 1, 3, Game::MinecraftBlockType::Stone);
+			static_cast<WorldChunk*>((*models).front())->SetBlock(3, 0, 3, Game::MinecraftBlockType::Stone);
+			static_cast<WorldChunk*>((*models).front())->SetBlock(3, 4, 3, Game::MinecraftBlockType::Stone);
 		}
 
 		if (m_MouseX != 0 || m_MouseY != 0)

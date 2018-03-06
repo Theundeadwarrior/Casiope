@@ -1,12 +1,13 @@
 #pragma once
 
-#include "Game/World/MinecraftWorldChunk.h"
+#include <stdint.h>
 
 namespace Game
 {
+	class WorldChunk;
 	class WorldGeneration
 	{
 	public:
-		static MinecraftWorldChunk* CreateFlatChunk(uint32_t x, uint32_t y, uint32_t z);
+		static WorldChunk* CreateFlatChunk(uint32_t x, uint32_t y, uint32_t z);
 	};
 }

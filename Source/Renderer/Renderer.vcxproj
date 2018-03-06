@@ -31,7 +31,7 @@
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Material\Material.h" />
-    <ClInclude Include="Model\MinecraftWorldMesh.h" />
+    <ClInclude Include="Model\ChunkMesh.h" />
     <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Resource\GraphicsResourceManager.h" />
     <ClInclude Include="SkyBox\SkyBox.h" />
@@ -41,7 +41,7 @@
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Material\Material.cpp" />
-    <ClCompile Include="Model\MinecraftWorldMesh.cpp" />
+    <ClCompile Include="Model\ChunkMesh.cpp" />
     <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Resource\GraphicsResourceManager.cpp" />
     <ClCompile Include="SkyBox\SkyBox.cpp" />

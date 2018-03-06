@@ -1,6 +1,7 @@
-#include "MinecraftWorld.h"
+#include "BlockyWorld.h"
 
 #include "Game/World/WorldGeneration.h"
+#include "Game/Chunk/WorldChunk.h"
 
 #include "Core/File/FileSystem.h"
 #include "Core/Math/Vector.h"
@@ -11,17 +12,16 @@
 
 #include <vector>
 
-#define CHUNK_VERSION 1
 
 namespace Game
 {
-	void MinecraftWorld::InitTestWorld()
+	void BlockyWorld::InitTestWorld()
 	{
 		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
 		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
 		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
 
-		auto* testChunk = WorldGeneration::CreateFlatChunk(0, 0, 0);//LoadChunk(0, 0, 0);
+		WorldChunk* testChunk = WorldGeneration::CreateFlatChunk(0, 0, 0);//LoadChunk(0, 0, 0);
 		testChunk->m_BlockDataBase = &m_BlockDataBase;
 		SaveChunk(*testChunk);
 		testChunk->ForceUpdate();
@@ -53,10 +53,10 @@ namespace Game
 		// END OF DEBUGGING!!
 	}
 
-	MinecraftWorldChunk* MinecraftWorld::LoadChunk(int32_t x, int32_t y, int32_t z)
+	WorldChunk* BlockyWorld::LoadChunk(int32_t x, int32_t y, int32_t z)
 	{
-		MinecraftWorldChunk* loadedChunk = new MinecraftWorldChunk(&m_BlockDataBase);
-		loadedChunk->m_Mesh = new Renderer::MinecraftChunkMesh();
+		WorldChunk* loadedChunk = new WorldChunk(&m_BlockDataBase);
+		loadedChunk->m_Mesh = new Renderer::ChunkMesh();
 
 		char filename[256];
 		sprintf_s(filename, "chunks/%08x_%08x_%08x.chunk", x, y, z);
@@ -87,7 +87,7 @@ namespace Game
 		return loadedChunk;
 	}
 
-	void MinecraftWorld::SaveChunk(const MinecraftWorldChunk& chunk)
+	void BlockyWorld::SaveChunk(const WorldChunk& chunk)
 	{
 		char filename[256];
 		sprintf_s(filename, "chunks/%08x_%08x_%08x.chunk", chunk.m_Position.x, chunk.m_Position.y, chunk.m_Position.z);
@@ -108,14 +108,14 @@ namespace Game
 		fs->CloseFile(file);
 	}
 
-	MinecraftWorld::MinecraftWorld()
+	BlockyWorld::BlockyWorld()
 	{
 		m_BlockDataBase.LoadBlockDataBase("blocks.data");
 
 		InitTestWorld();
 	}
 
-	MinecraftWorld::~MinecraftWorld()
+	BlockyWorld::~BlockyWorld()
 	{
 		for(auto* chunk : m_LoadedChunks)
 		{
@@ -123,11 +123,11 @@ namespace Game
 		}
 	}
 
-	void MinecraftWorld::Update()
+	void BlockyWorld::Update()
 	{
 		for(auto* model: m_LoadedChunks)
 		{
-			auto* chunk = static_cast<MinecraftWorldChunk*>(model);
+			auto* chunk = static_cast<WorldChunk*>(model);
 			if (chunk->NeedsUpdate())
 				chunk->Update();
 		}

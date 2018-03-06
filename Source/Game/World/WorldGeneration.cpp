@@ -1,12 +1,14 @@
 #include "Game/World/WorldGeneration.h"
-#include "Renderer/Model/MinecraftWorldMesh.h"
+
+#include "Renderer/Model/ChunkMesh.h"
+#include "Game/Chunk/WorldChunk.h"
 
 namespace Game
 {
-	MinecraftWorldChunk* WorldGeneration::CreateFlatChunk(uint32_t x, uint32_t y, uint32_t z)
+	WorldChunk* WorldGeneration::CreateFlatChunk(uint32_t x, uint32_t y, uint32_t z)
 	{
-		MinecraftWorldChunk* chunk = new MinecraftWorldChunk(nullptr);
-		chunk->m_Mesh = new Renderer::MinecraftChunkMesh();
+		WorldChunk* chunk = new WorldChunk(nullptr);
+		chunk->m_Mesh = new Renderer::ChunkMesh();
 
 		for (uint32_t x = 0; x < WORLD_CHUNK_WIDTH; ++x)
 		{

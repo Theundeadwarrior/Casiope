@@ -37,11 +37,11 @@
     <ClInclude Include="Model\Model.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="Model\MinecraftWorldMesh.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="Light\Light.h">
       <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\ChunkMesh.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,11 +61,11 @@
     <ClCompile Include="Model\Model.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="Model\MinecraftWorldMesh.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="Light\Light.cpp">
       <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\ChunkMesh.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

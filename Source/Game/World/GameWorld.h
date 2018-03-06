@@ -3,7 +3,7 @@
 #include "Renderer/SkyBox/SkyBox.h"
 #include "Engine/World/WorldManager.h"
 #include "Game/Player/Player.h"
-#include "Game/World/MinecraftWorld.h"
+#include "Game/World/BlockyWorld.h"
 
 namespace Game
 {
@@ -17,7 +17,7 @@ namespace Game
 
 	private:
 		Player* m_CurrentPlayer;
-		MinecraftWorld m_MinecraftWorld;
+		BlockyWorld m_MinecraftWorld;
 		Renderer::SkyBox m_SkyBox;
 	};
 }
