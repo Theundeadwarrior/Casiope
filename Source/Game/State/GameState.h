@@ -1,7 +1,11 @@
 #pragma once
 
 #include "Engine/State/State.h"
-#include "Engine/World/WorldManager.h"
+
+namespace Engine
+{
+	class World;
+}
 
 namespace Game
 {
@@ -14,6 +18,6 @@ namespace Game
 		virtual void Update() override;
 
 	private:
-		Engine::WorldManager m_WorldManager;
+		Engine::World* m_World;
 	};
 }

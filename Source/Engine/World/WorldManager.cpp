@@ -4,20 +4,6 @@
 
 namespace Engine
 {
-	WorldManager::WorldManager()
-		: m_CurrentWorld(nullptr)
-	{
-	}
-
-	WorldManager::~WorldManager()
-	{
-	}
-
-	void WorldManager::Update()
-	{
-		m_CurrentWorld->Update();
-	}
-
 	World::World()
 	{
 

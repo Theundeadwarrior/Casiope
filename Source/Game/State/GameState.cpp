@@ -12,24 +12,20 @@ void Game::GameState::OnEnter()
 	Game::Player* player = new Game::Player();
 	player->GetCamera()->SetPosition(glm::vec3(5, 2, 5));
 	world->SetCurrentPlayer(player); // we're leaking this!!
-	m_WorldManager.SetCurrentWorld(world);
+	m_World = world;
 }
 
 void Game::GameState::OnExit()
 {
-	// todo remove
-	Engine::World* world = m_WorldManager.GetCurrentWorld();
-	m_WorldManager.SetCurrentWorld(nullptr);
-	delete world;
-	// endtodo
+	delete m_World;
 }
 
 void Game::GameState::Update()
 {
-	m_WorldManager.Update();
+	m_World->Update();
 
 	auto& renderer = Engine::GameEngine::GetInstance()->GetRenderer();
 	renderer.StartRendering();
-	renderer.RenderWorld(m_WorldManager.GetCurrentWorld());
+	renderer.RenderWorld(m_World);
 	renderer.EndRendering();
 }
