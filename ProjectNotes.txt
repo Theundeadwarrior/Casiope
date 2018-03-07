@@ -17,5 +17,15 @@ A model might have multiple meshes and textures.
 - Don't need to change materials if we render an object with the same material.
 
 
+// TRANSPARENCY
+//---------------------------------------------------
+There are 3 options:
+- The first one is using an accumulation buffer and 2 render pass, one with everything at threshold alpha = 0.75, another time with threshold alpha = 0.25. Then we combine the 2 buffers.
+- We can also sort all tranparent blocks by closestness to the player and render those first.
+- We can also use some fancy shit with fragment memory and compute shaders...
 
-*** Should do block types in a xml or file outside the code.
+
+// STATE
+//---------------------------------------------------
+Need to separate the states of the engine so we can have a "game" state and a "loading" state and a "main menu" state.
+

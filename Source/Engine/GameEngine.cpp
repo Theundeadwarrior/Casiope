@@ -30,14 +30,21 @@ namespace Engine
 		srand(0);
 	}
 
+	void GameEngine::PushState(IState* state)
+	{
+		m_States.push_back(state);
+		state->OnEnter();
+	}
+
+	void GameEngine::PopState()
+	{
+		auto& state = m_States.back();
+		state->OnExit();
+		m_States.pop_back();
+	}
+
 	void GameEngine::Shutdown()
 	{
-		// todo remove
-		World* world = m_WorldManager.GetCurrentWorld();
-		m_WorldManager.SetCurrentWorld(nullptr);
-		delete world;
-		// endtodo
-
 		m_Renderer.Shutdown();
 		Core::FileSystem::DestroyInstance();
 	}
@@ -70,20 +77,19 @@ namespace Engine
 		}
 	}
 
-	int GameEngine::Loop()
+	void GameEngine::Loop()
 	{
 		// Loop
 		while (!m_RequestedQuit)
 		{
 			HandleEvents();
 			m_InputManager.Update();
-			m_WorldManager.Update();
 
-			m_Renderer.StartRendering();
-			m_Renderer.RenderWorld(m_WorldManager.GetCurrentWorld());
-			m_Renderer.EndRendering();
+			for (auto* state : m_States)
+			{
+				state->Update();
+			}
 		}
-		return 0;
 	}
 
 

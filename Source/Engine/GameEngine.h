@@ -1,11 +1,13 @@
 #pragma once
 
-#include <SDL.h>
-
 #include "Core/Input/InputManager.h"
 #include "Core/Singleton/Singleton.h"
 #include "Engine/World/WorldManager.h"
+#include "Engine/State/State.h"
 #include "Renderer/GraphicsEngine.h"
+
+#include <SDL.h>
+#include <vector>
 
 namespace Engine
 {
@@ -15,28 +17,30 @@ namespace Engine
 		SINGLETON_DECLARATION(GameEngine);
 
 		void Initialize();
+
+		void PushState(IState* state);
+		void PopState();
 		void Shutdown();
 
-		void HandleEvents();
+		void Loop();
 
-		int Loop();
-
-		WorldManager& GetWorldManager() { return m_WorldManager; }
-		Renderer::GraphicsEngine& GetGraphicsEngine() { return m_Renderer; }
-
-		// Getters
 		Core::InputManager& GetInputManager() { return m_InputManager; }
+		Renderer::GraphicsEngine& GetRenderer() { return m_Renderer; }
 
 	private:
 		GameEngine();
 		~GameEngine();
 
+		void HandleEvents();
+
+	private:
+		std::vector<IState*> m_States;
+
 		Renderer::GraphicsEngine m_Renderer;
 		Core::InputManager m_InputManager;
-		WorldManager m_WorldManager;
 
 		SDL_Event m_CurrentEvent;
 
-		bool m_RequestedQuit;
+		bool m_RequestedQuit; // todo : move to a state.
 	};
 }

@@ -13,6 +13,9 @@
     <Filter Include="Chunk">
       <UniqueIdentifier>{c978da74-031c-4c31-b3a5-07b3a481b058}</UniqueIdentifier>
     </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{0eb7cf0b-29d8-4b66-99ee-d48a84d87863}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player\Player.cpp">
@@ -33,6 +36,9 @@
     <ClCompile Include="World\Planet.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="State\GameState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\Player.h">
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="World\Planet.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="State\GameState.h">
+      <Filter>State</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

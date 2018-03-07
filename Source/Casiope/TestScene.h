@@ -7,9 +7,7 @@
 #include "GraphicsCore/Mesh/Mesh.h"
 
 #include "Engine/GameEngine.h"
-#include "Engine/Camera/PerspectiveCamera.h"
-#include "Game/World/GameWorld.h"
-#include "Game/Player/Player.h"
+#include "Game/State/GameState.h"
 
 namespace Casiope
 {
@@ -36,12 +34,7 @@ namespace Casiope
 
 		//GraphicsCore::Mesh cubesGeometry;
 
-
-		Engine::WorldManager& worldManager = gameEngine.GetWorldManager();
-		Game::GameWorld* world = new Game::GameWorld();
-		Game::Player* player = new Game::Player();
-		player->GetCamera()->SetPosition(glm::vec3(5, 2, 5));
-		world->SetCurrentPlayer(player); // we're leaking this!!
-		worldManager.SetCurrentWorld(world);
+		Game::GameState* state = new Game::GameState();
+		gameEngine.PushState(state);
 	}
 }

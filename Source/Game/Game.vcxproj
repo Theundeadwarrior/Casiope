@@ -41,6 +41,7 @@
     <ClCompile Include="Block\BlockData.cpp" />
     <ClCompile Include="Chunk\WorldChunk.cpp" />
     <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="State\GameState.cpp" />
     <ClCompile Include="World\GameWorld.cpp" />
     <ClCompile Include="World\Planet.cpp" />
     <ClCompile Include="World\WorldGeneration.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="Block\BlockData.h" />
     <ClInclude Include="Chunk\WorldChunk.h" />
     <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="State\GameState.h" />
     <ClInclude Include="World\GameWorld.h" />
     <ClInclude Include="World\Planet.h" />
     <ClInclude Include="World\WorldGeneration.h" />
