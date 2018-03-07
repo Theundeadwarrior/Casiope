@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine/World/WorldManager.h"
+#include "Engine/World/World.h"
 #include "Game/World/Planet.h"
 
 namespace Game

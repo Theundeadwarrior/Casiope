@@ -31,14 +31,14 @@
     <ClCompile Include="Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="State\State.cpp" />
-    <ClCompile Include="World\WorldManager.cpp" />
+    <ClCompile Include="World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\PerspectiveCamera.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="State\State.h" />
-    <ClInclude Include="World\WorldManager.h" />
+    <ClInclude Include="World\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">

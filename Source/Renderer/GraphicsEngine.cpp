@@ -5,7 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Engine/World/WorldManager.h"
+#include "Engine/World/World.h"
 #include "Engine/Camera/PerspectiveCamera.h"
 
 #include "GraphicsCore/LowLevelAPI/LowLevelGPUAPI.h"

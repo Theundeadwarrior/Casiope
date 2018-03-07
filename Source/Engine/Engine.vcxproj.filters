@@ -8,11 +8,11 @@
     <ClInclude Include="Camera\Camera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="World\WorldManager.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="State\State.h">
       <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="World\World.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -23,11 +23,11 @@
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="World\WorldManager.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="State\State.cpp">
       <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="World\World.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
