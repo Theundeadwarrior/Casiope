@@ -38,13 +38,19 @@ namespace Engine
 
 	void GameEngine::PopState()
 	{
-		auto& state = m_States.back();
+		assert(m_States.size() >= 1);
+		auto* state = m_States.back();
 		state->OnExit();
 		m_States.pop_back();
 	}
 
 	void GameEngine::Shutdown()
 	{
+		while (m_States.size() != 0)
+		{
+			PopState();
+		}
+
 		m_Renderer.Shutdown();
 		Core::FileSystem::DestroyInstance();
 	}
