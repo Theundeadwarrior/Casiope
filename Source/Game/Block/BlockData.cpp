@@ -6,27 +6,21 @@
 
 namespace Game
 {
-	MinecraftBlockDataBase::MinecraftBlockDataBase()
-	{
-
-		//InitTest();
-	}
-
-	void MinecraftBlockDataBase::InitTest()
+	void BlockDataBase::InitTest()
 	{
 		uint8_t dirtValues[12] = { 1,0,1,0,1,0,1,0,1,0,1,0 };
-		memcpy(m_BlockData[static_cast<uint32_t>(MinecraftBlockType::Dirt)].m_TexOffset, dirtValues, 12);
+		memcpy(m_BlockData[static_cast<uint32_t>(BlockType::Dirt)].m_TexOffset, dirtValues, 12);
 
 		uint8_t grassValues[12] = { 2,0,2,0,2,0,2,0,3,0,1,0 };
-		memcpy(m_BlockData[static_cast<uint32_t>(MinecraftBlockType::Grass)].m_TexOffset, grassValues, 12);
+		memcpy(m_BlockData[static_cast<uint32_t>(BlockType::Grass)].m_TexOffset, grassValues, 12);
 
 		uint8_t stoneValues[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
-		memcpy(m_BlockData[static_cast<uint32_t>(MinecraftBlockType::Stone)].m_TexOffset, stoneValues, 12);
+		memcpy(m_BlockData[static_cast<uint32_t>(BlockType::Stone)].m_TexOffset, stoneValues, 12);
 
 		SaveBlockDataBase("blocks.data");
 	}
 
-	void MinecraftBlockDataBase::LoadBlockDataBase(const char* filename)
+	void BlockDataBase::LoadBlockDataBase(const char* filename)
 	{
 		auto* fs = Core::FileSystem::GetInstance();
 		auto* file = fs->OpenRead(filename);
@@ -46,7 +40,7 @@ namespace Game
 		fs->CloseFile(file);
 	}
 
-	void MinecraftBlockDataBase::SaveBlockDataBase(const char* filename)
+	void BlockDataBase::SaveBlockDataBase(const char* filename)
 	{
 		auto* fs = Core::FileSystem::GetInstance();
 		auto* file = fs->OpenWrite(filename);

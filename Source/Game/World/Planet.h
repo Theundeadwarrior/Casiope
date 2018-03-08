@@ -18,6 +18,16 @@ namespace Game
 {
 	class WorldChunk;
 	// World is in charge of managing the chunks and streaming them as we go. It is also called to see which chunks needs to be updated.
+
+	struct PlanetParameters
+	{
+		// The planet has different parameters when generated:
+		uint32_t m_CircumferenceInChunks; // How many chunks in width in length before we circle back.
+		uint32_t m_AllowedHeightInChunks; // How high can a player go in chunks?
+		uint32_t m_WaterLevelInBlocks; // How many blocks high is the water from the bottom of the level.
+		uint32_t m_SurfaceLevelInBlocks; // How many blocks high is the surface from the bottom.
+	};
+
 	class Planet
 	{
 	public:
@@ -38,8 +48,6 @@ namespace Game
 		std::vector<Renderer::Light> m_Lights;
 		
 		WorldChunk* m_CurrentChunk; // player is currently in that chunk
-		MinecraftBlockDataBase m_BlockDataBase; // todo: move this as a singleton class that the chunk can access...
 		Renderer::SkyBox m_SkyBox;
-
 	};
 }

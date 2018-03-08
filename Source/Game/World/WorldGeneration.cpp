@@ -7,14 +7,14 @@ namespace Game
 {
 	WorldChunk* WorldGeneration::CreateFlatChunk(uint32_t x, uint32_t y, uint32_t z)
 	{
-		WorldChunk* chunk = new WorldChunk(nullptr);
+		WorldChunk* chunk = new WorldChunk();
 		chunk->m_Mesh = new Renderer::ChunkMesh();
 
 		for (uint32_t x = 0; x < WORLD_CHUNK_WIDTH; ++x)
 		{
 			for (uint32_t y = 0; y < WORLD_CHUNK_LENGHT; ++y)
 			{
-				chunk->SetBlock(x, y, 0, MinecraftBlockType::Stone);
+				chunk->SetBlock(x, y, 0, BlockType::Stone);
 			}
 		}
 

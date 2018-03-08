@@ -46,7 +46,7 @@ namespace Game
 				{
 					for (uint32_t k = 0; k < WORLD_CHUNK_LENGHT; ++k)
 					{
-						if (m_Blocks[i][k][j] != MinecraftBlockType::Air)
+						if (m_Blocks[i][k][j] != BlockType::Air)
 						{
 							currentVertex += BuildBlockVertices(&vertices[currentVertex], i, j, k);
 						}
@@ -58,12 +58,12 @@ namespace Game
 		}
 	}
 
-	MinecraftBlockType WorldChunk::GetBlock(uint32_t x, uint32_t y, uint32_t z) const
+	BlockType WorldChunk::GetBlock(uint32_t x, uint32_t y, uint32_t z) const
 	{
 		return m_Blocks[x][y][z];
 	}
 
-	void WorldChunk::SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type)
+	void WorldChunk::SetBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type)
 	{
 		if (GetBlock(x, y, z) != type)
 		{
@@ -72,36 +72,36 @@ namespace Game
 		}
 	}
 
-	const uint8_t* WorldChunk::GetTexOffsets(MinecraftBlockType type, MinecraftBlockOrientation face, MinecraftBlockOrientation orientation)
+	const uint8_t* WorldChunk::GetTexOffsets(BlockType type, BlockOrientation face, BlockOrientation orientation)
 	{
-		MinecraftBlockFace realFace;
-		if (face == MinecraftBlockOrientation::North)
-			realFace = MinecraftBlockFace::Front;
-		else if (face == MinecraftBlockOrientation::South)
-			realFace = MinecraftBlockFace::Back;
-		else if (face == MinecraftBlockOrientation::East)
-			realFace = MinecraftBlockFace::Left;
-		else if (face == MinecraftBlockOrientation::West)
-			realFace = MinecraftBlockFace::Right;
-		else if (face == MinecraftBlockOrientation::Up)
-			realFace = MinecraftBlockFace::Top;
-		else if (face == MinecraftBlockOrientation::Down)
-			realFace = MinecraftBlockFace::Bottom;
+		BlockFace realFace;
+		if (face == BlockOrientation::North)
+			realFace = BlockFace::Front;
+		else if (face == BlockOrientation::South)
+			realFace = BlockFace::Back;
+		else if (face == BlockOrientation::East)
+			realFace = BlockFace::Left;
+		else if (face == BlockOrientation::West)
+			realFace = BlockFace::Right;
+		else if (face == BlockOrientation::Up)
+			realFace = BlockFace::Top;
+		else if (face == BlockOrientation::Down)
+			realFace = BlockFace::Bottom;
 		
-		return m_BlockDataBase->GetTextureOffsets(type, realFace);
+		return BlockDataBase::GetInstance()->GetTextureOffsets(type, realFace);
 	}
 
 	uint32_t WorldChunk::BuildBlockVertices(Byte8Data* vertices, uint32_t i, uint32_t j, uint32_t k)
 	{
 		uint32_t currentVertex = 0;
-		MinecraftBlockType type = m_Blocks[i][k][j];
+		BlockType type = m_Blocks[i][k][j];
 
 		// Need some data to tell us what direction the block is facing...
-		const MinecraftBlockOrientation orientation = MinecraftBlockOrientation::North;
+		const BlockOrientation orientation = BlockOrientation::North;
 		
-		if (k == 0 || m_Blocks[i][k - 1][j] == MinecraftBlockType::Air)
+		if (k == 0 || m_Blocks[i][k - 1][j] == BlockType::Air)
 		{
-			const uint8_t* texOffsets = GetTexOffsets(type, MinecraftBlockOrientation::West, orientation);
+			const uint8_t* texOffsets = GetTexOffsets(type, BlockOrientation::West, orientation);
 			vertices[currentVertex++] = Byte8Data(i, j, k, 0, 0, -1, texOffsets[0] + 1, texOffsets[1]);
 			vertices[currentVertex++] = Byte8Data(i + 1, j + 1, k, 0, 0, -1, texOffsets[0], texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i + 1, j, k, 0, 0, -1, texOffsets[0], texOffsets[1]);
@@ -110,9 +110,9 @@ namespace Game
 			vertices[currentVertex++] = Byte8Data(i, j, k, 0, 0, -1, texOffsets[0] + 1, texOffsets[1] + 0);
 		}
 
-		if (k == WORLD_CHUNK_LENGHT - 1 || m_Blocks[i][k + 1][j] == MinecraftBlockType::Air)
+		if (k == WORLD_CHUNK_LENGHT - 1 || m_Blocks[i][k + 1][j] == BlockType::Air)
 		{
-			const uint8_t* texOffsets = GetTexOffsets(type, MinecraftBlockOrientation::East, orientation);
+			const uint8_t* texOffsets = GetTexOffsets(type, BlockOrientation::East, orientation);
 			vertices[currentVertex++] = Byte8Data(i, j, k + 1, 0, 0, 1, texOffsets[0], texOffsets[1]);
 			vertices[currentVertex++] = Byte8Data(i + 1, j, k + 1, 0, 0, 1, texOffsets[0] + 1, texOffsets[1]);
 			vertices[currentVertex++] = Byte8Data(i + 1, j + 1, k + 1, 0, 0, 1, texOffsets[0] + 1, texOffsets[1] + 1);
@@ -121,9 +121,9 @@ namespace Game
 			vertices[currentVertex++] = Byte8Data(i, j + 1, k + 1, 0, 0, 1, texOffsets[0], texOffsets[1] + 1);
 		}
 
-		if (i == 0 || m_Blocks[i - 1][k][j] == MinecraftBlockType::Air)
+		if (i == 0 || m_Blocks[i - 1][k][j] == BlockType::Air)
 		{
-			const uint8_t* texOffsets = GetTexOffsets(type, MinecraftBlockOrientation::South, orientation);
+			const uint8_t* texOffsets = GetTexOffsets(type, BlockOrientation::South, orientation);
 			vertices[currentVertex++] = Byte8Data(i, j + 1, k + 1, -1, 0, 0, texOffsets[0] + 1, texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i, j + 1, k, -1, 0, 0, texOffsets[0], texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i, j, k, -1, 0, 0, texOffsets[0], texOffsets[1]);
@@ -132,9 +132,9 @@ namespace Game
 			vertices[currentVertex++] = Byte8Data(i, j, k + 1, -1, 0, 0, texOffsets[0] + 1, texOffsets[1]);
 		}
 
-		if (i == WORLD_CHUNK_WIDTH - 1 || m_Blocks[i + 1][k][j] == MinecraftBlockType::Air)
+		if (i == WORLD_CHUNK_WIDTH - 1 || m_Blocks[i + 1][k][j] == BlockType::Air)
 		{
-			const uint8_t* texOffsets = GetTexOffsets(type, MinecraftBlockOrientation::North, orientation);
+			const uint8_t* texOffsets = GetTexOffsets(type, BlockOrientation::North, orientation);
 			vertices[currentVertex++] = Byte8Data(i + 1, j + 1, k + 1, 1, 0, 0, texOffsets[0], texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i + 1, j, k, 1, 0, 0, texOffsets[0] + 1, texOffsets[1]);
 			vertices[currentVertex++] = Byte8Data(i + 1, j + 1, k, 1, 0, 0, texOffsets[0] + 1, texOffsets[1] + 1);
@@ -144,9 +144,9 @@ namespace Game
 		}
 
 		// Bottom
-		if (j == 0 || m_Blocks[i][k][j - 1] == MinecraftBlockType::Air)
+		if (j == 0 || m_Blocks[i][k][j - 1] == BlockType::Air)
 		{
-			const uint8_t* texOffsets = GetTexOffsets(type, MinecraftBlockOrientation::Down, orientation);
+			const uint8_t* texOffsets = GetTexOffsets(type, BlockOrientation::Down, orientation);
 			vertices[currentVertex++] = Byte8Data(i, j, k, 0, -1, 0, texOffsets[0], texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i + 1, j, k, 0, -1, 0, texOffsets[0] + 1, texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i + 1, j, k + 1, 0, -1, 0, texOffsets[0] + 1, texOffsets[1]);
@@ -156,9 +156,9 @@ namespace Game
 		}
 
 		// Top
-		if (j == WORLD_CHUNK_HEIGHT - 1 || m_Blocks[i][k][j + 1] == MinecraftBlockType::Air)
+		if (j == WORLD_CHUNK_HEIGHT - 1 || m_Blocks[i][k][j + 1] == BlockType::Air)
 		{
-			const uint8_t* texOffsets = GetTexOffsets(type, MinecraftBlockOrientation::Up, orientation);
+			const uint8_t* texOffsets = GetTexOffsets(type, BlockOrientation::Up, orientation);
 			vertices[currentVertex++] = Byte8Data(i, j + 1, k, 0, 1, 0, texOffsets[0], texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i + 1, j + 1, k + 1, 0, 1, 0, texOffsets[0] + 1, texOffsets[1]);
 			vertices[currentVertex++] = Byte8Data(i + 1, j + 1, k, 0, 1, 0, texOffsets[0] + 1, texOffsets[1] + 1);

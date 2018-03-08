@@ -1,12 +1,14 @@
 #pragma once
 
+#include "Core/Singleton/Singleton.h"
+
 #include <stdint.h>
 
 #define BLOCK_DATABASE_VERSION 1
 
 namespace Game
 {
-	enum class MinecraftBlockType : uint8_t
+	enum class BlockType : uint8_t
 	{
 		Air = 0,
 		Grass = 1,
@@ -16,7 +18,7 @@ namespace Game
 		TypeCount
 	};
 
-	enum class MinecraftBlockOrientation : uint8_t
+	enum class BlockOrientation : uint8_t
 	{
 		North,
 		East,
@@ -27,7 +29,7 @@ namespace Game
 		OrientationCount
 	};
 
-	enum class MinecraftBlockFace : uint8_t
+	enum class BlockFace : uint8_t
 	{
 		Front,
 		Back,
@@ -38,37 +40,40 @@ namespace Game
 		FaceCount
 	};
 
-	struct MinecraftBlockDataBase;
+	struct BlockDataBase;
 
-	struct MinecraftBlockData
+	struct BlockData
 	{
-		friend MinecraftBlockDataBase;
+		friend BlockDataBase;
 
 	public:
 
-		const uint8_t* GetTextureOffsets(MinecraftBlockFace face) const { return &(m_TexOffset[static_cast<uint32_t>(face) * 2]); }
+		const uint8_t* GetTextureOffsets(BlockFace face) const { return &(m_TexOffset[static_cast<uint32_t>(face) * 2]); }
 
 	private:
-		uint8_t m_TexOffset[static_cast<uint32_t>(MinecraftBlockFace::FaceCount) * 2];
+		uint8_t m_TexOffset[static_cast<uint32_t>(BlockFace::FaceCount) * 2];
 
 	};
 
-	struct MinecraftBlockDataBase
+	struct BlockDataBase : public Core::Singleton<BlockDataBase>
 	{
 	public:
-		MinecraftBlockDataBase();
+		SINGLETON_DECLARATION(BlockDataBase);
 
 		void InitTest();
-
 		void LoadBlockDataBase(const char* filename);
 		void SaveBlockDataBase(const char* filename);
 
-		const uint8_t* GetTextureOffsets(MinecraftBlockType type, MinecraftBlockFace face) const
+		const uint8_t* GetTextureOffsets(BlockType type, BlockFace face) const
 		{
 			return m_BlockData[static_cast<uint32_t>(type)].GetTextureOffsets(face);
 		}
 
 	private:
-		MinecraftBlockData m_BlockData[static_cast<uint32_t>(MinecraftBlockType::TypeCount)];
+		BlockDataBase() {};
+		~BlockDataBase() {};
+
+	private:
+		BlockData m_BlockData[static_cast<uint32_t>(BlockType::TypeCount)];
 	};
 }

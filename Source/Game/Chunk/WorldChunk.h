@@ -21,16 +21,16 @@ namespace Game
 
 	public:
 		// todo: fix the constructor to be more user friendly.
-		WorldChunk(const MinecraftBlockDataBase* database) : m_BlockDataBase(database) {}
+		WorldChunk() {}
 		virtual ~WorldChunk() override;
 
 		bool NeedsUpdate() const { return m_NeedsUpdate; }
 		void ForceUpdate();
 		void Update();
 
-		MinecraftBlockType GetBlock(uint32_t x, uint32_t y, uint32_t z) const;
-		void SetBlock(uint32_t x, uint32_t y, uint32_t z, MinecraftBlockType type);
-		void SetBlockDataBase(const MinecraftBlockDataBase& database) { m_BlockDataBase = &database; }
+		BlockType GetBlock(uint32_t x, uint32_t y, uint32_t z) const;
+		void SetBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type);
+		void SetBlockDataBase(const BlockDataBase& database) { }
 
 		void SetPosition(uint32_t x, uint32_t y, uint32_t z)
 		{
@@ -40,11 +40,10 @@ namespace Game
 
 	private:
 		uint32_t BuildBlockVertices(Byte8Data* vertices, uint32_t x, uint32_t y, uint32_t z);
-		const uint8_t* GetTexOffsets(MinecraftBlockType type, MinecraftBlockOrientation face, MinecraftBlockOrientation orientation);
+		const uint8_t* GetTexOffsets(BlockType type, BlockOrientation face, BlockOrientation orientation);
 
 	private:
-		MinecraftBlockType m_Blocks[WORLD_CHUNK_WIDTH][WORLD_CHUNK_LENGHT][WORLD_CHUNK_HEIGHT];
-		const MinecraftBlockDataBase* m_BlockDataBase;
+		BlockType m_Blocks[WORLD_CHUNK_WIDTH][WORLD_CHUNK_LENGHT][WORLD_CHUNK_HEIGHT];
 		glm::ivec3 m_Position = { 0, 0, 0 };
 		bool m_NeedsUpdate = false;
 	};

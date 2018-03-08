@@ -22,7 +22,6 @@ namespace Game
 		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
 
 		WorldChunk* testChunk = WorldGeneration::CreateFlatChunk(0, 0, 0);//LoadChunk(0, 0, 0);
-		testChunk->m_BlockDataBase = &m_BlockDataBase;
 		SaveChunk(*testChunk);
 		testChunk->ForceUpdate();
 		testChunk->m_Material = worldMaterial;
@@ -55,7 +54,7 @@ namespace Game
 
 	WorldChunk* Planet::LoadChunk(int32_t x, int32_t y, int32_t z)
 	{
-		WorldChunk* loadedChunk = new WorldChunk(&m_BlockDataBase);
+		WorldChunk* loadedChunk = new WorldChunk();
 		loadedChunk->m_Mesh = new Renderer::ChunkMesh();
 
 		char filename[256];
@@ -110,8 +109,6 @@ namespace Game
 
 	Planet::Planet()
 	{
-		m_BlockDataBase.LoadBlockDataBase("blocks.data");
-
 		InitTestPlanet();
 	}
 
