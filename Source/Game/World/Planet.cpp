@@ -19,7 +19,7 @@ namespace Game
 	{
 		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
 		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
-		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/basic_shader.vx", "shaders/basic_shader.fg");
+		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/light_accum.vert.glsl", "shaders/light_accum.frag.glsl");
 
 		WorldChunk* testChunk = WorldGeneration::CreateFlatChunk(0, 0, 0);//LoadChunk(0, 0, 0);
 		SaveChunk(*testChunk);
@@ -28,6 +28,8 @@ namespace Game
 
 		m_LoadedChunks.push_back(testChunk);
 		m_CurrentChunk = testChunk;
+
+		m_SkyBox.Init("textures/skybox/thickcloudswater/thickclouds.png");
 
 		// DEBUGGING!!!
 		// TESTING SOME LIGHT!!

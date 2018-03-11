@@ -15,6 +15,7 @@ namespace Game
 		virtual void Update() override;
 		virtual std::list<Renderer::Model*>* GetModels() override;
 		virtual std::vector<Renderer::Light>* GetLights() override;
+		virtual Renderer::Model* GetSkyBox() override;
 
 	private:
 		Player* m_Player;

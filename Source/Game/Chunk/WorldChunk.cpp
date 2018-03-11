@@ -107,7 +107,7 @@ namespace Game
 			vertices[currentVertex++] = Byte8Data(i + 1, j, k, 0, 0, -1, texOffsets[0], texOffsets[1]);
 			vertices[currentVertex++] = Byte8Data(i, j + 1, k, 0, 0, -1, texOffsets[0] + 1, texOffsets[1] + 1);
 			vertices[currentVertex++] = Byte8Data(i + 1, j + 1, k, 0, 0, -1, texOffsets[0], texOffsets[1] + 1);
-			vertices[currentVertex++] = Byte8Data(i, j, k, 0, 0, -1, texOffsets[0] + 1, texOffsets[1] + 0);
+			vertices[currentVertex++] = Byte8Data(i, j, k, 0, 0, -1, texOffsets[0] + 1, texOffsets[1]);
 		}
 
 		if (k == WORLD_CHUNK_LENGHT - 1 || m_Blocks[i][k + 1][j] == BlockType::Air)

@@ -18,6 +18,7 @@
 #include "Renderer/Model/Model.h"
 #include "Renderer/Light/Light.h"
 #include "Renderer/Material/Material.h"
+#include "Renderer/SkyBox/SkyBox.h"
 
 #define SCREEN_SIZE_X 1280
 #define SCREEN_SIZE_Y 720
@@ -322,6 +323,34 @@ namespace Renderer
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
 	}
 
+	void GraphicsEngine::DrawSkyBox(Engine::World* world)
+	{
+		Model* skybox = world->GetSkyBox();
+		if (skybox != nullptr)
+		{
+			GraphicsCore::GPUAPI::UseShader(skybox->m_Material->m_ShaderProgram);
+
+			GLint viewLoc = glGetUniformLocation(skybox->m_Material->m_ShaderProgram, "view");
+			glm::mat4 viewMatrix = glm::mat4(glm::mat3(world->GetCamera()->GetViewMatrix()));
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+			GLint projLoc = glGetUniformLocation(skybox->m_Material->m_ShaderProgram, "projection");
+			glm::mat4 projMatrix;
+			world->GetCamera()->GetPerspectiveMat(projMatrix);
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix));
+
+
+			GLint modelLoc = glGetUniformLocation(skybox->m_Material->m_ShaderProgram, "model");
+			glm::mat4 modelMatrix;
+			modelMatrix = glm::translate(modelMatrix, skybox->m_Transform.GetPosition());
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+			skybox->m_Material->BindShaderParameters();
+			GraphicsCore::GPUAPI::DrawCall(skybox->m_Mesh);
+			skybox->m_Material->UnBindShaderParameters();
+		}
+	}
+
 	void GraphicsEngine::DrawModel(const Model * model)
 	{
 		// Bind the model matrix
@@ -372,7 +401,7 @@ namespace Renderer
 
 		////todo : add visibility system outside and iterate on visible objects only
 		//// Skybox
-		//DrawSkyBox(world);
+		DrawSkyBox(world);
 
 		GraphicsCore::RenderState::EnableDepthRead();
 		//{

@@ -38,6 +38,7 @@ namespace Game
 		void Update();
 		std::list<Renderer::Model*>* GetModels() { return &m_LoadedChunks; }
 		std::vector<Renderer::Light>* GetLights() { return &m_Lights; } // todo: whenever we update the chunks, we need to update the list of lights.
+		Renderer::Model* GetSkyBox() { return &m_SkyBox; }
 
 	private:
 		WorldChunk* LoadChunk(int32_t x, int32_t y, int32_t z);

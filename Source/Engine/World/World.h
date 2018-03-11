@@ -23,6 +23,8 @@ namespace Engine
 
 		virtual std::list<Renderer::Model*>* GetModels() { return nullptr; }
 		virtual std::vector<Renderer::Light>* GetLights() { return nullptr; }
+		virtual Renderer::Model* GetSkyBox() { return nullptr; }
+
 		PerspectiveCamera* GetCamera() const { return m_Camera; }
 
 	protected:

@@ -32,4 +32,8 @@ namespace Game
 	{ 
 		return m_CurrentPlanet->GetLights(); 
 	}
+	Renderer::Model * GameWorld::GetSkyBox()
+	{
+		return m_CurrentPlanet->GetSkyBox();;
+	}
 }

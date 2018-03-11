@@ -43,6 +43,7 @@ namespace Renderer
 		
 		// todo: revisit this and maybe move it??
 		void DrawModel(const Model* model);
+		void DrawSkyBox(Engine::World* world);
 
 		log4cxx::LoggerPtr m_Logger;
 
