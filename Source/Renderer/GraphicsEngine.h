@@ -45,8 +45,6 @@ namespace Renderer
 		void DrawModel(const Model* model);
 		void DrawSkyBox(Engine::World* world);
 
-		log4cxx::LoggerPtr m_Logger;
-
 	private:
 		GraphicsCore::WindowManager m_WindowManager;
 	};

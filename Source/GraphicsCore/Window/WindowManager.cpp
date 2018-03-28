@@ -1,14 +1,16 @@
 #include "GraphicsCore/Window/WindowManager.h"
 
+#include "Core/Logging/Logger.h"
+
 #include <SDL.h>
 #include <SDL_opengl.h>
 
 #include <iostream>
+
 namespace GraphicsCore
 {
 	WindowManager::WindowManager()
 	{
-		m_Logger = log4cxx::Logger::getLogger("graphics.window.WindowManager");
 	}
 
 	WindowManager::~WindowManager()
@@ -20,7 +22,7 @@ namespace GraphicsCore
 		// Initialisation de la SDL
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		{
-			LOG4CXX_ERROR(m_Logger, "Error when initializing SDL: " << SDL_GetError());
+			CORE_LOG()->error("Error when initializing SDL: {}", SDL_GetError());
 			SDL_Quit();
 			return -1;
 		}
@@ -41,7 +43,7 @@ namespace GraphicsCore
 		m_Window = SDL_CreateWindow("Casiope", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 		if (m_Window == nullptr)
 		{
-			LOG4CXX_ERROR(m_Logger, "Error when creating SDL Window: " << SDL_GetError());
+			CORE_LOG()->error("Error when creating SDL Window: {}", SDL_GetError());
 			SDL_Quit();
 			return -1;
 		}
@@ -50,7 +52,7 @@ namespace GraphicsCore
 
 		if (m_GLContext == NULL)
 		{
-			LOG4CXX_ERROR(m_Logger, "Error when creating SDL context: " << SDL_GetError());
+			CORE_LOG()->error("Error when creating SDL context: {}", SDL_GetError());
 			SDL_DestroyWindow(m_Window);
 			SDL_Quit();
 

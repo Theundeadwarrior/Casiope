@@ -64,13 +64,13 @@ namespace Renderer
 	int GraphicsEngine::InitializeGlew()
 	{
 		glewExperimental = GL_TRUE;
-		
-		LOG4CXX_INFO(m_Logger, "GLEW initializing");
+
+		GRAPHICS_LOG()->info("GLEW initializing");
 		GLenum glewInitialization = glewInit();
 
 		if (glewInitialization != GLEW_OK)
 		{
-			LOG4CXX_ERROR(m_Logger, "Could no initialize GLEW: " << glewGetErrorString(glewInitialization));
+			GRAPHICS_LOG()->error("Could no initialize GLEW: {}", glewGetErrorString(glewInitialization));
 
 			// On quitte la SDL
 			m_WindowManager.ShutdownWindow();
@@ -78,7 +78,7 @@ namespace Renderer
 			return -1;
 		}
 
-		LOG4CXX_INFO(m_Logger, "GLEW initialized");
+		GRAPHICS_LOG()->info("GLEW initialized");
 		return 0;
 	}
 
@@ -86,8 +86,8 @@ namespace Renderer
 	{
 		const GLubyte* renderer = glGetString(GL_RENDERER); // get renderer string
 		const GLubyte* version = glGetString(GL_VERSION); // version as a string
-		LOG4CXX_INFO(m_Logger, "Renderer: " << renderer);
-		LOG4CXX_INFO(m_Logger, "OpenGL version supported: " << version);
+		GRAPHICS_LOG()->info("Renderer: {}", renderer);
+		GRAPHICS_LOG()->info("OpenGL version supported: {}", version);
 
 		// tell GL to only draw onto a pixel if the shape is closer to the viewer
 		glEnable(GL_DEPTH_TEST); // enable depth-testing
@@ -124,9 +124,6 @@ namespace Renderer
 
 	int GraphicsEngine::Initialize()
 	{
-		// First, logger
-		m_Logger = log4cxx::Logger::getLogger("GraphicsEngine");
-
 		GraphicsResourceManager::CreateInstance();
 
 		int result = m_WindowManager.InitWindow(SCREEN_SIZE_X, SCREEN_SIZE_Y);

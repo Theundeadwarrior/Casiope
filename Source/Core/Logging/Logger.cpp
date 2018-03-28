@@ -1,49 +1,26 @@
 #include "Logger.h"
 
-#include <log4cxx/basicconfigurator.h>
-#include <log4cxx/propertyconfigurator.h>
-#include <log4cxx/helpers/exception.h>
-
-#include <iostream>
-#include <fstream>
+#include <vector>
 
 namespace Core
 {
-	Logger::Logger()
-	{}
-
-	Logger::~Logger()
-	{}
-
-
 	void Logger::Initialize()
 	{
-		std::string filepath = "logging.config";
-		try
-		{
-			std::ifstream configFile(filepath);
-			if (configFile.good())
-			{
-				log4cxx::PropertyConfigurator::configure(filepath);
-			}
-			else
-			{
-				log4cxx::BasicConfigurator::configure();
-				log4cxx::Logger::getRootLogger()->setLevel(log4cxx::Level::getInfo());
-			}
+		std::vector<spdlog::sink_ptr> sinks;
+		auto winColorSink = std::make_shared<spdlog::sinks::wincolor_stdout_sink_mt>();
+		winColorSink->set_level(spdlog::level::trace);
+		auto dailyFileSink = std::make_shared<spdlog::sinks::daily_file_sink_mt>("../Logs/log.txt", 0, 0);
+		dailyFileSink->set_level(spdlog::level::trace);
 
-			m_Logger = log4cxx::Logger::getLogger("core.logging");
-
-			LOG4CXX_INFO(m_Logger, "Logger initialized");
-		}
-		catch (log4cxx::helpers::Exception&)
-		{
-			std::cerr << "Could not initialize logger ... no logs will be generated" << std::endl;
-		}
+		sinks.push_back(winColorSink);
+		sinks.push_back(dailyFileSink);
+		
+		spdlog::register_logger(std::make_shared<spdlog::async_logger>("core", sinks.begin(), sinks.end(), 4096));
+		spdlog::register_logger(std::make_shared<spdlog::async_logger>("graphics", sinks.begin(), sinks.end(), 4096));
 	}
 
 	void Logger::Shutdown()
 	{
-
+		spdlog::drop_all();
 	}
 }

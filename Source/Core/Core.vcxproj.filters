@@ -31,6 +31,9 @@
     <Filter Include="String">
       <UniqueIdentifier>{43511772-d749-4a9c-ac42-eebc063625ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{3fe343fc-d7d5-45eb-b175-610893cc6b9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
@@ -66,6 +69,12 @@
     </ClCompile>
     <ClCompile Include="File\ImageUtilities.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\Thread.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\Allocator.cpp">
+      <Filter>Memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +123,12 @@
     </ClInclude>
     <ClInclude Include="String\StringUtils.h">
       <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Thread.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\Allocator.h">
+      <Filter>Memory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -148,8 +148,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include;$(SolutionDir)..\Extern\libpng\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LOG4CXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);$(SolutionDir)..\Extern\libpng\include;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -167,7 +167,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\libpng\include;$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -202,8 +202,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include;$(SolutionDir)..\Extern\libpng\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>LOG4CXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core;$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\SDL\include;$(SolutionDir);$(SolutionDir)..\Extern\libpng\include;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -226,8 +226,10 @@
     <ClCompile Include="Input\KeyboardEvent.cpp" />
     <ClCompile Include="Input\MouseEvent.cpp" />
     <ClCompile Include="Logging\Logger.cpp" />
+    <ClCompile Include="Memory\Allocator.cpp" />
     <ClCompile Include="Memory\DebugAllocator.cpp" />
     <ClCompile Include="Singleton\Singleton.cpp" />
+    <ClCompile Include="Thread\Thread.cpp" />
     <ClCompile Include="Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -243,9 +245,11 @@
     <ClInclude Include="Logging\Logger.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\Vector.h" />
+    <ClInclude Include="Memory\Allocator.h" />
     <ClInclude Include="Memory\DebugAllocator.h" />
     <ClInclude Include="Singleton\Singleton.h" />
     <ClInclude Include="String\StringUtils.h" />
+    <ClInclude Include="Thread\Thread.h" />
     <ClInclude Include="Transform\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

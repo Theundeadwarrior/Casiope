@@ -71,4 +71,7 @@ TEST_CASE("ReadFileAndVerifyBufferTermination")
 	file1->Read(static_cast<uint8*>(buffer), file1->GetSize());
 
 	REQUIRE(strlen(static_cast<char*>(buffer)) == 16);
+	REQUIRE(std::string(static_cast<char*>(buffer)) == "This is a string");
+
+	free(buffer);
 }

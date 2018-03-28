@@ -129,12 +129,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\Extern\SDL\include;$(SolutionDir)..\Extern\;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\Extern\SDL\include;$(SolutionDir)..\Extern\;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>LOG4CXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32.lib;log4cxx.lib;apr-1.lib;aprutil-1.lib;xml.lib;Ws2_32.lib;Mswsock.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32.lib;Ws2_32.lib;Mswsock.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Extern\SDL\lib\x64\;$(OutputPath);$(SolutionDir)..\Extern\glew\lib\x64\;$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\projects\x64\Debug;$(SolutionDir)..\Extern\apr\LibD;$(SolutionDir)..\Extern\apr-util\LibD;$(SolutionDir)..\Extern\apr-util\xml\expat\lib\LibD;$(SolutionDir)..\Extern\libpng\lib\x64\Debug</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -148,7 +148,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\Extern\SDL\include;$(SolutionDir)..\Extern\;$(SolutionDir)..\Extern\glew\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\Extern\SDL\include;$(SolutionDir)..\Extern\;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -182,14 +182,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\Extern\SDL\include;$(SolutionDir)..\Extern\;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\Extern\SDL\include;$(SolutionDir)..\Extern\;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\glm\include\;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>LOG4CXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32.lib;log4cxx.lib;apr-1.lib;aprutil-1.lib;xml.lib;Ws2_32.lib;Mswsock.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glew32.lib;Ws2_32.lib;Mswsock.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Extern\SDL\lib\x64\;$(OutputPath);$(SolutionDir)..\Extern\glew\lib\x64\;$(SolutionDir)..\Extern\apache-log4cxx-0.10.0\projects\x64\Release;$(SolutionDir)..\Extern\apr\LibR;$(SolutionDir)..\Extern\apr-util\LibR;$(SolutionDir)..\Extern\apr-util\xml\expat\lib\LibR;$(SolutionDir)..\Extern\libpng\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>

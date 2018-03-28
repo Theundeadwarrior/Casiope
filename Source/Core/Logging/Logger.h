@@ -1,25 +1,15 @@
 #pragma once
 
-#include <Core/Singleton/Singleton.h>
+#include <spdlog/spdlog.h>
 
-#include <log4cxx/logger.h>
+#define CORE_LOG() spdlog::get("core")
+#define GRAPHICS_LOG() spdlog::get("graphics")
 
-namespace Core {
-
-	class Logger : public Core::Singleton<Logger>
+namespace Core 
+{
+	namespace Logger
 	{
-	public:
-		SINGLETON_DECLARATION(Logger);
-
 		void Initialize();
 		void Shutdown();
-
-		log4cxx::LoggerPtr GetDefaultLogger() const { return m_Logger; };
-
-	private:
-		Logger();
-		~Logger();
-		 
-		log4cxx::LoggerPtr m_Logger;
-	};
+	}
 }
