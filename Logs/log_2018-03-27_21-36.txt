@@ -1,4 +1,0 @@
-[2018-03-27 21:36:35.152] [graphics] [info] GLEW initializing
-[2018-03-27 21:36:35.160] [graphics] [info] GLEW initialized
-[2018-03-27 21:36:35.160] [graphics] [info] Renderer: GeForce GTX 1060 with Max-Q Design/PCIe/SSE2
-[2018-03-27 21:36:35.160] [graphics] [info] OpenGL version supported: 4.5.0 NVIDIA 391.01
