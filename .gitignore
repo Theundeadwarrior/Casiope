@@ -89,5 +89,6 @@ Temporary Items
 /Source/.vs/Casiope/v15/ipch/AutoPCH/RENDERER-9d32ac33/MINECRAFTWORLDMESH-b84f944a
 /Source/.vs/Casiope/v15/Solution.VC.db-shm
 /Data/Textures/blocks.png
+/Logs/
 *.db-wal
 *.db-shm
