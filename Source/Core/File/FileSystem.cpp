@@ -1,5 +1,7 @@
 #include "FileSystem.h"
 
+#include "Core/Logging/Logger.h"
+
 #include <string>
 
 #if USING( PLATFORM_WINDOWS )
@@ -20,7 +22,7 @@ namespace Core
 		if (handle == INVALID_FILE_HANDLE)
 		{
 			// todo lcharbonneau: log somewhere else
-			printf("Failed to OpenWrite with error: %i", GetLastError());
+			CORE_LOG()->info("Failed to OpenWrite with error: %i", GetLastError());
 			return nullptr;
 		}
 #endif // #if USING( PLATFORM_WINDOWS )
@@ -42,7 +44,7 @@ namespace Core
 		if (handle == INVALID_FILE_HANDLE)
 		{
 			// todo lcharbonneau: log somewhere else
-			printf("Failed to OpenRead with error: %i", GetLastError());
+			CORE_LOG()->info("Failed to OpenRead with error: %i", GetLastError());
 			return nullptr;
 		}
 #endif // #if USING( PLATFORM_WINDOWS )
