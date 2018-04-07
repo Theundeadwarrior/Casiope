@@ -60,12 +60,12 @@ namespace Core
 		png_read_update_info(png, info);
 		outputImage.m_Spectrum = png_get_channels(png, info);
 
-		outputImage.imageData.reserve(outputImage.m_Height * outputImage.m_Width * outputImage.m_Spectrum);
+		outputImage.m_ImageData.reserve(outputImage.m_Height * outputImage.m_Width * outputImage.m_Spectrum);
 		unsigned char** dataPtr = static_cast<unsigned char**>(malloc(outputImage.m_Height * sizeof(char*)));
 
 		for(uint32_t i = 0; i < outputImage.m_Height; ++i)
 		{
-			dataPtr[i] = static_cast<unsigned char*>(outputImage.imageData.data()) + outputImage.m_Width * outputImage.m_Spectrum * (outputImage.m_Height - i - 1);
+			dataPtr[i] = static_cast<unsigned char*>(outputImage.m_ImageData.data()) + outputImage.m_Width * outputImage.m_Spectrum * (outputImage.m_Height - i - 1);
 		}
 
 		// Read the image

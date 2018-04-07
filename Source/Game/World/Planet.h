@@ -1,6 +1,9 @@
 #pragma once
 
+#include "Core/Noise/Noise.h"
+
 #include "Game/Block/BlockData.h"
+#include "Game/World/WorldGeneration.h"
 
 #include "Renderer/Model/ChunkMesh.h"
 #include "Renderer/SkyBox/SkyBox.h"
@@ -50,5 +53,7 @@ namespace Game
 		
 		WorldChunk* m_CurrentChunk; // player is currently in that chunk
 		Renderer::SkyBox m_SkyBox;
+
+		WorldGenerator m_WorldGenerator;
 	};
 }

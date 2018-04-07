@@ -16,43 +16,70 @@ that can be called to pause the running execution.
 #include <mutex>
 #include <functional>
 
-class Job
+namespace Core
 {
-public:
-	template<typename Func>
-	Job(Func func)
+	class Runnable;
+
+	class Job
 	{
-		m_Func = std::bind(func);
-	}
+	public:
+		template<typename Func>
+		Job(Func func)
+		{
+			m_Func = std::bind(func);
+		}
 
-	uint32_t Execute()
+		uint32_t Execute()
+		{
+			return m_Func();
+		}
+
+	private:
+		std::function<uint32_t(void)> m_Func;
+	};
+
+	class Runnable
 	{
-		return m_Func();
-	}
+	public:
+		virtual ~Runnable() {};
+		virtual bool Init() { return true; }
+		virtual uint32_t Run() = 0;
+		virtual void Stop() {}
+	};
 
-private:
-	std::function<uint32_t(void)> m_Func;
-};
+	class RunnableJob : public Runnable
+	{
+	public:
+		template<typename Func>
+		RunnableJob(Func func) : m_Job(func) {}
+		virtual uint32_t Run() override
+		{
+			return m_Job.Execute();
+		}
+	private:
+		Job m_Job;
+	};
 
-class Runnable
-{
-public:
-	virtual ~Runnable() {};
-	virtual bool Init() { return true; }
-	virtual uint32_t Run() = 0;
-	virtual void Stop() {}
-	virtual void Exit() {}
-};
+	class RunnableTaskList : public Runnable
+	{
+	public:
+		RunnableTaskList() : m_IsRunning(false) {}
+		// Inherited via Thread
+		virtual uint32_t Run() override;
+		virtual void Stop() override;
 
-class RunnableTaskList : public Runnable
-{
-public:
-	// Inherited via Thread
-	virtual uint32_t Run() override;
+		void QueueJob(std::shared_ptr<Job> job);
 
-	void QueueJob(const Job& job);
+	private:
+		std::queue< std::shared_ptr<Job> > m_Jobs;
+		std::mutex m_Lock;
+		bool m_IsRunning;
+	};
 
-private:
-	std::queue<Job> m_Jobs;
-	std::mutex m_Lock;
-};
+	class RunnableThread
+	{
+
+	};
+}
+
+

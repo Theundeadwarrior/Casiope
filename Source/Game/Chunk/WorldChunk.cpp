@@ -55,6 +55,7 @@ namespace Game
 			}
 			m_Mesh->UpdateGeometry(vertices, currentVertex * 8, GraphicsCore::VertexBufferType::V3BN3BT2B);
 			free(vertices);
+			m_NeedsUpdate = false;
 		}
 	}
 

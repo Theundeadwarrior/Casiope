@@ -228,6 +228,7 @@
     <ClCompile Include="Logging\Logger.cpp" />
     <ClCompile Include="Memory\Allocator.cpp" />
     <ClCompile Include="Memory\DebugAllocator.cpp" />
+    <ClCompile Include="Noise\Noise.cpp" />
     <ClCompile Include="Singleton\Singleton.cpp" />
     <ClCompile Include="Thread\Thread.cpp" />
     <ClCompile Include="Transform\Transform.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Memory\Allocator.h" />
     <ClInclude Include="Memory\DebugAllocator.h" />
+    <ClInclude Include="Noise\Noise.h" />
     <ClInclude Include="Singleton\Singleton.h" />
     <ClInclude Include="String\StringUtils.h" />
     <ClInclude Include="Thread\Thread.h" />

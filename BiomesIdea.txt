@@ -1,0 +1,45 @@
+// Normal Planet
+- Average Temperatures
+- Average Height
+- Trees/Grass/Water/Life
+- Lava Core
+
+// Artic Planet
+- Really Cold Temperatures: Need to be equiped with warm clothes.
+- Ice sheets and Snow Mountains. Ice pikes at some places.
+- Not a lot of nature, some shrubs.
+- Doesn't have a lava core.
+
+// Desert Planet
+- Really hot temperatures. Need some tech to survive there.
+- Deserts (sand) and barely any water.
+- Some cactuses and shrubs
+- Shifting Sand
+
+
+// Toxic Planet
+
+
+// Radioactive Planet
+
+
+// Dead Planet
+- Rocks and that's all...
+
+// Cloud Planet
+- Small chunks of lands floating around.
+
+// Ocean Planet
+- Lots of water, small islands.
+- Lots of different ocean biomes in there (corals, underwater ruins...).
+- Lots of powerups to move more efficently in the water. Maybe even some little ships.
+- Maybe even have a domed city where you can breath.
+
+// Forest Planet
+- Different kind of trees. Large plateaux and rivers.
+
+// Volcano Planet
+- Lots of Lava at the surface.
+- Volcano eruptions are frequent.
+- Wood burns.
+- Ashes, Magmarock are often found. Diamonds too.

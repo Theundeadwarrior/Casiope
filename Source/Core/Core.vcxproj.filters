@@ -34,6 +34,9 @@
     <Filter Include="Thread">
       <UniqueIdentifier>{3fe343fc-d7d5-45eb-b175-610893cc6b9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Noise">
+      <UniqueIdentifier>{1edb7dfb-ba57-425c-9468-a2edfe35d3dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
@@ -75,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="Memory\Allocator.cpp">
       <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Noise\Noise.cpp">
+      <Filter>Noise</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="Memory\Allocator.h">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise\Noise.h">
+      <Filter>Noise</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

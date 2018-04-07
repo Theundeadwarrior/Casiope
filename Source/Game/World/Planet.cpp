@@ -21,13 +21,19 @@ namespace Game
 		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
 		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/light_accum.vert.glsl", "shaders/light_accum.frag.glsl");
 
-		WorldChunk* testChunk = WorldGeneration::CreateFlatChunk(0, 0, 0);//LoadChunk(0, 0, 0);
-		SaveChunk(*testChunk);
-		testChunk->ForceUpdate();
-		testChunk->m_Material = worldMaterial;
+		for (int32_t x = -5; x < 5; ++x)
+		{
+			for (int32_t y = -5; y < 5; ++y)
+			{
+				WorldChunk* testChunk = m_WorldGenerator.GenerateChunk2(x, y, 0);//LoadChunk(0, 0, 0);
+				SaveChunk(*testChunk);
+				testChunk->ForceUpdate();
+				testChunk->m_Material = worldMaterial;
 
-		m_LoadedChunks.push_back(testChunk);
-		m_CurrentChunk = testChunk;
+				m_LoadedChunks.push_back(testChunk);
+				m_CurrentChunk = testChunk;
+			}
+		}
 
 		m_SkyBox.Init("textures/skybox/thickcloudswater/thickclouds.png");
 
@@ -127,6 +133,7 @@ namespace Game
 		for(auto* model: m_LoadedChunks)
 		{
 			auto* chunk = static_cast<WorldChunk*>(model);
+
 			if (chunk->NeedsUpdate())
 				chunk->Update();
 		}

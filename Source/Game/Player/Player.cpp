@@ -37,7 +37,7 @@ namespace Game
 
 	void Player::Update()
 	{
-		static const float movementSpeed = 0.05f; // todo, use the frameTime passed by parameter!
+		static const float movementSpeed = 0.5f; // todo, use the frameTime passed by parameter!
 		static const float rotationSpeed = 0.2f; // todo, use the frameTime passed by parameter!
 
 
