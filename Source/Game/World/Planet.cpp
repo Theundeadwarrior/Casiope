@@ -6,6 +6,8 @@
 #include "Core/File/FileSystem.h"
 #include "Core/Math/Vector.h"
 
+#include "Engine/GameEngine.h"
+
 #include "Renderer/Light/Light.h"
 #include "Renderer/Material/Material.h"
 #include "Renderer/Resource/GraphicsResourceManager.h"
@@ -15,27 +17,19 @@
 
 namespace Game
 {
-	void Planet::InitTestPlanet()
+	void Planet::Initialize(const PlanetParameters& parameters)
 	{
-		Renderer::TextureMaterial* worldMaterial = new Renderer::TextureMaterial();
-		worldMaterial->m_Texture = Renderer::GraphicsResourceManager::GetInstance()->GetTextureManager().CreateTextureFromFile("textures/blocks.png", GraphicsCore::e_TexFormatRGBA);
-		worldMaterial->m_ShaderProgram = Renderer::GraphicsResourceManager::GetInstance()->GetShaderManager().CreateVertexFragmentShaderProgram("shaders/light_accum.vert.glsl", "shaders/light_accum.frag.glsl");
-
+		m_ChunkManager = std::make_shared<ChunkManager>();
 		for (int32_t x = -5; x < 5; ++x)
 		{
 			for (int32_t y = -5; y < 5; ++y)
 			{
-				WorldChunk* testChunk = m_WorldGenerator.GenerateChunk2(x, y, 0);//LoadChunk(0, 0, 0);
-				SaveChunk(*testChunk);
-				testChunk->ForceUpdate();
-				testChunk->m_Material = worldMaterial;
-
-				m_LoadedChunks.push_back(testChunk);
-				m_CurrentChunk = testChunk;
+				auto job = std::make_shared<LoadChunkJob>(LoadChunkJob(m_ChunkManager, x, y, 0));
+				Engine::GameEngine::GetInstance()->GetWorkQueue().QueueJob(job);
 			}
 		}
 
-		m_SkyBox.Init("textures/skybox/thickcloudswater/thickclouds.png");
+		m_SkyBox.Init(parameters.m_SkyBoxName);
 
 		// DEBUGGING!!!
 		// TESTING SOME LIGHT!!
@@ -60,82 +54,25 @@ namespace Game
 		// END OF DEBUGGING!!
 	}
 
-	WorldChunk* Planet::LoadChunk(int32_t x, int32_t y, int32_t z)
+	Planet::Planet(const PlanetParameters& parameters)
 	{
-		WorldChunk* loadedChunk = new WorldChunk();
-		loadedChunk->m_Mesh = new Renderer::ChunkMesh();
-
-		char filename[256];
-		sprintf_s(filename, "chunks/%08x_%08x_%08x.chunk", x, y, z);
-
-		auto* fs = Core::FileSystem::GetInstance();
-		auto* file = fs->OpenRead(filename);
-
-		// Version: 0xFFFF
-		uint16_t version;
-		file->Read(reinterpret_cast<uint8_t*>(&version), sizeof(version));
-		assert(version == CHUNK_VERSION);
-
-		// MAGIC: 0x7700AABB
-		uint32_t magic;
-		file->Read(reinterpret_cast<uint8_t*>(&magic), sizeof(magic));
-		assert(magic == 0x7700AABB);
-
-		// Coordinates for sanity: 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF
-		file->Read(reinterpret_cast<uint8_t*>(&loadedChunk->m_Position), sizeof(loadedChunk->m_Position));
-		assert(loadedChunk->m_Position.x == x && loadedChunk->m_Position.y == y && loadedChunk->m_Position.z == z);
-
-		file->Read(reinterpret_cast<uint8_t*>(&loadedChunk->m_Blocks), sizeof(loadedChunk->m_Blocks));
-
-		fs->CloseFile(file);
-
-		loadedChunk->m_Transform.SetTranslate(glm::vec3(loadedChunk->m_Position.x * WORLD_CHUNK_WIDTH, loadedChunk->m_Position.y * WORLD_CHUNK_LENGHT, loadedChunk->m_Position.z * WORLD_CHUNK_HEIGHT));
-
-		return loadedChunk;
-	}
-
-	void Planet::SaveChunk(const WorldChunk& chunk)
-	{
-		char filename[256];
-		sprintf_s(filename, "chunks/%08x_%08x_%08x.chunk", chunk.m_Position.x, chunk.m_Position.y, chunk.m_Position.z);
-
-		auto* fs = Core::FileSystem::GetInstance();
-		auto* file = fs->OpenWrite(filename);
-
-		uint16_t version = CHUNK_VERSION;
-		file->Write(reinterpret_cast<uint8_t*>(&version), sizeof(version));
-
-		uint32_t magic = 0x7700AABB;
-		file->Write(reinterpret_cast<uint8_t*>(&magic), sizeof(magic));
-
-		file->Write(reinterpret_cast<const uint8_t*>(&chunk.m_Position), sizeof(chunk.m_Position));
-
-		file->Write(reinterpret_cast<const uint8_t*>(&chunk.m_Blocks), sizeof(chunk.m_Blocks));
-
-		fs->CloseFile(file);
-	}
-
-	Planet::Planet()
-	{
-		InitTestPlanet();
+		Initialize(parameters);
 	}
 
 	Planet::~Planet()
 	{
-		for(auto* chunk : m_LoadedChunks)
-		{
-			delete chunk;
-		}
+
 	}
 
-	void Planet::Update()
+	void Planet::Update(const glm::vec3& cameraPos)
 	{
-		for(auto* model: m_LoadedChunks)
-		{
-			auto* chunk = static_cast<WorldChunk*>(model);
+		// we'll transfer the new loaded chunks here:
+		m_ChunkManager->Update();
 
-			if (chunk->NeedsUpdate())
-				chunk->Update();
+		for(auto* model: *m_ChunkManager->GetModels())
+		{
+			WorldChunk* chunk = static_cast<WorldChunk*>(model);
+			chunk->Update(true);
 		}
 	}
 }

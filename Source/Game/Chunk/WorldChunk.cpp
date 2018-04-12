@@ -31,14 +31,19 @@ namespace Game
 	void WorldChunk::ForceUpdate()
 	{
 		m_NeedsUpdate = true;
-		Update();
+		Update(false);
 	}
 
-	void WorldChunk::Update()
+	void WorldChunk::Update(bool commitToGPU)
 	{
 		if (m_NeedsUpdate)
 		{
-			Byte8Data* vertices = static_cast<Byte8Data*>(malloc(WORLD_CHUNK_HEIGHT * WORLD_CHUNK_WIDTH * WORLD_CHUNK_LENGHT * 6 * 6 / 2));
+			if (m_Vertices != nullptr)
+			{
+				free(m_Vertices);
+			}
+
+			m_Vertices = static_cast<Byte8Data*>(malloc(WORLD_CHUNK_HEIGHT * WORLD_CHUNK_WIDTH * WORLD_CHUNK_LENGHT * 6 * 6 / 2));
 			uint32_t currentVertex = 0;
 			for (uint32_t i = 0; i < WORLD_CHUNK_WIDTH; ++i)
 			{
@@ -48,14 +53,24 @@ namespace Game
 					{
 						if (m_Blocks[i][k][j] != BlockType::Air)
 						{
-							currentVertex += BuildBlockVertices(&vertices[currentVertex], i, j, k);
+							currentVertex += BuildBlockVertices(&m_Vertices[currentVertex], i, j, k);
 						}
 					}
 				}
 			}
-			m_Mesh->UpdateGeometry(vertices, currentVertex * 8, GraphicsCore::VertexBufferType::V3BN3BT2B);
-			free(vertices);
+			m_VertexCount = currentVertex;
 			m_NeedsUpdate = false;
+			m_NeedsGPUCommit = true;
+			m_NeedsSave = true;
+		}
+
+		if (m_NeedsGPUCommit && commitToGPU)
+		{
+			m_Mesh->UpdateGeometry(m_Vertices, m_VertexCount * 8, GraphicsCore::VertexBufferType::V3BN3BT2B);
+			free(m_Vertices);
+			m_Vertices = nullptr;
+			m_VertexCount = 0;
+			m_NeedsGPUCommit = false;
 		}
 	}
 

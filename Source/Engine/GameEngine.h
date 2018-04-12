@@ -2,6 +2,7 @@
 
 #include "Core/Input/InputManager.h"
 #include "Core/Singleton/Singleton.h"
+#include "Core/Thread/Thread.h"
 #include "Engine/State/State.h"
 #include "Renderer/GraphicsEngine.h"
 
@@ -25,6 +26,7 @@ namespace Engine
 
 		Core::InputManager& GetInputManager() { return m_InputManager; }
 		Renderer::GraphicsEngine& GetRenderer() { return m_Renderer; }
+		Core::RunnableTaskList& GetWorkQueue() { return m_WorkQueue; }
 
 	private:
 		GameEngine();
@@ -39,6 +41,9 @@ namespace Engine
 		Core::InputManager m_InputManager;
 
 		SDL_Event m_CurrentEvent;
+
+		Core::RunnableThread m_WorkerThread; // todo: make it a list of thread instead.
+		Core::RunnableTaskList m_WorkQueue;
 
 		bool m_RequestedQuit; // todo : move to a state.
 	};

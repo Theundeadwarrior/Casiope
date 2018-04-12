@@ -30,6 +30,8 @@ namespace Game
 		delete m_FPCamera;
 	}
 
+	glm::vec3 Player::GetPosition() const { return m_FPCamera->GetPosition(); }
+
 	Engine::PerspectiveCamera * Player::GetCamera()
 	{
 		return m_FPCamera;

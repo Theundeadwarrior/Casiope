@@ -5,6 +5,8 @@
 #include "Core/Input/KeyboardEvent.h"
 #include "Core/Input/MouseEvent.h"
 
+#include "glm/vec3.hpp"
+
 namespace Engine
 {
 	class PerspectiveCamera;
@@ -18,6 +20,7 @@ namespace Game
 		Player();
 		~Player();
 		
+		glm::vec3 GetPosition() const;
 		Engine::PerspectiveCamera* GetCamera();
 
 		void Update();

@@ -18,9 +18,10 @@
 
 
 // Toxic Planet
-
+- Can't survive without a air-recycling device.
 
 // Radioactive Planet
+- Can't survive without a radioactive suit.
 
 
 // Dead Planet

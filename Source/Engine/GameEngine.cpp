@@ -4,7 +4,6 @@
 #include "Core/File/FileSystem.h"
 
 #include <iostream>
-#include <time.h>
 #include <SDL.h>
 
 namespace Engine
@@ -27,7 +26,7 @@ namespace Engine
 		m_InputManager.SetResetMouseValues(400, 200); // todo: this needs to be handled in the StateManager
 		m_InputManager.ResetMouseToCenter();
 
-		srand(0);
+		m_WorkerThread.Init(&m_WorkQueue);
 	}
 
 	void GameEngine::PushState(IState* state)
@@ -50,6 +49,8 @@ namespace Engine
 		{
 			PopState();
 		}
+
+		m_WorkerThread.Shutdown();
 
 		m_Renderer.Shutdown();
 		Core::FileSystem::DestroyInstance();

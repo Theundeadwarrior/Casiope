@@ -82,6 +82,9 @@
     <ClCompile Include="Noise\Noise.cpp">
       <Filter>Noise</Filter>
     </ClCompile>
+    <ClCompile Include="Noise\FastNoise.cpp">
+      <Filter>Noise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory\DebugAllocator.h">
@@ -137,6 +140,9 @@
       <Filter>Memory</Filter>
     </ClInclude>
     <ClInclude Include="Noise\Noise.h">
+      <Filter>Noise</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise\FastNoise.h">
       <Filter>Noise</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,7 +16,7 @@ namespace Engine
 		void GetViewMatrix(glm::mat4x4& matrix);
 		void UpdateViewMatrix();
 		glm::mat4x4 GetViewMatrix();
-		glm::vec3 GetPosition() { return m_Position; }
+		glm::vec3 GetPosition() const { return m_Position; }
 		glm::vec3 GetForward() { return glm::normalize(m_Forward); }
 		glm::vec3 GetRight() { return glm::normalize(glm::cross(m_Forward, m_Up)); }
 		glm::vec3 GetUp() { return m_Up; }

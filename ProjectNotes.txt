@@ -29,3 +29,12 @@ There are 3 options:
 //---------------------------------------------------
 Need to separate the states of the engine so we can have a "game" state and a "loading" state and a "main menu" state.
 
+
+// WORLD WRAPPING
+//---------------------------------------------------
+- We just need to render the other side of the world and once we cross over, move the player to the real coordinates.
+
+// Chunk loading:
+- ChunkManager should be responsible to load/unload chunks, generate them if needed and save them. 
+
+- We should have 1 queue with jobs (with type load/unload).

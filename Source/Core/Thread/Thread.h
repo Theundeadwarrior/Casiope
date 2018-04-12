@@ -16,6 +16,11 @@ that can be called to pause the running execution.
 #include <mutex>
 #include <functional>
 
+namespace std
+{
+	class thread;
+}
+
 namespace Core
 {
 	class Runnable;
@@ -23,19 +28,8 @@ namespace Core
 	class Job
 	{
 	public:
-		template<typename Func>
-		Job(Func func)
-		{
-			m_Func = std::bind(func);
-		}
-
-		uint32_t Execute()
-		{
-			return m_Func();
-		}
-
-	private:
-		std::function<uint32_t(void)> m_Func;
+		virtual ~Job() {}
+		virtual uint32_t Execute() = 0;
 	};
 
 	class Runnable
@@ -54,10 +48,10 @@ namespace Core
 		RunnableJob(Func func) : m_Job(func) {}
 		virtual uint32_t Run() override
 		{
-			return m_Job.Execute();
+			return m_Job->Execute();
 		}
 	private:
-		Job m_Job;
+		std::unique_ptr<Job> m_Job;
 	};
 
 	class RunnableTaskList : public Runnable
@@ -78,7 +72,20 @@ namespace Core
 
 	class RunnableThread
 	{
+	public:
+		RunnableThread();
+		RunnableThread(Runnable* runnable);
+		~RunnableThread();
 
+		void Init(Runnable* runnable);
+		void Shutdown();
+
+		Runnable* GetRunnable() { return m_Runnable; }
+
+	private:
+		std::thread* m_Thread;
+		Runnable* m_Runnable;
+		bool m_IsInitialized;
 	};
 }
 

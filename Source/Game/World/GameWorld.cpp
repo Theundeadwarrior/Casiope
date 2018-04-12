@@ -8,7 +8,7 @@ namespace Game
 	{
 		auto* mbdb = BlockDataBase::CreateInstance();
 		mbdb->LoadBlockDataBase("blocks.data");
-		m_CurrentPlanet = new Planet();
+		m_CurrentPlanet = new Planet(PlanetParameters());
 	}
 
 	void GameWorld::SetCurrentPlayer(Player * player)
@@ -20,7 +20,11 @@ namespace Game
 	void GameWorld::Update()
 	{
 		m_Player->Update();
-		m_CurrentPlanet->Update();
+
+		if (m_CurrentPlanet != nullptr)
+		{
+			m_CurrentPlanet->Update(m_Player->GetPosition());
+		}
 	}
 
 	std::list<Renderer::Model*>* GameWorld::GetModels() 
