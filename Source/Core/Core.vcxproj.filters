@@ -37,6 +37,9 @@
     <Filter Include="Noise">
       <UniqueIdentifier>{1edb7dfb-ba57-425c-9468-a2edfe35d3dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{9d0e37cc-e4ff-40a5-84ad-63aa89d70e83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory\DebugAllocator.cpp">
@@ -84,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="Noise\FastNoise.cpp">
       <Filter>Noise</Filter>
+    </ClCompile>
+    <ClCompile Include="Time\Time.cpp">
+      <Filter>Time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +150,9 @@
     </ClInclude>
     <ClInclude Include="Noise\FastNoise.h">
       <Filter>Noise</Filter>
+    </ClInclude>
+    <ClInclude Include="Time\Time.h">
+      <Filter>Time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

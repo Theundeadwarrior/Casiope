@@ -11,7 +11,11 @@
 #elif _WIN32
 #define PLATFORM_LINUX NOT_IN_USE
 #define PLATFORM_WINDOWS IN_USE
-#endif 
+#endif
+
+// move that to GraphicsCore defines
+#define WINDOW_MANAGER_SDL IN_USE
+#define WINDOW_MANAGER_GLFW NOT_IN_USE
 
 
 #if USING( PLATFORM_LINUX )

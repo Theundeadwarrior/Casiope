@@ -10,6 +10,7 @@ namespace Game
 	{
 	public:
 		GameWorld();
+		~GameWorld();
 
 		void SetCurrentPlayer(Player* player);
 		virtual void Update() override;

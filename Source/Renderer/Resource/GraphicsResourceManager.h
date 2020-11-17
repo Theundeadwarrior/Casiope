@@ -62,7 +62,7 @@ namespace Renderer
 	public: 
 		SINGLETON_DECLARATION(GraphicsResourceManager);
 	public:
-		GraphicsResourceManager() {};
+		GraphicsResourceManager() = default;
 		GraphicsResourceManager(const GraphicsResourceManager& manager) = delete;
 		GraphicsResourceManager operator=(const GraphicsResourceManager& manager) = delete;
 		inline TextureManager& GetTextureManager() { return m_TextureManager; }

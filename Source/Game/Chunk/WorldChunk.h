@@ -3,8 +3,8 @@
 #include "Renderer/Model/Model.h"
 #include "Game/Block/BlockData.h"
 
-#define WORLD_CHUNK_WIDTH		16
-#define WORLD_CHUNK_LENGHT		16
+#define WORLD_CHUNK_WIDTH		64
+#define WORLD_CHUNK_LENGHT		64
 #define WORLD_CHUNK_HEIGHT		64
 #define WORLD_BLOCK_COUNT		WORLD_CHUNK_HEIGHT * WORLD_CHUNK_LENGHT * WORLD_CHUNK_WIDTH
 #define CHUNK_VERSION 1

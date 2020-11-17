@@ -44,7 +44,7 @@ namespace Core
 		if (handle == INVALID_FILE_HANDLE)
 		{
 			// todo lcharbonneau: log somewhere else
-			CORE_LOG()->info("Failed to OpenRead with error: %i", GetLastError());
+			CORE_LOG()->info("Failed to OpenRead with error: {0:d}", GetLastError());
 			return nullptr;
 		}
 #endif // #if USING( PLATFORM_WINDOWS )

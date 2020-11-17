@@ -2,9 +2,11 @@
 #include "GameEngine.h"
 
 #include "Core/File/FileSystem.h"
+#include "Core/Time/Time.h"
 
 #include <iostream>
 #include <SDL.h>
+#include <chrono>
 
 namespace Engine
 {
@@ -86,9 +88,14 @@ namespace Engine
 
 	void GameEngine::Loop()
 	{
+		Core::Timer timer;
+		m_AverageFrameTime.SetMaxCount(100);
+
 		// Loop
 		while (!m_RequestedQuit)
 		{
+			timer.Start();
+
 			HandleEvents();
 			m_InputManager.Update();
 
@@ -96,6 +103,17 @@ namespace Engine
 			{
 				state->Update();
 			}
+
+			std::this_thread::yield();
+			
+			timer.Stop();
+			if (m_FPSCap != 0 && timer.GetElapsedMilliSeconds() < 1000.0f / m_FPSCap)
+			{
+				double timeLeft = 1000.0f / m_FPSCap - timer.GetElapsedMilliSeconds();
+				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(timeLeft));
+			}
+
+			m_AverageFrameTime += timer.GetElapsedMicroSeconds() / 1000.0;
 		}
 	}
 

@@ -45,6 +45,37 @@ namespace Engine
 		Core::RunnableThread m_WorkerThread; // todo: make it a list of thread instead.
 		Core::RunnableTaskList m_WorkQueue;
 
+		struct Accumulator
+		{
+			void SetMaxCount(uint32_t n)
+			{
+				m_MaxCount = n;
+			}
+
+			void operator+=(float value)
+			{
+				if (m_Count < m_MaxCount)
+				{
+					m_Accumulated += value;
+					m_Count++;
+					m_Average = m_Accumulated / m_Count;
+				}
+				else
+				{
+					m_Accumulated -= m_Average;
+					m_Accumulated += value;
+					m_Average = m_Accumulated / m_Count;
+				}
+			}
+
+			uint32_t m_MaxCount;
+			uint32_t m_Count = 0;
+			float m_Accumulated = 0;
+			float m_Average;
+		};
+
+		float m_FPSCap = 60;
+		Accumulator m_AverageFrameTime;
 		bool m_RequestedQuit; // todo : move to a state.
 	};
 }

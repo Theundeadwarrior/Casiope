@@ -11,6 +11,11 @@ namespace Game
 		m_CurrentPlanet = new Planet(PlanetParameters());
 	}
 
+	GameWorld::~GameWorld()
+	{
+		delete m_CurrentPlanet;
+	}
+
 	void GameWorld::SetCurrentPlayer(Player * player)
 	{
 		m_Player = player;

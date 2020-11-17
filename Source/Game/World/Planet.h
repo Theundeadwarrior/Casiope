@@ -16,12 +16,9 @@ namespace Renderer
 	class Model;
 }
 
-
 namespace Game
 {
 	class WorldChunk;
-	// World is in charge of managing the chunks and streaming them as we go. It is also called to see which chunks needs to be updated.
-
 
 	enum PlanetType
 	{

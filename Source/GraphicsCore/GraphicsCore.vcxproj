@@ -34,6 +34,7 @@
     <ClCompile Include="Shaders\Shader.cpp" />
     <ClCompile Include="Shaders\ShaderCompiler.cpp" />
     <ClCompile Include="Textures\Texture.cpp" />
+    <ClCompile Include="Vulkan\VulkanInstance.cpp" />
     <ClCompile Include="Window\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -45,50 +46,51 @@
     <ClInclude Include="Shaders\Shader.h" />
     <ClInclude Include="Shaders\ShaderCompiler.h" />
     <ClInclude Include="Textures\Texture.h" />
+    <ClInclude Include="Vulkan\VulkanInstance.h" />
     <ClInclude Include="Window\WindowManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07C2C4AB-A1D6-4CB6-9B60-ED7082F31314}</ProjectGuid>
     <RootNamespace>Core</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>GraphicsCore</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tests|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -169,7 +171,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir);$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern\Vulkan\1.2.182.0\Include;$(SolutionDir)..\..\extern\glm-master;$(SolutionDir)..\..\extern\glfw-3.3.4.bin.WIN64\include;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir);$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>LOG4CXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -188,7 +190,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir);$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern\Vulkan\1.2.182.0\Include;$(SolutionDir)..\..\extern\glm-master;$(SolutionDir)..\..\extern\glfw-3.3.4.bin.WIN64\include;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir);$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -223,7 +225,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir);$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\extern\Vulkan\1.2.182.0\Include;$(SolutionDir)..\..\extern\glm-master;$(SolutionDir)..\..\extern\glfw-3.3.4.bin.WIN64\include;$(SolutionDir)..\Extern\glew\include\;$(SolutionDir)..\Extern\SDL\include\;$(SolutionDir)GraphicsCore\;$(SolutionDir);$(SolutionDir)..\Extern;$(SolutionDir)..\Extern\spdlog-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>LOG4CXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

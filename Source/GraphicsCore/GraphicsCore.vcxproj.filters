@@ -19,6 +19,9 @@
     <Filter Include="Mesh">
       <UniqueIdentifier>{99cd1b13-639b-48a2-a4b5-e6d1d2ad268f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vulkan">
+      <UniqueIdentifier>{8c3cae25-9588-4979-bcc8-6f6d01dfcd56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Textures\Texture.h">
@@ -46,6 +49,9 @@
     <ClInclude Include="Mesh\Mesh.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="Vulkan\VulkanInstance.h">
+      <Filter>Vulkan</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shaders\Shader.cpp">
@@ -71,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="Mesh\Mesh.cpp">
       <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Vulkan\VulkanInstance.cpp">
+      <Filter>Vulkan</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "Core\Singleton\Singleton.h"
 
 #include <set>
+#include <string>
 
 
 namespace Core

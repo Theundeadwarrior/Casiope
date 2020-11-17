@@ -3,6 +3,7 @@
 #include <Core/Core.h>
 
 #include <map>
+#include <Core/Memory/Memory.h>
 
 // TODO: Find a way to have a std::map and not a std::map* for the dllexport
 
@@ -12,11 +13,12 @@ public:
 	int refCount;
 };
 
-class DLL_EXPORT DebugAllocator
+class DLL_EXPORT DebugAllocator : public MemoryAllocator
 {
 public:
-	void* MAlloc(size_t size);
-	void Free(void* ptr);
+	void* Malloc(size_t size, uint32_t alignment) override;
+	void* Realloc(void* ptr, size_t newSize, uint32_t alignment) override;
+	void Free(void* ptr) override;
 
 	DebugAllocator();
 	~DebugAllocator();

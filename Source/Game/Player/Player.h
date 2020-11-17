@@ -33,8 +33,7 @@ namespace Game
 	private:
 		Engine::PerspectiveCamera* m_FPCamera;
 
-		int m_MouseX, m_MouseY;
 		std::map<char, bool> m_IsKeyPressed;
-
+		int m_MouseX, m_MouseY;
 	};
 }

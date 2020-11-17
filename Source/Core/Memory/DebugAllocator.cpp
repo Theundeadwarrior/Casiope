@@ -12,7 +12,7 @@ DebugAllocator::~DebugAllocator()
 	delete m_debugInfo;
 }
 
-void* DebugAllocator::MAlloc(size_t size)
+void* DebugAllocator::Malloc(size_t size, uint32_t alignment)
 {
 	void* ptr = nullptr;
 	ptr = malloc(size);
@@ -26,6 +26,11 @@ void* DebugAllocator::MAlloc(size_t size)
 	(*m_debugInfo)[(size_t)ptr] = ptrInfo;
 
 	return ptr;
+}
+
+void* DebugAllocator::Realloc(void* ptr, size_t newSize, uint32_t alignment)
+{
+	return nullptr;
 }
 
 void DebugAllocator::Free(void* ptr)

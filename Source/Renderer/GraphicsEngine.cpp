@@ -126,7 +126,7 @@ namespace Renderer
 	{
 		GraphicsResourceManager::CreateInstance();
 
-		int result = m_WindowManager.InitWindow(SCREEN_SIZE_X, SCREEN_SIZE_Y);
+		int result = m_WindowManager.CreateNewWindow(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 		if (result != -1)
 			result = InitializeGlew();
 		if (result != -1)
@@ -241,7 +241,7 @@ namespace Renderer
 		}
 
 		// DEBUGGING LIGHTS
-		DrawDebugLights(world);
+		//DrawDebugLights(world);
 	}
 
 	void GraphicsEngine::DrawDebugLights(Engine::World * world)

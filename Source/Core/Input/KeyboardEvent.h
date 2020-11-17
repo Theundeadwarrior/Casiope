@@ -4,12 +4,14 @@
 
 namespace Core
 {
-	enum KeyboardEventType {
+	enum KeyboardEventType 
+	{
 		KEY_PRESSED = 0,
 		KEY_RELEASED,
 	};
 
-	enum KeyboardSpecialKey {
+	enum KeyboardSpecialKey 
+	{
 		KEY_NO_SPECIAL = 256,
 		KEY_UP,
 		KEY_DOWN,
